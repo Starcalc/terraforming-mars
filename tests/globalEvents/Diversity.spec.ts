@@ -10,12 +10,12 @@ import { AdvancedEcosystems } from "../../src/cards/AdvancedEcosystems";
 import { SolarWindPower } from "../../src/cards/SolarWindPower";
 import { EarlySettlement } from "../../src/cards/prelude/EarlySettlement";
 
-describe("Diversity", function () {
-    it("resolve play", function () {
+describe("Diversity", () => {
+    it('resolve play', () => {
         const card = new Diversity();
         const player = new Player("test", Color.BLUE, false);
         const player2 = new Player("test2", Color.RED, false);
-        const game = new Game("foobar", [player,player2], player);
+        const game = new Game("foobar", [player, player2], player);
         const turmoil = new Turmoil(game);
         turmoil.initGlobalEvent(game);
         player2.playedCards.push(new AdvancedEcosystems());

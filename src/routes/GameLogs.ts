@@ -1,4 +1,3 @@
-
 import * as http from "http";
 import * as querystring from "querystring";
 
@@ -13,7 +12,6 @@ export class GameLogs extends Route {
         return url.startsWith("/api/game/logs?");
     }
     public handle(req: http.IncomingMessage, res: http.ServerResponse): void {
-
         if (req.url === undefined) {
             console.warn("url not defined");
             this.notFound(req, res);
@@ -22,8 +20,8 @@ export class GameLogs extends Route {
 
         const params = querystring.parse(req.url.substring(req.url.indexOf("?") + 1));
 
-        let id = params.id;
-        let limit = params.limit;
+        const id = params.id;
+        const limit = params.limit;
 
         if (id === undefined || Array.isArray(id)) {
             this.badRequest(req, res);
@@ -37,7 +35,7 @@ export class GameLogs extends Route {
                 return;
             }
 
-            let log = game.gameLog;
+            const log = game.gameLog;
 
             if (limit !== undefined && !Array.isArray(limit)) {
                 const theLimit = parseInt(limit);

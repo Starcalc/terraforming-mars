@@ -26,11 +26,16 @@ export class ImportedHydrogen implements IProjectCard {
 
     public canPlay(player: Player, game: Game): boolean {
         const oceansMaxed = game.board.getOceansOnBoard() === MAX_OCEAN_TILES;
-    
+
         if (PartyHooks.shouldApplyPolicy(game, PartyName.REDS) && !oceansMaxed) {
-            return player.canAfford(player.getCardCost(game, this) + REDS_RULING_POLICY_COST, game, false, true);
+            return player.canAfford(
+                player.getCardCost(game, this) + REDS_RULING_POLICY_COST,
+                game,
+                false,
+                true
+            );
         }
-    
+
         return true;
     }
 
@@ -45,52 +50,72 @@ export class ImportedHydrogen implements IProjectCard {
             game.defer(new PlaceOceanTile(player, game));
             return undefined;
         };
-        
+
         if (availableMicrobeCards.length === 0 && availableAnimalCards.length === 0) {
             return gainPlants();
         }
 
-        let availableActions = new Array<SelectOption | SelectCard<ICard>>();
+        const availableActions = new Array<SelectOption | SelectCard<ICard>>();
 
         const gainPlantsOption = new SelectOption("Gain 3 plants", "Gain plants", gainPlants);
         availableActions.push(gainPlantsOption);
 
         if (availableMicrobeCards.length === 1) {
             const targetMicrobeCard = availableMicrobeCards[0];
-            availableActions.push(new SelectOption("Add 3 microbes to " + targetMicrobeCard.name, "Add microbes", () => {
-                player.addResourceTo(targetMicrobeCard, 3);
-                LogHelper.logAddResource(game, player, targetMicrobeCard, 3);
-                game.defer(new PlaceOceanTile(player, game));
-                return undefined;
-            }))
+            availableActions.push(
+                new SelectOption(
+                    'Add 3 microbes to ' + targetMicrobeCard.name,
+                    'Add microbes',
+                    () => {
+                        player.addResourceTo(targetMicrobeCard, 3);
+                        LogHelper.logAddResource(game, player, targetMicrobeCard, 3);
+                        game.defer(new PlaceOceanTile(player, game));
+                        return undefined;
+                    }
+                )
+            );
         } else if (availableMicrobeCards.length > 1) {
-            availableActions.push(new SelectCard("Add 3 microbes to a card", 
-            "Add microbes",
-            availableMicrobeCards, (foundCards: Array<ICard>) => {
-                player.addResourceTo(foundCards[0], 3);
-                LogHelper.logAddResource(game, player, foundCards[0], 3);
-                game.defer(new PlaceOceanTile(player, game));
-                return undefined;
-            }))
+            availableActions.push(
+                new SelectCard(
+                    'Add 3 microbes to a card',
+                    'Add microbes',
+                    availableMicrobeCards,
+                    (foundCards: Array<ICard>) => {
+                        player.addResourceTo(foundCards[0], 3);
+                        LogHelper.logAddResource(game, player, foundCards[0], 3);
+                        game.defer(new PlaceOceanTile(player, game));
+                        return undefined;
+                    }
+                )
+            );
         }
 
         if (availableAnimalCards.length === 1) {
             const targetAnimalCard = availableAnimalCards[0];
-            availableActions.push(new SelectOption("Add 2 animals to " + targetAnimalCard.name, "Add animals", () => {
-                player.addResourceTo(targetAnimalCard, 2);
-                LogHelper.logAddResource(game, player, targetAnimalCard, 2);
-                game.defer(new PlaceOceanTile(player, game));
-                return undefined;
-            }))
+            availableActions.push(
+                new SelectOption("Add 2 animals to " + targetAnimalCard.name, "Add animals", () => {
+                    player.addResourceTo(targetAnimalCard, 2);
+                    LogHelper.logAddResource(game, player, targetAnimalCard, 2);
+                    game.defer(new PlaceOceanTile(player, game));
+                    return undefined;
+                })
+            );
         } else if (availableAnimalCards.length > 1) {
-            availableActions.push(new SelectCard("Add 2 animals to a card", "Add animals", availableAnimalCards, (foundCards: Array<ICard>) => {
-                player.addResourceTo(foundCards[0], 2);
-                LogHelper.logAddResource(game, player, foundCards[0], 2);
-                game.defer(new PlaceOceanTile(player, game));
-                return undefined;
-            }))
+            availableActions.push(
+                new SelectCard(
+                    'Add 2 animals to a card',
+                    'Add animals',
+                    availableAnimalCards,
+                    (foundCards: Array<ICard>) => {
+                        player.addResourceTo(foundCards[0], 2);
+                        LogHelper.logAddResource(game, player, foundCards[0], 2);
+                        game.defer(new PlaceOceanTile(player, game));
+                        return undefined;
+                    }
+                )
+            );
         }
 
-        return new OrOptions(...availableActions);   
+        return new OrOptions(...availableActions);
     }
 }

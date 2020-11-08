@@ -6,11 +6,11 @@ export const Tag = Vue.component("tag", {
             type: String,
         },
         size: {
-            type: String
+            type: String,
         },
         type: {
-            type: String
-        }
+            type: String,
+        },
     },
     methods: {
         getClasses: function (): string {
@@ -26,5 +26,5 @@ export const Tag = Vue.component("tag", {
             return classes.join(" ");
         },
     },
-    template: `<div :class="getClasses()" />`,
+    template: '<div :class="getClasses()" />',
 });

@@ -1,18 +1,16 @@
-
 import Vue from "vue";
 import { GameHomeModel } from "../models/GameHomeModel";
 
 export const GameHome = Vue.component("game-home", {
     props: {
         game: {
-            type: Object as () => GameHomeModel | undefined
-        }
+            type: Object as () => GameHomeModel | undefined,
+        },
     },
     data: function () {
-        return {}
+        return {};
     },
-    methods: {
-    },
+    methods: {},
     template: `
         <div id="game-home">
             <h1><span v-i18n>Terraforming Mars</span> — <span v-i18n>Game Home</span></h1>
@@ -25,6 +23,5 @@ export const GameHome = Vue.component("game-home", {
                 </li>
             </ul>
         </div>
-    `
+    `,
 });
-

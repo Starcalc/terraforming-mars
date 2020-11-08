@@ -1,4 +1,3 @@
-
 import { expect } from "chai";
 import { MoholeArea } from "../../src/cards/MoholeArea";
 import { Color } from "../../src/Color";
@@ -8,11 +7,11 @@ import { SelectSpace } from "../../src/inputs/SelectSpace";
 import { TileType } from "../../src/TileType";
 import { Resources } from "../../src/Resources";
 
-describe("MoholeArea", function () {
-    it("Should play", function () {
+describe("MoholeArea", () => {
+    it('Should play', () => {
         const card = new MoholeArea();
         const player = new Player("test", Color.BLUE, false);
-        const game = new Game("foobar", [player,player], player);
+        const game = new Game("foobar", [player, player], player);
         const action = card.play(player, game);
 
         expect(action).is.not.undefined;

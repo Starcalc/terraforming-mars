@@ -5,19 +5,19 @@ import { Player } from "../../src/Player";
 import { SearchForLife } from "../../src/cards/SearchForLife";
 import { Resources } from "../../src/Resources";
 
-describe("TectonicStressPower", function () {
-    let card : TectonicStressPower, player : Player;
+describe("TectonicStressPower", () => {
+    let card: TectonicStressPower, player: Player;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new TectonicStressPower();
         player = new Player("test", Color.BLUE, false);
     });
 
-    it("Can't play", function () {
+    it("Can't play", () => {
         expect(card.canPlay(player)).is.not.true;
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         player.playedCards.push(new SearchForLife(), new SearchForLife());
         expect(card.canPlay(player)).is.true;
         card.play(player);

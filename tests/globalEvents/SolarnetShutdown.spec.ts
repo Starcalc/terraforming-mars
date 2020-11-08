@@ -9,12 +9,12 @@ import { Resources } from "../../src/Resources";
 import { InventorsGuild } from "../../src/cards/InventorsGuild";
 import { ColonizerTrainingCamp } from "../../src/cards/ColonizerTrainingCamp";
 
-describe("SolarnetShutdown", function () {
-    it("resolve play", function () {
+describe("SolarnetShutdown", () => {
+    it('resolve play', () => {
         const card = new SolarnetShutdown();
         const player = new Player("test", Color.BLUE, false);
         const player2 = new Player("test2", Color.RED, false);
-        const game = new Game("foobar", [player,player2], player);
+        const game = new Game("foobar", [player, player2], player);
         const turmoil = new Turmoil(game);
 
         player.playedCards.push(new InventorsGuild());
@@ -28,7 +28,7 @@ describe("SolarnetShutdown", function () {
         turmoil.dominantParty.partyLeader = player2.id;
         turmoil.dominantParty.delegates.push(player2.id);
         turmoil.dominantParty.delegates.push(player2.id);
-        
+
         card.resolve(game, turmoil);
         expect(player.getResource(Resources.MEGACREDITS)).to.eq(7);
         expect(player2.getResource(Resources.MEGACREDITS)).to.eq(10);

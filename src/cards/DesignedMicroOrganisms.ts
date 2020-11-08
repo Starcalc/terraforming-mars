@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { CardType } from "./CardType";
@@ -13,12 +12,10 @@ export class DesignedMicroOrganisms implements IProjectCard {
     public name = CardName.DESIGNED_MICRO_ORGANISMS;
     public cardType = CardType.AUTOMATED;
     public canPlay(player: Player, game: Game): boolean {
-      return game.getTemperature() <= -14 + (
-        2 * player.getRequirementsBonus(game)
-      );
+        return game.getTemperature() <= -14 + 2 * player.getRequirementsBonus(game);
     }
     public play(player: Player) {
-      player.addProduction(Resources.PLANTS,2);
-      return undefined;
+        player.addProduction(Resources.PLANTS, 2);
+        return undefined;
     }
 }

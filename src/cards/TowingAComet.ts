@@ -20,11 +20,16 @@ export class TowingAComet implements IProjectCard {
         const oxygenStep = game.getOxygenLevel() < MAX_OXYGEN_LEVEL ? 1 : 0;
         const oceanStep = game.board.getOceansOnBoard() < MAX_OCEAN_TILES ? 1 : 0;
         const totalSteps = oxygenStep + oceanStep;
-  
+
         if (PartyHooks.shouldApplyPolicy(game, PartyName.REDS)) {
-            return player.canAfford(player.getCardCost(game, this) + REDS_RULING_POLICY_COST * totalSteps, game, false, true);
+            return player.canAfford(
+                player.getCardCost(game, this) + REDS_RULING_POLICY_COST * totalSteps,
+                game,
+                false,
+                true
+            );
         }
-  
+
         return true;
     }
 

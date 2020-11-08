@@ -19,14 +19,14 @@ export interface IColony extends SerializedColony {
 }
 
 export abstract class Colony {
-    public isActive: boolean = true;
+    public isActive = true;
     public visitor: undefined | PlayerId = undefined;
     public colonies: Array<PlayerId> = [];
-    public trackPosition: number = 1;
+    public trackPosition = 1;
 
     public endGeneration(): void {
         if (this.isActive) {
-          this.increaseTrack();
+            this.increaseTrack();
         }
         this.visitor = undefined;
     }
@@ -35,8 +35,9 @@ export abstract class Colony {
             this.trackPosition++;
         } else {
             this.trackPosition += value;
-        }    
-        if (this.trackPosition > MAX_COLONY_TRACK_POSITION) this.trackPosition = MAX_COLONY_TRACK_POSITION;
+        }
+        if (this.trackPosition > MAX_COLONY_TRACK_POSITION)
+            this.trackPosition = MAX_COLONY_TRACK_POSITION;
     }
 
     public decreaseTrack(value?: number): void {
@@ -44,7 +45,7 @@ export abstract class Colony {
             this.trackPosition--;
         } else {
             this.trackPosition -= value;
-        }    
+        }
         if (this.trackPosition < this.colonies.length) this.trackPosition = this.colonies.length;
     }
 
@@ -80,12 +81,14 @@ export abstract class Colony {
             colony.trackPosition = colony.colonies.length;
         }
 
-        game.log("${0} built a colony on ${1}", b => b.player(player).colony(colony));
+        game.log("${0} built a colony on ${1}", (b) => b.player(player).colony(colony));
 
         // Poseidon hook
-        let poseidon = game.getPlayers().filter(player => player.isCorporation(CardName.POSEIDON));
+        const poseidon = game
+            .getPlayers()
+            .filter((player) => player.isCorporation(CardName.POSEIDON));
         if (poseidon.length > 0) {
-          poseidon[0].addProduction(Resources.MEGACREDITS);
+            poseidon[0].addProduction(Resources.MEGACREDITS);
         }
-    }  
+    }
 }

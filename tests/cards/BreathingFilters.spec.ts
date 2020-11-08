@@ -4,20 +4,20 @@ import { Color } from "../../src/Color";
 import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 
-describe("BreathingFilters", function () {
-    let card : BreathingFilters, player : Player, game : Game;
+describe("BreathingFilters", () => {
+    let card: BreathingFilters, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new BreathingFilters();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't play", function () {
+    it("Can't play", () => {
         expect(card.canPlay(player, game)).is.not.true;
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         (game as any).oxygenLevel = 7;
         expect(card.canPlay(player, game)).is.true;
 

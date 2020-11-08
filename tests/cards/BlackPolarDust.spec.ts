@@ -7,21 +7,21 @@ import { maxOutOceans } from "../TestingUtils";
 import { Resources } from "../../src/Resources";
 import { SelectSpace } from "../../src/inputs/SelectSpace";
 
-describe("BlackPolarDust", function () {
-    let card : BlackPolarDust, player : Player, game : Game;
+describe("BlackPolarDust", () => {
+    let card: BlackPolarDust, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new BlackPolarDust();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't play", function () {
-        player.addProduction(Resources.MEGACREDITS,-4);
+    it("Can't play", () => {
+        player.addProduction(Resources.MEGACREDITS, -4);
         expect(card.canPlay(player, game)).is.not.true;
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         card.play(player, game);
         expect(player.getProduction(Resources.MEGACREDITS)).to.eq(-2);
         expect(player.getProduction(Resources.HEAT)).to.eq(3);
@@ -32,10 +32,10 @@ describe("BlackPolarDust", function () {
         expect(player.getTerraformRating()).to.eq(21);
     });
 
-    it("Cannot place ocean if no oceans left", function () {
+    it('Cannot place ocean if no oceans left', () => {
         maxOutOceans(player, game);
         card.play(player, game);
         const input = game.deferredActions.next()!.execute();
         expect(input).is.undefined;
-    })
+    });
 });

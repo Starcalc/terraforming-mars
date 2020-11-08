@@ -11,7 +11,7 @@ export class RemoveAnyPlants implements DeferredAction {
         public game: Game,
         public count: number = 1,
         public title: string = "Select player to remove up to " + count + " plants"
-    ){}
+    ) {}
 
     public execute() {
         if (this.game.isSoloMode()) {
@@ -20,7 +20,14 @@ export class RemoveAnyPlants implements DeferredAction {
             return undefined;
         }
 
-        const candidates = this.game.getPlayers().filter((p) => p.id !== this.player.id && !p.plantsAreProtected() && p.getResource(Resources.PLANTS) > 0);
+        const candidates = this.game
+            .getPlayers()
+            .filter(
+                (p) =>
+                    p.id !== this.player.id &&
+                    !p.plantsAreProtected() &&
+                    p.getResource(Resources.PLANTS) > 0
+            );
 
         if (candidates.length === 0) {
             return undefined;
@@ -28,15 +35,21 @@ export class RemoveAnyPlants implements DeferredAction {
 
         const removalOptions = candidates.map((candidate) => {
             const qtyToRemove = Math.min(candidate.plants, this.count);
-            return new SelectOption("Remove " + qtyToRemove + " plants from " + candidate.name, "Remove plants", () => {
-                candidate.setResource(Resources.PLANTS, -qtyToRemove, this.game, this.player);
-                return undefined;
-            })
+            return new SelectOption(
+                "Remove " + qtyToRemove + " plants from " + candidate.name,
+                "Remove plants",
+                () => {
+                    candidate.setResource(Resources.PLANTS, -qtyToRemove, this.game, this.player);
+                    return undefined;
+                }
+            );
         });
 
         return new OrOptions(
             ...removalOptions,
-            new SelectOption("Skip removing plants", "Confirm", () => { return undefined; })
+            new SelectOption("Skip removing plants", "Confirm", () => {
+                return undefined;
+            })
         );
     }
 }

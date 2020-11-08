@@ -6,17 +6,17 @@ import { Game } from "../../src/Game";
 import { OrOptions } from "../../src/inputs/OrOptions";
 import { Resources } from "../../src/Resources";
 
-describe("Asteroid", function () {
-    let card : Asteroid, player : Player, player2 : Player, game : Game;
+describe("Asteroid", () => {
+    let card: Asteroid, player: Player, player2: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new Asteroid();
         player = new Player("test", Color.BLUE, false);
         player2 = new Player("test2", Color.RED, false);
         game = new Game("foobar", [player, player2], player);
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         player2.plants = 2;
         card.play(player, game);
         expect(game.deferredActions).has.lengthOf(1);

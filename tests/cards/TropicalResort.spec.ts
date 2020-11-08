@@ -1,15 +1,14 @@
-
 import { expect } from "chai";
 import { TropicalResort } from "../../src/cards/TropicalResort";
 import { Color } from "../../src/Color";
 import { Player } from "../../src/Player";
 import { Resources } from "../../src/Resources";
 
-describe("TropicalResort", function () {
-    it("Should play", function () {
+describe("TropicalResort", () => {
+    it('Should play', () => {
         const card = new TropicalResort();
         const player = new Player("test", Color.BLUE, false);
-        player.addProduction(Resources.HEAT,2)
+        player.addProduction(Resources.HEAT, 2);
         const action = card.play(player);
         expect(action).is.undefined;
         expect(player.getProduction(Resources.HEAT)).to.eq(0);

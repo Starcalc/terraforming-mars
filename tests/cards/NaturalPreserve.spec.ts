@@ -7,30 +7,30 @@ import { TileType } from "../../src/TileType";
 import { SelectSpace } from "../../src/inputs/SelectSpace";
 import { Resources } from "../../src/Resources";
 
-describe("NaturalPreserve", function () {
-    let card : NaturalPreserve, player : Player, game : Game;
+describe("NaturalPreserve", () => {
+    let card: NaturalPreserve, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new NaturalPreserve();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't play if no spaces available", function () {
+    it("Can't play if no spaces available", () => {
         const lands = game.board.getAvailableSpacesOnLand(player);
-        for (let land of lands) {
+        for (const land of lands) {
             game.addTile(player, land.spaceType, land, { tileType: TileType.NATURAL_PRESERVE });
         }
 
         expect(card.canPlay(player, game)).is.not.true;
     });
 
-    it("Can't play if oxygen level too high", function () {
+    it("Can't play if oxygen level too high", () => {
         (game as any).oxygenLevel = 5;
         expect(card.canPlay(player, game)).is.not.true;
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         expect(card.canPlay(player, game)).is.true;
         const action = card.play(player, game);
         expect(action).is.not.undefined;
@@ -44,5 +44,5 @@ describe("NaturalPreserve", function () {
 
         player.victoryPointsBreakdown.setVictoryPoints('victoryPoints', card.getVictoryPoints());
         expect(player.victoryPointsBreakdown.victoryPoints).to.eq(1);
-    }); 
+    });
 });

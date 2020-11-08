@@ -18,23 +18,25 @@ export class AquiferPumping implements IActionCard, IProjectCard {
     public cardType = CardType.ACTIVE;
 
     public play() {
-      return undefined;
+        return undefined;
     }
     public canAct(player: Player, game: Game): boolean {
-      const oceansMaxed = game.board.getOceansOnBoard() === MAX_OCEAN_TILES;
-      let oceanCost = 8;
+        const oceansMaxed = game.board.getOceansOnBoard() === MAX_OCEAN_TILES;
+        const oceanCost = 8;
 
-      if (oceansMaxed) return player.canAfford(oceanCost, game, true, false);
+        if (oceansMaxed) return player.canAfford(oceanCost, game, true, false);
 
-      if (PartyHooks.shouldApplyPolicy(game, PartyName.REDS)) {
-        return player.canAfford(oceanCost + REDS_RULING_POLICY_COST, game, true, false);
-      }
+        if (PartyHooks.shouldApplyPolicy(game, PartyName.REDS)) {
+            return player.canAfford(oceanCost + REDS_RULING_POLICY_COST, game, true, false);
+        }
 
-      return player.canAfford(oceanCost, game, true, false);
+        return player.canAfford(oceanCost, game, true, false);
     }
     public action(player: Player, game: Game) {
-      game.defer(new SelectHowToPayDeferred(player, 8, true, false, "Select how to pay for action"));
-      game.defer(new PlaceOceanTile(player, game));
-      return undefined;
+        game.defer(
+            new SelectHowToPayDeferred(player, 8, true, false, 'Select how to pay for action')
+        );
+        game.defer(new PlaceOceanTile(player, game));
+        return undefined;
     }
 }

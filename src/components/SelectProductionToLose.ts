@@ -1,4 +1,3 @@
-
 import Vue from "vue";
 
 interface SelectProductionToLoseModel {
@@ -25,54 +24,60 @@ export const SelectProductionToLose = Vue.component("select-production-to-lose",
             plants: 0,
             energy: 0,
             heat: 0,
-            warning: undefined
+            warning: undefined,
         } as SelectProductionToLoseModel;
     },
     mixins: [PaymentWidgetMixin], //for getCssClassFor. Seems over-importish
     methods: {
-        canDeductMegaCredits: function() {
+        canDeductMegaCredits: function () {
             return this.playerinput.payProduction.units.megacredits > -5;
         },
-        canDeductSteel: function() {
+        canDeductSteel: function () {
             return this.playerinput.payProduction.units.steel > 0;
         },
-        canDeductTitanium: function() {
+        canDeductTitanium: function () {
             return this.playerinput.payProduction.units.titanium > 0;
         },
-        canDeductPlants: function() {
+        canDeductPlants: function () {
             return this.playerinput.payProduction.units.plants > 0;
         },
-        canDeductEnergy: function() {
+        canDeductEnergy: function () {
             return this.playerinput.payProduction.units.energy > 0;
         },
-        canDeductHeat: function() {
+        canDeductHeat: function () {
             return this.playerinput.payProduction.units.heat > 0;
         },
         hasWarning: function () {
             return this.$data.warning !== undefined;
         },
-        delta: function(type: string, direction: number) {
-            const expendableProductionQuantity = function(type: string, model: IPayProductionModel): number {
-                switch(type) {
-                case "megacredits":
-                    return model.units.megacredits + 5;
-                case "steel":
-                    return model.units.steel;
-                case "titanium":
-                    return model.units.titanium;
-                case "plants":
-                    return model.units.plants;
-                case "energy":
-                    return model.units.energy;
-                case "heat":
-                    return model.units.heat;
+        delta: function (type: string, direction: number) {
+            const expendableProductionQuantity = function (
+                type: string,
+                model: IPayProductionModel
+            ): number {
+                switch (type) {
+                    case "megacredits":
+                        return model.units.megacredits + 5;
+                    case "steel":
+                        return model.units.steel;
+                    case "titanium":
+                        return model.units.titanium;
+                    case "plants":
+                        return model.units.plants;
+                    case "energy":
+                        return model.units.energy;
+                    case "heat":
+                        return model.units.heat;
                 }
                 return -1;
-            }
+            };
             const current = this.$data[type];
             let newValue = current + direction;
-            const lowestValue = (type === "megacredit") ? -5 : 0;
-            const expendableQuantity = expendableProductionQuantity(type, this.playerinput.payProduction as IPayProductionModel);
+            const lowestValue = type === 'megacredit' ? -5 : 0;
+            const expendableQuantity = expendableProductionQuantity(
+                type,
+                this.playerinput.payProduction as IPayProductionModel
+            );
             newValue = Math.min(Math.max(newValue, lowestValue), expendableQuantity);
             this.$data[type] = newValue;
         },
@@ -83,10 +88,11 @@ export const SelectProductionToLose = Vue.component("select-production-to-lose",
                 titanium: this.$data.titanium,
                 plants: this.$data.plants,
                 energy: this.$data.energy,
-                heat: this.$data.heat
+                heat: this.$data.heat,
             };
 
-            const sum = this.$data.megacredits +
+            const sum =
+                this.$data.megacredits +
                 this.$data.steel +
                 this.$data.titanium +
                 this.$data.plants +
@@ -98,10 +104,8 @@ export const SelectProductionToLose = Vue.component("select-production-to-lose",
                 return;
             }
 
-            this.onsave([[
-                JSON.stringify(htp)
-            ]]);
-        }
+            this.onsave([[JSON.stringify(htp)]]);
+        },
     },
 
     // TODO(chosta): consolidate repetition into a reusable component.
@@ -154,6 +158,5 @@ export const SelectProductionToLose = Vue.component("select-production-to-lose",
         <div v-if="showsave === true" class="nofloat">
             <button class="btn btn-primary btn-submit" v-on:click="saveData">{{playerinput.buttonLabel}}</button>
         </div>
-    </div>`
+    </div>`,
 });
-

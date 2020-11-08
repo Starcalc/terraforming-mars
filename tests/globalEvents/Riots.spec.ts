@@ -6,8 +6,8 @@ import { Resources } from "../../src/Resources";
 import { Game } from "../../src/Game";
 import { Turmoil } from "../../src/turmoil/Turmoil";
 
-describe("Riots", function () {
-    it("resolve play", function () {
+describe("Riots", () => {
+    it('resolve play', () => {
         const card = new Riots();
         const player = new Player("test", Color.BLUE, false);
         const game = new Game("foobar", [player], player);

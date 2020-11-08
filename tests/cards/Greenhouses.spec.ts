@@ -1,15 +1,14 @@
-
 import { expect } from "chai";
 import { Greenhouses } from "../../src/cards/Greenhouses";
 import { Color } from "../../src/Color";
 import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 
-describe("Greenhouses", function () {
-    it("Should play", function () {
+describe("Greenhouses", () => {
+    it('Should play', () => {
         const card = new Greenhouses();
         const player = new Player("test", Color.BLUE, false);
-        const game = new Game("foobar", [player,player], player);
+        const game = new Game("foobar", [player, player], player);
         const action = card.play(player, game);
         expect(action).is.undefined;
         expect(player.plants).to.eq(0);

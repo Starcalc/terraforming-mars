@@ -1,4 +1,3 @@
-
 import { PlayerInput } from "../PlayerInput";
 import { PlayerInputTypes } from "../PlayerInputTypes";
 import { HowToPay } from "./HowToPay";
@@ -8,16 +7,13 @@ import { SelectOption } from "./SelectOption";
 
 export class SelectHowToPay implements PlayerInput {
     public inputType: PlayerInputTypes = PlayerInputTypes.SELECT_HOW_TO_PAY;
-    public buttonLabel: string = "Pay"; // no input button
+    public buttonLabel = "Pay"; // no input button
     constructor(
-        public title: string, 
+        public title: string,
         public canUseSteel: boolean,
         public canUseTitanium: boolean,
         public canUseHeat: boolean,
         public amount: number,
-        public cb: (howToPay: HowToPay) => SelectSpace | SelectOption| OrOptions | undefined,
-        ) {
-            
-    }
+        public cb: (howToPay: HowToPay) => SelectSpace | SelectOption | OrOptions | undefined
+    ) {}
 }
-

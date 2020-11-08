@@ -16,19 +16,19 @@ export class BribedCommittee implements IProjectCard {
     public hasRequirements = false;
 
     public canPlay(player: Player, game: Game): boolean {
-      if (PartyHooks.shouldApplyPolicy(game, PartyName.REDS)) {
-        return player.canAfford(player.getCardCost(game, this) + REDS_RULING_POLICY_COST * 2);
-      }
+        if (PartyHooks.shouldApplyPolicy(game, PartyName.REDS)) {
+            return player.canAfford(player.getCardCost(game, this) + REDS_RULING_POLICY_COST * 2);
+        }
 
-      return true;
+        return true;
     }
 
     public play(player: Player, game: Game) {
-      player.increaseTerraformRatingSteps(2, game);
-      return undefined;
+        player.increaseTerraformRatingSteps(2, game);
+        return undefined;
     }
 
     public getVictoryPoints() {
-      return -2;
+        return -2;
     }
 }

@@ -6,22 +6,22 @@ import { Game } from "../../src/Game";
 import { Resources } from "../../src/Resources";
 import { SelectPlayer } from "../../src/inputs/SelectPlayer";
 
-describe("PowerSupplyConsortium", function () {
-    let card : PowerSupplyConsortium, player : Player, player2 : Player, game : Game;
+describe("PowerSupplyConsortium", () => {
+    let card: PowerSupplyConsortium, player: Player, player2: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new PowerSupplyConsortium();
         player = new Player("test", Color.BLUE, false);
         player2 = new Player("test2", Color.RED, false);
         game = new Game("foobar", [player, player2], player);
     });
 
-    it("Can't play without power tags", function () {
+    it("Can't play without power tags", () => {
         player.addProduction(Resources.ENERGY, 3);
         expect(card.canPlay(player)).is.not.true;
     });
 
-    it("Can play - single target", function () {
+    it('Can play - single target', () => {
         player.playedCards.push(card, card);
         expect(card.canPlay(player)).is.true;
 
@@ -32,7 +32,7 @@ describe("PowerSupplyConsortium", function () {
         expect(player.getProduction(Resources.ENERGY)).to.eq(0);
     });
 
-    it("Can play - multiple targets", function () {
+    it('Can play - multiple targets', () => {
         player2.addProduction(Resources.ENERGY, 3);
 
         card.play(player, game);
@@ -45,7 +45,7 @@ describe("PowerSupplyConsortium", function () {
         expect(player2.getProduction(Resources.ENERGY)).to.eq(2);
     });
 
-    it("Can play in solo mode if have enough power tags", function () {
+    it('Can play in solo mode if have enough power tags', () => {
         const game = new Game("foobar2", [player], player);
         player.playedCards.push(card, card);
         expect(card.canPlay(player)).is.true;

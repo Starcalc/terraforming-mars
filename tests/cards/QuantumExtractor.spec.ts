@@ -6,20 +6,20 @@ import { Game } from "../../src/Game";
 import { Bushes } from "../../src/cards/Bushes";
 import { TollStation } from "../../src/cards/TollStation";
 
-describe("QuantumExtractor", function () {
-    let card : QuantumExtractor, player : Player, game : Game;
+describe("QuantumExtractor", () => {
+    let card: QuantumExtractor, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new QuantumExtractor();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't play", function () {
+    it("Can't play", () => {
         expect(card.canPlay(player)).is.not.true;
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         player.playedCards.push(card, card, card, card);
         card.play(player);
         expect(card.getCardDiscount(player, game, new TollStation())).to.eq(2);

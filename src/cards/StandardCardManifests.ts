@@ -222,11 +222,11 @@ import { Windmills } from "./Windmills";
 import { Worms } from "./Worms";
 import { Zeppelins } from "./Zeppelins";
 
-export const BASE_CARD_MANIFEST = new CardManifest ({
+export const BASE_CARD_MANIFEST = new CardManifest({
     module: GameModule.Base,
     projectCards: [
-        { cardName: CardName.ADAPTATION_TECHNOLOGY , factory: AdaptationTechnology },
-        { cardName: CardName.ADAPTED_LICHEN , factory: AdaptedLichen },
+        { cardName: CardName.ADAPTATION_TECHNOLOGY, factory: AdaptationTechnology },
+        { cardName: CardName.ADAPTED_LICHEN, factory: AdaptedLichen },
         { cardName: CardName.ADVANCED_ECOSYSTEMS, factory: AdvancedEcosystems },
         { cardName: CardName.AEROBRAKED_AMMONIA_ASTEROID, factory: AerobrakedAmmoniaAsteroid },
         { cardName: CardName.ANTS, factory: Ants },
@@ -251,7 +251,7 @@ export const BASE_CARD_MANIFEST = new CardManifest ({
         { cardName: CardName.COLONIZER_TRAINING_CAMP, factory: ColonizerTrainingCamp },
         { cardName: CardName.COMET, factory: Comet },
         { cardName: CardName.CONVOY_FROM_EUROPA, factory: ConvoyFromEuropa },
-        { cardName: CardName.CUPOLA_CITY , factory: CupolaCity },
+        { cardName: CardName.CUPOLA_CITY, factory: CupolaCity },
         { cardName: CardName.DECOMPOSERS, factory: Decomposers },
         { cardName: CardName.DEEP_WELL_HEATING, factory: DeepWellHeating },
         { cardName: CardName.DEIMOS_DOWN, factory: DeimosDown },
@@ -301,7 +301,7 @@ export const BASE_CARD_MANIFEST = new CardManifest ({
         { cardName: CardName.LIVESTOCK, factory: Livestock },
         { cardName: CardName.LOCAL_HEAT_TRAPPING, factory: LocalHeatTrapping },
         { cardName: CardName.LUNAR_BEAM, factory: LunarBeam },
-        { cardName: CardName.MAGNETIC_FIELD_DOME , factory: MagneticFieldDome },
+        { cardName: CardName.MAGNETIC_FIELD_DOME, factory: MagneticFieldDome },
         { cardName: CardName.MAGNETIC_FIELD_GENERATORS, factory: MagneticFieldGenerators },
         { cardName: CardName.MANGROVE, factory: Mangrove },
         { cardName: CardName.MARTIAN_RAILS, factory: MartianRails },
@@ -326,9 +326,9 @@ export const BASE_CARD_MANIFEST = new CardManifest ({
         { cardName: CardName.PEROXIDE_POWER, factory: PeroxidePower },
         { cardName: CardName.PETS, factory: Pets },
         { cardName: CardName.PHOBOS_SPACE_HAVEN, factory: PhobosSpaceHaven },
-        { cardName: CardName.PLANTATION , factory: Plantation },
-        { cardName: CardName.POWER_GRID , factory: PowerGrid },
-        { cardName: CardName.POWER_PLANT , factory: PowerPlant },
+        { cardName: CardName.PLANTATION, factory: Plantation },
+        { cardName: CardName.POWER_GRID, factory: PowerGrid },
+        { cardName: CardName.POWER_PLANT, factory: PowerPlant },
         { cardName: CardName.PREDATORS, factory: Predators },
         { cardName: CardName.PROTECTED_VALLEY, factory: ProtectedValley },
         { cardName: CardName.RAD_CHEM_FACTORY, factory: RadChemFactory },
@@ -361,8 +361,8 @@ export const BASE_CARD_MANIFEST = new CardManifest ({
         { cardName: CardName.WAVE_POWER, factory: WavePower },
         { cardName: CardName.WINDMILLS, factory: Windmills },
         { cardName: CardName.WORMS, factory: Worms },
-        { cardName: CardName.ZEPPELINS, factory: Zeppelins }
-        ],
+        { cardName: CardName.ZEPPELINS, factory: Zeppelins },
+    ],
 
     corporationCards: [
         { cardName: CardName.CREDICOR, factory: CrediCor },
@@ -374,14 +374,14 @@ export const BASE_CARD_MANIFEST = new CardManifest ({
         { cardName: CardName.PHOBOLOG, factory: PhoboLog },
         { cardName: CardName.THARSIS_REPUBLIC, factory: TharsisRepublic },
         { cardName: CardName.THORGATE, factory: Thorgate },
-        { cardName: CardName.UNITED_NATIONS_MARS_INITIATIVE, factory: UnitedNationsMarsInitiative }
-    ]});
-
+        { cardName: CardName.UNITED_NATIONS_MARS_INITIATIVE, factory: UnitedNationsMarsInitiative },
+    ],
+});
 
 export const CORP_ERA_CARD_MANIFEST = new CardManifest({
     module: GameModule.CorpEra,
     projectCards: [
-        { cardName: CardName.ACQUIRED_COMPANY , factory: AcquiredCompany },
+        { cardName: CardName.ACQUIRED_COMPANY, factory: AcquiredCompany },
         { cardName: CardName.ADVANCED_ALLOYS, factory: AdvancedAlloys },
         { cardName: CardName.AI_CENTRAL, factory: AICentral },
         { cardName: CardName.ANTI_GRAVITY_TECHNOLOGY, factory: AntiGravityTechnology },
@@ -427,7 +427,7 @@ export const CORP_ERA_CARD_MANIFEST = new CardManifest({
         { cardName: CardName.MIRANDA_RESORT, factory: MirandaResort },
         { cardName: CardName.OLYMPUS_CONFERENCE, factory: OlympusConference },
         { cardName: CardName.PHYSICS_COMPLEX, factory: PhysicsComplex },
-        { cardName: CardName.POWER_INFRASTRUCTURE , factory: PowerInfrastructure },
+        { cardName: CardName.POWER_INFRASTRUCTURE, factory: PowerInfrastructure },
         { cardName: CardName.POWER_SUPPLY_CONSORTIUM, factory: PowerSupplyConsortium },
         { cardName: CardName.PROTECTED_HABITATS, factory: ProtectedHabitats },
         { cardName: CardName.QUANTUM_EXTRACTOR, factory: QuantumExtractor },
@@ -452,9 +452,10 @@ export const CORP_ERA_CARD_MANIFEST = new CardManifest({
         { cardName: CardName.VESTA_SHIPYARD, factory: VestaShipyard },
         { cardName: CardName.VIRAL_ENHANCERS, factory: ViralEnhancers },
         { cardName: CardName.VIRUS, factory: Virus },
-        ],
+    ],
 
     corporationCards: [
         { cardName: CardName.SATURN_SYSTEMS, factory: SaturnSystems },
-        { cardName: CardName.TERACTOR, factory: Teractor }
-    ]});
+        { cardName: CardName.TERACTOR, factory: Teractor },
+    ],
+});

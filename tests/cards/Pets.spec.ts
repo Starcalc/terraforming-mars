@@ -4,13 +4,13 @@ import { Color } from "../../src/Color";
 import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 
-describe("Pets", function () {
-    it("Should play", function () {
+describe("Pets", () => {
+    it('Should play', () => {
         const card = new Pets();
         const player = new Player("test", Color.BLUE, false);
         const player2 = new Player("test2", Color.RED, false);
         player.playedCards.push(card);
-        const game = new Game("foobar", [player,player2], player);
+        const game = new Game("foobar", [player, player2], player);
         const action = card.play(player);
         expect(action).is.undefined;
         player.addResourceTo(card, 4);

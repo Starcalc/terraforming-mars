@@ -19,8 +19,8 @@ export class Hackers implements IProjectCard {
 
     public play(player: Player, game: Game) {
         game.defer(new DecreaseAnyProduction(player, game, Resources.MEGACREDITS, 2));
-        player.addProduction(Resources.MEGACREDITS,2);
-        player.addProduction(Resources.ENERGY,-1);
+        player.addProduction(Resources.MEGACREDITS, 2);
+        player.addProduction(Resources.ENERGY, -1);
         return undefined;
     }
 
@@ -28,4 +28,3 @@ export class Hackers implements IProjectCard {
         return -1;
     }
 }
-

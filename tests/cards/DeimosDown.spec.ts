@@ -5,17 +5,17 @@ import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 import { OrOptions } from "../../src/inputs/OrOptions";
 
-describe("DeimosDown", function () {
-    let card : DeimosDown, player : Player, player2 : Player, game : Game;
+describe("DeimosDown", () => {
+    let card: DeimosDown, player: Player, player2: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new DeimosDown();
         player = new Player("test", Color.BLUE, false);
         player2 = new Player("test2", Color.RED, false);
         game = new Game("foobar", [player, player2], player);
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         player2.plants = 8;
         card.play(player, game);
 
@@ -28,7 +28,7 @@ describe("DeimosDown", function () {
         expect(player2.plants).to.eq(0);
     });
 
-    it("Works fine in solo mode", function() {
+    it('Works fine in solo mode', () => {
         const game = new Game("foobar", [player], player);
 
         player.plants = 15;

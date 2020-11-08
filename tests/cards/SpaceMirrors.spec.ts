@@ -5,21 +5,21 @@ import { Player } from "../../src/Player";
 import { Resources } from "../../src/Resources";
 import { Game } from "../../src/Game";
 
-describe("SpaceMirrors", function () {
-    let card : SpaceMirrors, player : Player, game : Game;
+describe("SpaceMirrors", () => {
+    let card: SpaceMirrors, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new SpaceMirrors();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't act", function () {
+    it("Can't act", () => {
         player.megaCredits = 6;
         expect(card.canAct(player)).is.not.true;
     });
 
-    it("Should act", function () {
+    it('Should act', () => {
         player.megaCredits = 7;
         expect(card.canAct(player)).is.true;
 

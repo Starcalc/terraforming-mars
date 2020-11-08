@@ -7,23 +7,23 @@ import { Button } from "../components/common/Button";
 export const AndOptions = Vue.component("and-options", {
     props: {
         player: {
-            type: Object as () => PlayerModel
+            type: Object as () => PlayerModel,
         },
         players: {
-            type: Object as () => Array<PlayerModel>
+            type: Object as () => Array<PlayerModel>,
         },
         playerinput: {
-            type: Object as () => PlayerInputModel
+            type: Object as () => PlayerInputModel,
         },
         onsave: {
-            type: Object as () => (out: Array<Array<string>>) => void
+            type: Object as () => (out: Array<Array<string>>) => void,
         },
         showsave: {
-            type: Boolean
+            type: Boolean,
         },
         showtitle: {
-            type: Boolean
-        }
+            type: Boolean,
+        },
     },
     data: function () {
         return {};
@@ -31,21 +31,18 @@ export const AndOptions = Vue.component("and-options", {
     methods: {
         saveData: function () {
             for (let i = 0; i < this.$data.childComponents.length; i++) {
-                const componentInstance = this.$data.childComponents[i]
-                    .componentInstance;
+                const componentInstance = this.$data.childComponents[i].componentInstance;
                 if (componentInstance !== undefined) {
-                    if (
-                        (componentInstance as any).saveData instanceof Function
-                    ) {
+                    if ((componentInstance as any).saveData instanceof Function) {
                         (componentInstance as any).saveData();
                     }
                 }
             }
             const res: Array<Array<string>> = [];
             if (this.playerinput.options !== undefined) {
-               for (let i = 0; i < this.playerinput.options.length; i++) {
-                   res.push(this.$data.responded["" + i]);
-               }
+                for (let i = 0; i < this.playerinput.options.length; i++) {
+                    res.push(this.$data.responded["" + i]);
+                }
             }
             this.onsave(res);
         },
@@ -56,9 +53,7 @@ export const AndOptions = Vue.component("and-options", {
         this.$data.childComponents = [];
         this.$data.responded = [];
         if (this.showtitle) {
-            children.push(
-                createElement("div", { "class": "wf-title" }, playerInput.title)
-            );
+            children.push(createElement('div', { 'class': 'wf-title' }, playerInput.title));
         }
         if (playerInput.options !== undefined) {
             const options = playerInput.options;
@@ -77,9 +72,7 @@ export const AndOptions = Vue.component("and-options", {
                             true
                         )
                     );
-                    this.$data.childComponents.push(
-                        children[children.length - 1]
-                    );
+                    this.$data.childComponents.push(children[children.length - 1]);
                 }
             });
         }
@@ -94,9 +87,7 @@ export const AndOptions = Vue.component("and-options", {
                     },
                 },
             });
-            children.push(
-                createElement("div", { "class": "wf-action" }, [saveBtn])
-            );
+            children.push(createElement('div', { 'class': 'wf-action' }, [saveBtn]));
         }
         return createElement("div", { "class": "wf-options" }, children);
     },

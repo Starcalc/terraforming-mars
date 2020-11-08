@@ -1,4 +1,3 @@
-
 import { Tags } from "./Tags";
 import { IProjectCard } from "./IProjectCard";
 import { CardType } from "./CardType";
@@ -16,8 +15,8 @@ export class PeroxidePower implements IProjectCard {
         return player.getProduction(Resources.MEGACREDITS) >= -4;
     }
     public play(player: Player) {
-        player.addProduction(Resources.MEGACREDITS,-1);
-        player.addProduction(Resources.ENERGY,2);
+        player.addProduction(Resources.MEGACREDITS, -1);
+        player.addProduction(Resources.ENERGY, 2);
         return undefined;
     }
 }

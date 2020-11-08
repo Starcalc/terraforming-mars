@@ -21,7 +21,7 @@ export class BusinessNetwork implements IActionCard, IProjectCard {
         return player.getProduction(Resources.MEGACREDITS) >= -4;
     }
     public play(player: Player) {
-        player.addProduction(Resources.MEGACREDITS,-1);
+        player.addProduction(Resources.MEGACREDITS, -1);
         return undefined;
     }
     public canAct(): boolean {
@@ -32,7 +32,9 @@ export class BusinessNetwork implements IActionCard, IProjectCard {
         const canSelectCard = player.canAfford(player.cardCost);
 
         return new SelectCard(
-            canSelectCard ? "Select card to keep or none to discard" : "You cannot pay for this card" ,
+            canSelectCard
+                ? 'Select card to keep or none to discard'
+                : 'You cannot pay for this card',
             canSelectCard ? "Select" : undefined,
             [dealtCard],
             (cards: Array<IProjectCard>) => {
@@ -43,7 +45,15 @@ export class BusinessNetwork implements IActionCard, IProjectCard {
                 }
                 LogHelper.logCardChange(game, player, "drew", 1);
                 player.cardsInHand.push(dealtCard);
-                game.defer(new SelectHowToPayDeferred(player, player.cardCost, false, false, "Select how to pay for action"));
+                game.defer(
+                    new SelectHowToPayDeferred(
+                        player,
+                        player.cardCost,
+                        false,
+                        false,
+                        'Select how to pay for action'
+                    )
+                );
                 return undefined;
             },
             canSelectCard ? 1 : 0,

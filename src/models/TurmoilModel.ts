@@ -1,4 +1,3 @@
-
 import { Color } from "../Color";
 import { PartyName } from "../turmoil/parties/PartyName";
 import { GlobalEventName } from "../turmoil/globalEvents/GlobalEventName";

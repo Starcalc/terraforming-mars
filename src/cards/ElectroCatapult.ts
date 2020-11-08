@@ -15,48 +15,50 @@ export class ElectroCatapult implements IActionCard, IProjectCard {
     public name = CardName.ELECTRO_CATAPULT;
     public cardType = CardType.ACTIVE;
     public canPlay(player: Player, game: Game): boolean {
-      return player.getProduction(Resources.ENERGY) >= 1 &&
-        game.getOxygenLevel() <= 8 + player.getRequirementsBonus(game);
+        return (
+            player.getProduction(Resources.ENERGY) >= 1 &&
+            game.getOxygenLevel() <= 8 + player.getRequirementsBonus(game)
+        );
     }
     public canAct(player: Player): boolean {
-      return player.plants > 0 || player.steel > 0;
+        return player.plants > 0 || player.steel > 0;
     }
     public action(player: Player, game: Game) {
-      if (player.plants > 0 && player.steel > 0) {
-        return new OrOptions(
-            new SelectOption("Spend 1 plant to gain 7 mega credit", "Spend plant", () => {
-              player.plants--;
-              player.megaCredits += 7;
-              this.log(game, player, Resources.PLANTS);
-              return undefined;
-            }),
-            new SelectOption("Spend 1 steel to gain 7 mega credit", "Spend steel", () => {
-              player.steel--;
-              player.megaCredits += 7;
-              this.log(game, player, Resources.STEEL);
-              return undefined;
-            })
-        );
-      } else if (player.plants > 0) {
-        player.plants--;
-        this.log(game, player, Resources.PLANTS);
-        player.megaCredits += 7;
-      } else if (player.steel > 0) {
-        player.steel--;
-        this.log(game, player, Resources.STEEL);
-        player.megaCredits += 7;
-      }
-      return undefined;
+        if (player.plants > 0 && player.steel > 0) {
+            return new OrOptions(
+                new SelectOption("Spend 1 plant to gain 7 mega credit", "Spend plant", () => {
+                    player.plants--;
+                    player.megaCredits += 7;
+                    this.log(game, player, Resources.PLANTS);
+                    return undefined;
+                }),
+                new SelectOption("Spend 1 steel to gain 7 mega credit", "Spend steel", () => {
+                    player.steel--;
+                    player.megaCredits += 7;
+                    this.log(game, player, Resources.STEEL);
+                    return undefined;
+                })
+            );
+        } else if (player.plants > 0) {
+            player.plants--;
+            this.log(game, player, Resources.PLANTS);
+            player.megaCredits += 7;
+        } else if (player.steel > 0) {
+            player.steel--;
+            this.log(game, player, Resources.STEEL);
+            player.megaCredits += 7;
+        }
+        return undefined;
     }
     public play(player: Player) {
-      player.addProduction(Resources.ENERGY,-1);
-      return undefined;
+        player.addProduction(Resources.ENERGY, -1);
+        return undefined;
     }
     public getVictoryPoints() {
-      return 1;
+        return 1;
     }
-    
+
     private log(game: Game, player: Player, resource: Resources) {
-      game.log("${0} spent 1 ${1} to gain 7 MC", b => b.player(player).string(resource));
+        game.log('${0} spent 1 ${1} to gain 7 MC', (b) => b.player(player).string(resource));
     }
 }

@@ -19,8 +19,21 @@ import { CardName } from "../CardName";
 import { CardMetadata } from "../cards/CardMetadata";
 
 export interface IActionCard {
-    action: (player: Player, game: Game) => OrOptions | SelectOption | AndOptions | SelectAmount | SelectCard<ICard> | SelectCard<IProjectCard> | SelectHowToPay | SelectPlayer | SelectSpace | undefined;
-    canAct: (player: Player, game: Game) => boolean; 
+    action: (
+        player: Player,
+        game: Game
+    ) =>
+        | OrOptions
+        | SelectOption
+        | AndOptions
+        | SelectAmount
+        | SelectCard<ICard>
+        | SelectCard<IProjectCard>
+        | SelectHowToPay
+        | SelectPlayer
+        | SelectSpace
+        | undefined;
+    canAct: (player: Player, game: Game) => boolean;
 }
 
 export interface IResourceCard {
@@ -30,9 +43,22 @@ export interface IResourceCard {
 
 export interface ICard {
     name: CardName;
-    tags: Array<Tags>; 
+    tags: Array<Tags>;
     play: (player: Player, game: Game) => PlayerInput | undefined;
-    action?: (player: Player, game: Game) =>  OrOptions | SelectOption | AndOptions | SelectAmount | SelectCard<ICard> | SelectCard<IProjectCard> | SelectHowToPay | SelectPlayer | SelectSpace | undefined;
+    action?: (
+        player: Player,
+        game: Game
+    ) =>
+        | OrOptions
+        | SelectOption
+        | AndOptions
+        | SelectAmount
+        | SelectCard<ICard>
+        | SelectCard<IProjectCard>
+        | SelectHowToPay
+        | SelectPlayer
+        | SelectSpace
+        | undefined;
     canAct?: (player: Player, game: Game) => boolean;
     getCardDiscount?: (player: Player, game: Game, card: IProjectCard) => number;
     getRequirementBonus?: (player: Player, game: Game, venusOnly?: boolean) => number;

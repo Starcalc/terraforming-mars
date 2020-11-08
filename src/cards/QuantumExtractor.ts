@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { CardType } from "./CardType";
@@ -22,7 +21,7 @@ export class QuantumExtractor implements IProjectCard {
         return 0;
     }
     public play(player: Player) {
-        player.addProduction(Resources.ENERGY,4);
+        player.addProduction(Resources.ENERGY, 4);
         return undefined;
     }
 }

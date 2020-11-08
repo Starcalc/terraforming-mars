@@ -9,27 +9,27 @@ import { FoodFactory } from "../../src/cards/FoodFactory";
 import { Resources } from "../../src/Resources";
 import { UtopiaInvest } from "../../src/cards/turmoil/UtopiaInvest";
 
-describe("RoboticWorkforce", function () {
-    let card : RoboticWorkforce, player : Player, game : Game;
+describe("RoboticWorkforce", () => {
+    let card: RoboticWorkforce, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new RoboticWorkforce();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't play if no building cards to copy", function () {
+    it("Can't play if no building cards to copy", () => {
         expect(card.canPlay(player, game)).is.not.true;
     });
 
-    it("Should throw", function () {
+    it('Should throw', () => {
         player.playedCards.push(new FoodFactory(), new BiomassCombustors(), card);
-        expect(card.canPlay(player,game)).is.not.true;
+        expect(card.canPlay(player, game)).is.not.true;
         const action = card.play(player, game);
         expect(action).is.undefined;
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         player.playedCards.push(new NoctisFarming());
         const action = card.play(player, game);
         expect(action).is.not.undefined;
@@ -37,7 +37,7 @@ describe("RoboticWorkforce", function () {
         expect(player.getProduction(Resources.MEGACREDITS)).to.eq(1);
     });
 
-    it("Should play with corporation cards", function () {
+    it('Should play with corporation cards', () => {
         const corporationCard = new UtopiaInvest();
         player.corporationCard = corporationCard;
 

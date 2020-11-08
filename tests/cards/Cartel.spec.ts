@@ -7,15 +7,15 @@ import { InterstellarColonyShip } from "../../src/cards/InterstellarColonyShip";
 import { LunarBeam } from "../../src/cards/LunarBeam";
 import { Resources } from "../../src/Resources";
 
-describe("Cartel", function () {
-    let card : Cartel, player : Player;
+describe("Cartel", () => {
+    let card: Cartel, player: Player;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new Cartel();
         player = new Player("test", Color.BLUE, false);
     });
 
-    it("Should play", function () { 
+    it('Should play', () => {
         card.play(player);
         expect(player.getProduction(Resources.MEGACREDITS)).to.eq(1);
         player.playedCards.push(card);
@@ -24,12 +24,12 @@ describe("Cartel", function () {
         expect(player.getProduction(Resources.MEGACREDITS)).to.eq(3);
     });
 
-    it("Correctly counts tags", function () {
+    it('Correctly counts tags', () => {
         const cards = [
             new ImportedHydrogen(), // event with earth tag
             new InterstellarColonyShip(), // event with earth tag
-            new LunarBeam() // another card with earth tag
-        ]
+            new LunarBeam(), // another card with earth tag
+        ];
 
         player.playedCards = player.playedCards.concat(cards);
         card.play(player);

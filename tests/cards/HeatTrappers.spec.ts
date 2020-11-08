@@ -6,17 +6,17 @@ import { Game } from "../../src/Game";
 import { Resources } from "../../src/Resources";
 import { SelectPlayer } from "../../src/inputs/SelectPlayer";
 
-describe("HeatTrappers", function () {
-    let card : HeatTrappers, player : Player, player2: Player, game: Game;
+describe("HeatTrappers", () => {
+    let card: HeatTrappers, player: Player, player2: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new HeatTrappers();
         player = new Player("test", Color.BLUE, false);
         player2 = new Player("test2", Color.RED, false);
         game = new Game("foobar", [player, player2], player);
     });
 
-    it("Should be playable in solo mode", function () {
+    it('Should be playable in solo mode', () => {
         game = new Game("foobar", [player], player);
         player.addProduction(Resources.HEAT);
 
@@ -29,7 +29,7 @@ describe("HeatTrappers", function () {
         expect(player.getProduction(Resources.ENERGY)).to.eq(1); // Incremented
     });
 
-    it("Should play - auto select if single target", function () {
+    it('Should play - auto select if single target', () => {
         player2.addProduction(Resources.HEAT, 7);
         expect(card.canPlay(player, game)).is.true;
         card.play(player, game);
@@ -40,7 +40,7 @@ describe("HeatTrappers", function () {
         expect(player2.getProduction(Resources.HEAT)).to.eq(5);
     });
 
-    it("Should play - multiple targets", function () {
+    it('Should play - multiple targets', () => {
         player.addProduction(Resources.HEAT, 3);
         player2.addProduction(Resources.HEAT, 7);
         card.play(player, game);
@@ -53,11 +53,11 @@ describe("HeatTrappers", function () {
         expect(player2.getProduction(Resources.HEAT)).to.eq(5);
     });
 
-    it("Can't play if nobody has heat production", function () {
+    it("Can't play if nobody has heat production", () => {
         expect(card.canPlay(player, game)).is.not.true;
     });
 
-    it("Gives victory points", function () {
+    it('Gives victory points', () => {
         player.victoryPointsBreakdown.setVictoryPoints('victoryPoints', card.getVictoryPoints());
         expect(player.victoryPointsBreakdown.victoryPoints).to.eq(-1);
     });

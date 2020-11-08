@@ -4,21 +4,21 @@ import { Color } from "../../src/Color";
 import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 
-describe("Ironworks", function () {
-    let card : Ironworks, player : Player, game : Game;
+describe("Ironworks", () => {
+    let card: Ironworks, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new Ironworks();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't act without enough energy", function () {
+    it("Can't act without enough energy", () => {
         player.energy = 3;
         expect(card.canAct(player, game)).is.not.true;
     });
 
-    it("Should act", function () {
+    it('Should act', () => {
         player.energy = 4;
         expect(card.canAct(player, game)).is.true;
 

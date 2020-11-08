@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { CardType } from "./CardType";
@@ -19,4 +18,3 @@ export class ImportedGHG implements IProjectCard {
         return undefined;
     }
 }
- 

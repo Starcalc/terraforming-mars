@@ -12,39 +12,42 @@ import { ResourceType } from "../ResourceType";
 import { LogHelper } from "../components/LogHelper";
 
 export class EosChasmaNationalPark implements IProjectCard {
-  public cost = 16;
-  public nonNegativeVPIcon: boolean = true;
-  public tags = [Tags.PLANT, Tags.STEEL];
-  public name = CardName.EOS_CHASMA_NATIONAL_PARK;
-  public cardType = CardType.AUTOMATED;
+    public cost = 16;
+    public nonNegativeVPIcon = true;
+    public tags = [Tags.PLANT, Tags.STEEL];
+    public name = CardName.EOS_CHASMA_NATIONAL_PARK;
+    public cardType = CardType.AUTOMATED;
 
-  public canPlay(player: Player, game: Game): boolean {
-    return game.getTemperature() >= -12 - (
-      2 * player.getRequirementsBonus(game)
-    );
-  }
-
-  public play(player: Player, game: Game) {
-    const cards = player.getResourceCards(ResourceType.ANIMAL);
-    player.plants += 3;
-    player.addProduction(Resources.MEGACREDITS,2);
-
-    if ( cards.length < 1 ) return undefined;
-
-    if (cards.length === 1) {
-      player.addResourceTo(cards[0], 1);
-      LogHelper.logAddResource(game, player, cards[0]);
-      return undefined;
+    public canPlay(player: Player, game: Game): boolean {
+        return game.getTemperature() >= -12 - 2 * player.getRequirementsBonus(game);
     }
-   
-    return new SelectCard("Add 1 animal to a card", "Add animal", cards, (foundCards: Array<ICard>) => {
-        player.addResourceTo(foundCards[0], 1);
-        LogHelper.logAddResource(game, player, foundCards[0]);
-        return undefined;
-    });
-  }
 
-  public getVictoryPoints() {
-    return 1;
-  }
+    public play(player: Player, game: Game) {
+        const cards = player.getResourceCards(ResourceType.ANIMAL);
+        player.plants += 3;
+        player.addProduction(Resources.MEGACREDITS, 2);
+
+        if (cards.length < 1) return undefined;
+
+        if (cards.length === 1) {
+            player.addResourceTo(cards[0], 1);
+            LogHelper.logAddResource(game, player, cards[0]);
+            return undefined;
+        }
+
+        return new SelectCard(
+            "Add 1 animal to a card",
+            "Add animal",
+            cards,
+            (foundCards: Array<ICard>) => {
+                player.addResourceTo(foundCards[0], 1);
+                LogHelper.logAddResource(game, player, foundCards[0]);
+                return undefined;
+            }
+        );
+    }
+
+    public getVictoryPoints() {
+        return 1;
+    }
 }

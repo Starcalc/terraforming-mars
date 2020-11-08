@@ -1,4 +1,3 @@
-
 import Vue from "vue";
 import { IAresGlobalParametersResponse } from "../inputs/ShiftAresGlobalParameters";
 
@@ -12,7 +11,7 @@ export const ShiftAresGlobalParameters = Vue.component("shift-ares-global-parame
             highOceanDelta: 0,
             temperatureDelta: 0,
             oxygenDelta: 0,
-            ADJUSTMENT_RANGE: [-1, 0, 1]
+            ADJUSTMENT_RANGE: [-1, 0, 1],
         };
     },
     methods: {
@@ -21,13 +20,11 @@ export const ShiftAresGlobalParameters = Vue.component("shift-ares-global-parame
                 lowOceanDelta: this.$data.lowOceanDelta,
                 highOceanDelta: this.$data.highOceanDelta,
                 temperatureDelta: this.$data.temperatureDelta,
-                oxygenDelta: this.$data.oxygenDelta
+                oxygenDelta: this.$data.oxygenDelta,
             };
 
-            this.onsave([[
-                JSON.stringify(response)
-            ]]);
-        }
+            this.onsave([[JSON.stringify(response)]]);
+        },
     },
     template: `
 <div class="wf-component">
@@ -71,6 +68,5 @@ export const ShiftAresGlobalParameters = Vue.component("shift-ares-global-parame
         <button class="btn btn-primary btn-submit" v-on:click="saveData">{{playerinput.buttonLabel}}</button>
     </div>
 </div>
-`
+`,
 });
-

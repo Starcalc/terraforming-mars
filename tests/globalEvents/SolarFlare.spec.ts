@@ -8,12 +8,12 @@ import { Kelvinists } from "../../src/turmoil/parties/Kelvinists";
 import { Resources } from "../../src/Resources";
 import { SpaceStation } from "../../src/cards/SpaceStation";
 
-describe("SolarFlare", function () {
-    it("resolve play", function () {
+describe("SolarFlare", () => {
+    it('resolve play', () => {
         const card = new SolarFlare();
         const player = new Player("test", Color.BLUE, false);
         const player2 = new Player("test2", Color.RED, false);
-        const game = new Game("foobar", [player,player2], player);
+        const game = new Game("foobar", [player, player2], player);
         const turmoil = new Turmoil(game);
 
         player.playedCards.push(new SpaceStation());
@@ -26,7 +26,7 @@ describe("SolarFlare", function () {
         turmoil.dominantParty.partyLeader = player2.id;
         turmoil.dominantParty.delegates.push(player2.id);
         turmoil.dominantParty.delegates.push(player2.id);
-        
+
         card.resolve(game, turmoil);
         expect(player.getResource(Resources.MEGACREDITS)).to.eq(7);
         expect(player2.getResource(Resources.MEGACREDITS)).to.eq(10);

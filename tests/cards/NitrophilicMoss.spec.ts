@@ -8,28 +8,28 @@ import { ViralEnhancers } from "../../src/cards/ViralEnhancers";
 import { maxOutOceans } from "../TestingUtils";
 import { Manutech } from "../../src/cards/venusNext/Manutech";
 
-describe("NitrophilicMoss", function () {
-    let card : NitrophilicMoss, player : Player, game : Game;
+describe("NitrophilicMoss", () => {
+    let card: NitrophilicMoss, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new NitrophilicMoss();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't play without enough oceans", function () {
+    it("Can't play without enough oceans", () => {
         maxOutOceans(player, game, 2);
         player.plants = 2;
         expect(card.canPlay(player, game)).is.not.true;
     });
 
-    it("Can't play if not enough plants", function () {
+    it("Can't play if not enough plants", () => {
         maxOutOceans(player, game, 3);
         player.plants = 1;
         expect(card.canPlay(player, game)).is.not.true;
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         maxOutOceans(player, game, 3);
         player.plants = 2;
         expect(card.canPlay(player, game)).is.true;
@@ -39,23 +39,23 @@ describe("NitrophilicMoss", function () {
         expect(player.getProduction(Resources.PLANTS)).to.eq(2);
     });
 
-    it("Can play with 1 plant if have Viral Enhancers", function () {
+    it('Can play with 1 plant if have Viral Enhancers', () => {
         // setup player with viral enhancers in play and 1 plant
         const viralEnhancers = new ViralEnhancers();
         player.playedCards.push(viralEnhancers);
         maxOutOceans(player, game, 3);
         player.plants = 1;
-        
+
         expect(card.canPlay(player, game)).is.true;
         card.play(player);
-        
+
         expect(player.plants).to.eq(-1);
         viralEnhancers.onCardPlayed(player, game, card);
         expect(player.plants).to.eq(0);
         expect(player.getProduction(Resources.PLANTS)).to.eq(2);
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         maxOutOceans(player, game, 3);
         player.corporationCard = new Manutech();
         expect(card.canPlay(player, game)).is.true;

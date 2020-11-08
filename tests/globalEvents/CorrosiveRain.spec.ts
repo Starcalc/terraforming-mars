@@ -6,12 +6,12 @@ import { Game } from "../../src/Game";
 import { Turmoil } from "../../src/turmoil/Turmoil";
 import { Kelvinists } from "../../src/turmoil/parties/Kelvinists";
 
-describe("CorrosiveRain", function () {
-    it("resolve play", function () {
+describe("CorrosiveRain", () => {
+    it('resolve play', () => {
         const card = new CorrosiveRain();
         const player = new Player("test", Color.BLUE, false);
         const player2 = new Player("test2", Color.RED, false);
-        const game = new Game("foobar", [player,player2], player);
+        const game = new Game("foobar", [player, player2], player);
         const turmoil = new Turmoil(game);
 
         turmoil.chairman = player2.id;
@@ -22,7 +22,7 @@ describe("CorrosiveRain", function () {
 
         player.megaCredits = 15;
         player2.megaCredits = 15;
-        
+
         card.resolve(game, turmoil);
         expect(game.deferredActions).has.lengthOf(2);
         game.deferredActions.runAll(() => {});

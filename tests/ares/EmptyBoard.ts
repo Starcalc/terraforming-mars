@@ -2,7 +2,6 @@ import { Board } from "../../src/Board";
 import { BoardBuilder } from "../../src/BoardBuilder";
 
 export class EmptyBoard extends Board {
-
     constructor() {
         super();
 

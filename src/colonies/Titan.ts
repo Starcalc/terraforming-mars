@@ -8,13 +8,13 @@ import { AddResourcesToCard } from "../deferredActions/AddResourcesToCard";
 
 export class Titan extends Colony implements IColony {
     public name = ColonyName.TITAN;
-    public description: string = "Floaters";
+    public description = "Floaters";
     public isActive = false;
     public resourceType = ResourceType.FLOATER;
-    public trade(player: Player, game: Game, usesTradeFleet: boolean = true): void {
+    public trade(player: Player, game: Game, usesTradeFleet = true): void {
         if (usesTradeFleet) this.beforeTrade(this, player, game);
-        
-        let floaters: number = 0;
+
+        let floaters = 0;
         if (this.trackPosition < 5) {
             floaters = Math.max(this.trackPosition - 1, 1);
         } else {
@@ -30,6 +30,6 @@ export class Titan extends Colony implements IColony {
         return undefined;
     }
     public giveTradeBonus(player: Player, game: Game): undefined | PlayerInput {
-        return (new AddResourcesToCard(player, game, ResourceType.FLOATER, 1)).execute();
-    }    
+        return new AddResourcesToCard(player, game, ResourceType.FLOATER, 1).execute();
+    }
 }

@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { CardType } from "./CardType";
@@ -12,7 +11,7 @@ export class AdaptedLichen implements IProjectCard {
     public cardType = CardType.AUTOMATED;
     public name = CardName.ADAPTED_LICHEN;
     public play(player: Player) {
-      player.addProduction(Resources.PLANTS);
-      return undefined;
+        player.addProduction(Resources.PLANTS);
+        return undefined;
     }
 }

@@ -8,14 +8,14 @@ import { LogHelper } from "../components/LogHelper";
 
 export class Ceres extends Colony implements IColony {
     public name = ColonyName.CERES;
-    public description: string = "Steel";
-    public trade(player: Player, game: Game, usesTradeFleet: boolean = true): void {
+    public description = "Steel";
+    public trade(player: Player, game: Game, usesTradeFleet = true): void {
         if (usesTradeFleet) this.beforeTrade(this, player, game);
-        let qty : number;
+        let qty: number;
         if (this.trackPosition === 2) {
             qty = 3;
         } else {
-            qty = Math.max(this.trackPosition * 2  - 2, 2);
+            qty = Math.max(this.trackPosition * 2 - 2, 2);
         }
 
         player.steel += qty;
@@ -30,5 +30,5 @@ export class Ceres extends Colony implements IColony {
     public giveTradeBonus(player: Player): undefined | PlayerInput {
         player.steel += 2;
         return undefined;
-    }    
+    }
 }

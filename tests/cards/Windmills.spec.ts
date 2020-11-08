@@ -5,20 +5,20 @@ import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 import { Resources } from "../../src/Resources";
 
-describe("Windmills", function () {
-    let card : Windmills, player : Player, game : Game;
+describe("Windmills", () => {
+    let card: Windmills, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new Windmills();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't play", function () {
+    it("Can't play", () => {
         (game as any).oxygenLevel = 6;
         expect(card.canPlay(player, game)).is.not.true;
     });
-    it("Should play", function () {
+    it('Should play', () => {
         (game as any).oxygenLevel = 7;
         expect(card.canPlay(player, game)).is.true;
 

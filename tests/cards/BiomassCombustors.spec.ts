@@ -5,33 +5,33 @@ import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 import { Resources } from "../../src/Resources";
 
-describe("BiomassCombustors", function () {
-    let card : BiomassCombustors, player : Player, player2 : Player, game : Game;
+describe("BiomassCombustors", () => {
+    let card: BiomassCombustors, player: Player, player2: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new BiomassCombustors();
         player = new Player("test", Color.BLUE, false);
         player2 = new Player("test2", Color.RED, false);
         game = new Game("foobar", [player, player2], player);
     });
 
-    it("Cannot play if oxygen requirement not met", function () {
+    it('Cannot play if oxygen requirement not met', () => {
         player2.addProduction(Resources.PLANTS, 1);
         expect(card.canPlay(player, game)).is.not.true;
     });
 
-    it("Cannot play if no one has plant production", function () {
+    it('Cannot play if no one has plant production', () => {
         (game as any).oxygenLevel = 6;
         expect(card.canPlay(player, game)).is.not.true;
     });
 
-    it("Can play in solo mode if oxygen requirement is met", function () {
+    it('Can play in solo mode if oxygen requirement is met', () => {
         const game = new Game("foobar", [player], player);
         (game as any).oxygenLevel = 6;
         expect(card.canPlay(player, game)).is.true;
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         (game as any).oxygenLevel = 6;
         player2.addProduction(Resources.PLANTS, 1);
         expect(card.canPlay(player, game)).is.true;

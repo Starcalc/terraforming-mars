@@ -22,7 +22,7 @@ export class DeferredActionsQueue {
     }
 
     public nextForPlayer(playerId: PlayerId): DeferredAction | undefined {
-        return this.queue.find(action => action.player.id === playerId);
+        return this.queue.find((action) => action.player.id === playerId);
     }
 
     public remove(action: DeferredAction): void {
@@ -70,7 +70,6 @@ export class DeferredActionsQueue {
 
         this.run(action, () => this.runAllForPlayer(playerId, cb));
     }
-
 
     // The following methods are used in tests
 

@@ -7,27 +7,27 @@ import { Bushes } from "../../src/cards/Bushes";
 import { TollStation } from "../../src/cards/TollStation";
 import { Resources } from "../../src/Resources";
 
-describe("Shuttles", function () {
-    let card : Shuttles, player : Player, game : Game;
+describe("Shuttles", () => {
+    let card: Shuttles, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new Shuttles();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't play without energy production", function () {
+    it("Can't play without energy production", () => {
         (game as any).oxygenLevel = 5;
         expect(card.canPlay(player, game)).is.not.true;
     });
 
-    it("Can't play if oxygen level too low", function () {
+    it("Can't play if oxygen level too low", () => {
         player.addProduction(Resources.ENERGY);
         (game as any).oxygenLevel = 4;
         expect(card.canPlay(player, game)).is.not.true;
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         (game as any).oxygenLevel = 5;
         player.addProduction(Resources.ENERGY);
         expect(card.canPlay(player, game)).is.true;
@@ -38,7 +38,7 @@ describe("Shuttles", function () {
 
         player.victoryPointsBreakdown.setVictoryPoints('victoryPoints', card.getVictoryPoints());
         expect(player.victoryPointsBreakdown.victoryPoints).to.eq(1);
-        
+
         expect(card.getCardDiscount(player, game, new Bushes())).to.eq(0);
         expect(card.getCardDiscount(player, game, new TollStation())).to.eq(2);
     });

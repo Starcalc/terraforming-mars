@@ -17,18 +17,23 @@ export class ConvoyFromEuropa implements IProjectCard {
     public hasRequirements = false;
 
     public canPlay(player: Player, game: Game): boolean {
-      const oceansMaxed = game.board.getOceansOnBoard() === MAX_OCEAN_TILES;
+        const oceansMaxed = game.board.getOceansOnBoard() === MAX_OCEAN_TILES;
 
-      if (PartyHooks.shouldApplyPolicy(game, PartyName.REDS) && !oceansMaxed) {
-        return player.canAfford(player.getCardCost(game, this) + REDS_RULING_POLICY_COST, game, false, true);
-      }
+        if (PartyHooks.shouldApplyPolicy(game, PartyName.REDS) && !oceansMaxed) {
+            return player.canAfford(
+                player.getCardCost(game, this) + REDS_RULING_POLICY_COST,
+                game,
+                false,
+                true
+            );
+        }
 
-      return true;
+        return true;
     }
 
     public play(player: Player, game: Game) {
-      player.cardsInHand.push(game.dealer.dealCard());
-      game.defer(new PlaceOceanTile(player, game));
-      return undefined;
+        player.cardsInHand.push(game.dealer.dealCard());
+        game.defer(new PlaceOceanTile(player, game));
+        return undefined;
     }
 }

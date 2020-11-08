@@ -25,7 +25,7 @@ export class MartianRails implements IActionCard, IProjectCard {
         player.energy--;
         player.megaCredits += gainedMC;
         LogHelper.logGainStandardResource(game, player, Resources.MEGACREDITS, gainedMC);
-        
+
         return undefined;
     }
 }

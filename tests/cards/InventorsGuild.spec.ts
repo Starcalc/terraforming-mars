@@ -6,21 +6,21 @@ import { Game } from "../../src/Game";
 import { SelectCard } from "../../src/inputs/SelectCard";
 import { IProjectCard } from "../../src/cards/IProjectCard";
 
-describe("InventorsGuild", function () {
-    let card : InventorsGuild, player : Player, game : Game;
+describe("InventorsGuild", () => {
+    let card: InventorsGuild, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new InventorsGuild();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         const action = card.play(player, game);
         expect(action).is.undefined;
     });
 
-    it("Should act", function () {
+    it('Should act', () => {
         player.megaCredits = 3;
         const action = card.action(player, game);
         expect(action instanceof SelectCard).is.true;
@@ -36,7 +36,7 @@ describe("InventorsGuild", function () {
         expect(player.cardsInHand).has.lengthOf(1);
     });
 
-    it("Cannot buy card if cannot pay", function () {
+    it('Cannot buy card if cannot pay', () => {
         player.megaCredits = 2;
         const selectCard = card.action(player, game) as SelectCard<IProjectCard>;
         expect(selectCard.title).to.eq("You cannot pay for this card");

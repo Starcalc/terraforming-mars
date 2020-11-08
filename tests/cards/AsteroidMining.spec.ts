@@ -1,12 +1,11 @@
-
 import { expect } from "chai";
 import { AsteroidMining } from "../../src/cards/AsteroidMining";
 import { Color } from "../../src/Color";
 import { Player } from "../../src/Player";
 import { Resources } from "../../src/Resources";
 
-describe("AsteroidMining", function () {
-    it("Should play", function () {
+describe("AsteroidMining", () => {
+    it('Should play', () => {
         const card = new AsteroidMining();
         const player = new Player("test", Color.BLUE, false);
         const action = card.play(player);

@@ -1,8 +1,7 @@
-
 import { PreferencesManager } from "../components/PreferencesManager";
 import * as raw_translations from "../../assets/translations.json";
 
-const TM_translations: {[x: string]: {[x: string]: string}} = raw_translations;
+const TM_translations: { [x: string]: { [x: string]: string } } = raw_translations;
 
 export function translateText(englishText: string): string {
     let translatedText = englishText;
@@ -23,14 +22,17 @@ export function translateText(englishText: string): string {
                 translatedText = "(" + stripedText + ")";
             }
         } else if (stripedText && stripedText.length > 3) {
-            console.log("Please translate \"" + stripedText + "\"")
+            console.log('Please translate "' + stripedText + '"');
         }
     }
     return translatedText;
 }
 
 function normalizeText(text: string): string {
-    return text.replace(/[\n\r]/g, "").replace(/[ ]+/g, " ").trim();
+    return text
+        .replace(/[\n\r]/g, '')
+        .replace(/[ ]+/g, ' ')
+        .trim();
 }
 
 function translateChildren(node: Node) {

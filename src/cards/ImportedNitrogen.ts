@@ -22,9 +22,14 @@ export class ImportedNitrogen implements IProjectCard {
 
     public canPlay(player: Player, game: Game): boolean {
         if (PartyHooks.shouldApplyPolicy(game, PartyName.REDS)) {
-          return player.canAfford(player.getCardCost(game, this) + REDS_RULING_POLICY_COST, game, false, true);
+            return player.canAfford(
+                player.getCardCost(game, this) + REDS_RULING_POLICY_COST,
+                game,
+                false,
+                true
+            );
         }
-  
+
         return true;
     }
 
@@ -33,51 +38,69 @@ export class ImportedNitrogen implements IProjectCard {
         player.plants += 4;
         return undefined;
     }
-    
+
     public play(player: Player, game: Game) {
         const otherAnimalCards = player.getResourceCards(ResourceType.ANIMAL);
         const otherMicrobeCards = player.getResourceCards(ResourceType.MICROBE);
 
-        let microbesAdded : boolean = false;
-        let animalsAdded : boolean = false;
+        let microbesAdded = false;
+        let animalsAdded = false;
 
         if (otherAnimalCards.length === 0 && otherMicrobeCards.length === 0) {
             return this.giveResources(player, game);
         } else if (otherAnimalCards.length > 0 && otherMicrobeCards.length > 0) {
             return new AndOptions(
                 () => this.giveResources(player, game),
-                new SelectCard("Select card to add 3 microbes", 
-                "Add microbes", otherMicrobeCards, (foundCards: Array<ICard>) => {
-                    if (!microbesAdded) {
-                        microbesAdded = true;
-                        player.addResourceTo(foundCards[0], 3);
-                        LogHelper.logAddResource(game, player, foundCards[0], 3);
+                new SelectCard(
+                    "Select card to add 3 microbes",
+                    "Add microbes",
+                    otherMicrobeCards,
+                    (foundCards: Array<ICard>) => {
+                        if (!microbesAdded) {
+                            microbesAdded = true;
+                            player.addResourceTo(foundCards[0], 3);
+                            LogHelper.logAddResource(game, player, foundCards[0], 3);
+                        }
+
+                        return undefined;
                     }
-                    
-                    return undefined;
-                }),
-                new SelectCard("Select card to add 2 animals",
-                "Add animals", otherAnimalCards, (foundCards: Array<ICard>) => {
-                    if (!animalsAdded) {
-                        animalsAdded = true;
-                        player.addResourceTo(foundCards[0], 2);
-                        LogHelper.logAddResource(game, player, foundCards[0], 2);
+                ),
+                new SelectCard(
+                    'Select card to add 2 animals',
+                    "Add animals",
+                    otherAnimalCards,
+                    (foundCards: Array<ICard>) => {
+                        if (!animalsAdded) {
+                            animalsAdded = true;
+                            player.addResourceTo(foundCards[0], 2);
+                            LogHelper.logAddResource(game, player, foundCards[0], 2);
+                        }
+
+                        return undefined;
                     }
-                    
-                    return undefined;
-                })
+                )
             );
         } else if (otherAnimalCards.length > 0) {
-            return new SelectCard("Select card to add 2 animals", "Add animals", otherAnimalCards, (foundCards: Array<ICard>) => {
-                player.addResourceTo(foundCards[0], 2);
-                LogHelper.logAddResource(game, player, foundCards[0], 2);
-                return this.giveResources(player, game);
-            });
+            return new SelectCard(
+                "Select card to add 2 animals",
+                "Add animals",
+                otherAnimalCards,
+                (foundCards: Array<ICard>) => {
+                    player.addResourceTo(foundCards[0], 2);
+                    LogHelper.logAddResource(game, player, foundCards[0], 2);
+                    return this.giveResources(player, game);
+                }
+            );
         }
-        return new SelectCard("Select card to add 3 microbes", "Add microbes", otherMicrobeCards, (foundCards: Array<ICard>) => {
-            player.addResourceTo(foundCards[0], 3);
-            LogHelper.logAddResource(game, player, foundCards[0], 3);
-            return this.giveResources(player, game);
-        });
+        return new SelectCard(
+            "Select card to add 3 microbes",
+            "Add microbes",
+            otherMicrobeCards,
+            (foundCards: Array<ICard>) => {
+                player.addResourceTo(foundCards[0], 3);
+                LogHelper.logAddResource(game, player, foundCards[0], 3);
+                return this.giveResources(player, game);
+            }
+        );
     }
 }

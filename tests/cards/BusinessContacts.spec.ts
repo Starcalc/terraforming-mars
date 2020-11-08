@@ -1,4 +1,3 @@
-
 import { expect } from "chai";
 import { BusinessContacts } from "../../src/cards/BusinessContacts";
 import { Color } from "../../src/Color";
@@ -6,11 +5,11 @@ import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 import { SelectCard } from "../../src/inputs/SelectCard";
 
-describe("BusinessContacts", function () {
-    it("Should play", function () {
+describe("BusinessContacts", () => {
+    it('Should play', () => {
         const card = new BusinessContacts();
         const player = new Player("test", Color.BLUE, false);
-        const game = new Game("foobar", [player,player], player);
+        const game = new Game("foobar", [player, player], player);
         const action = card.play(player, game);
         expect(action).is.not.undefined;
         expect(action instanceof SelectCard).is.true;
@@ -22,7 +21,7 @@ describe("BusinessContacts", function () {
         expect(player.cardsInHand.indexOf(card1)).to.eq(0);
         expect(player.cardsInHand.indexOf(card2)).to.eq(1);
         expect(player.cardsInHand).has.lengthOf(2);
-        expect(game.dealer.discarded).has.lengthOf(2); 
+        expect(game.dealer.discarded).has.lengthOf(2);
         expect(game.dealer.discarded.indexOf(card3)).to.eq(0);
         expect(game.dealer.discarded.indexOf(card4)).to.eq(1);
     });

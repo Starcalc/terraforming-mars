@@ -6,14 +6,13 @@ import * as raw_settings from "../../assets/settings.json";
 export const StartScreen = Vue.component("start-screen", {
     props: {
         version: {
-            type: Object as () => typeof raw_settings.version
-        }
+            type: Object as () => typeof raw_settings.version,
+        },
     },
     components: {
-        LanguageSwitcher
+        LanguageSwitcher,
     },
-    methods: {
-    },
+    methods: {},
     template: `
 <div class="start-screen">
   <div v-i18n class="start-screen-links">
@@ -33,5 +32,5 @@ export const StartScreen = Vue.component("start-screen", {
       <div class="start-version">version: {{version}}</div>
     </div>
   </div>
-</div>`
+</div>`,
 });

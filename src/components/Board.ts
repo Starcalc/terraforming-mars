@@ -1,4 +1,3 @@
-
 import Vue from "vue";
 import * as constants from "../constants";
 import { BoardSpace } from "./BoardSpace";
@@ -10,9 +9,7 @@ import { PreferencesManager } from "./PreferencesManager";
 import { $t } from "../directives/i18n";
 
 class GlobalParamLevel {
-    constructor(public value: number, public isActive: boolean, public strValue: string) {
-
-    }
+    constructor(public value: number, public isActive: boolean, public strValue: string) {}
 }
 
 class AlertDialog {
@@ -22,65 +19,72 @@ class AlertDialog {
 export const Board = Vue.component("board", {
     props: {
         spaces: {
-            type: Object as () => Array<SpaceModel>
+            type: Object as () => Array<SpaceModel>,
         },
         venusNextExtension: {
-            type: Boolean
+            type: Boolean,
         },
         venusScaleLevel: {
-            type: Number
+            type: Number,
         },
         boardName: {
-            type: String
+            type: String,
         },
         oceans_count: {
-            type: Number
+            type: Number,
         },
         oxygen_level: {
-            type: Number
+            type: Number,
         },
         temperature: {
-            type: Number
+            type: Number,
         },
         shouldNotify: {
-            type: Boolean
+            type: Boolean,
         },
         aresExtension: {
-            type: Boolean
+            type: Boolean,
         },
         aresData: {
-            type: Object as () => IAresData | undefined
-        }
+            type: Object as () => IAresData | undefined,
+        },
     },
     components: {
-        "board-space": BoardSpace
+        "board-space": BoardSpace,
     },
     data: function () {
         return {
-            "constants": constants
-        }
+            "constants": constants,
+        };
     },
     mounted: function () {
-        if (this.marsIsTerraformed() && this.shouldNotify && AlertDialog.shouldAlert && PreferencesManager.loadValue("show_alerts") === "1") {
+        if (
+            this.marsIsTerraformed() &&
+            this.shouldNotify &&
+            AlertDialog.shouldAlert &&
+            PreferencesManager.loadValue('show_alerts') === '1'
+        ) {
             alert("Mars is Terraformed!");
             AlertDialog.shouldAlert = false;
-        };
+        }
     },
     methods: {
         getAllSpacesOnMars: function (): Array<SpaceModel> {
             const boardSpaces: Array<SpaceModel> = this.spaces;
-            boardSpaces.sort(
-                (space1: SpaceModel, space2: SpaceModel) => {return parseInt(space1.id) - parseInt(space2.id)}
-            );
-            return boardSpaces.filter((s: SpaceModel) => {return s.spaceType !== SpaceType.COLONY})
+            boardSpaces.sort((space1: SpaceModel, space2: SpaceModel) => {
+                return parseInt(space1.id) - parseInt(space2.id);
+            });
+            return boardSpaces.filter((s: SpaceModel) => {
+                return s.spaceType !== SpaceType.COLONY;
+            });
         },
         getSpaceById: function (spaceId: string) {
             for (const space of this.spaces) {
                 if (space.id === spaceId) {
-                    return space
+                    return space;
                 }
             }
-            throw "Board space not found by id '" + spaceId + "'"
+            throw "Board space not found by id '" + spaceId + "'";
         },
         getValuesForParameter: function (targetParameter: string): Array<GlobalParamLevel> {
             const values: Array<GlobalParamLevel> = [];
@@ -114,10 +118,9 @@ export const Board = Vue.component("board", {
             }
 
             for (let value: number = endValue; value >= startValue; value -= step) {
-                strValue = (targetParameter === "temperature" && value > 0) ? "+"+value : value.toString();
-                values.push(
-                    new GlobalParamLevel(value, value === curValue, strValue)
-                )
+                strValue =
+                    targetParameter === 'temperature' && value > 0 ? '+' + value : value.toString();
+                values.push(new GlobalParamLevel(value, value === curValue, strValue));
             }
             return values;
         },
@@ -126,7 +129,7 @@ export const Board = Vue.component("board", {
             if (paramLevel.isActive) {
                 css += "val-is-active";
             }
-            return css
+            return css;
         },
         marsIsTerraformed: function () {
             const temperatureMaxed = this.temperature === constants.MAX_TEMPERATURE;
@@ -140,18 +143,20 @@ export const Board = Vue.component("board", {
                 return temperatureMaxed && oceansMaxed && oxygenMaxed;
             }
         },
-        oceansValue: function() {
+        oceansValue: function () {
             const oceans_count = this.oceans_count || 0;
             const leftover = constants.MAX_OCEAN_TILES - oceans_count;
             if (leftover === 0) {
-                return `<img width="26" src="/assets/misc/circle-checkmark.png" class="board-ocean-checkmark" :alt="$t('Completed!')">`
+                return '<img width="26" src="/assets/misc/circle-checkmark.png" class="board-ocean-checkmark" :alt="$t(\'Completed!\')">';
             } else {
-                return `${oceans_count}/${constants.MAX_OCEAN_TILES}`
+                return `${oceans_count}/${constants.MAX_OCEAN_TILES}`;
             }
         },
-        getGameBoardClassName: function():string {
-            return this.venusNextExtension ? "board-cont board-with-venus" : "board-cont board-without-venus";
-        }
+        getGameBoardClassName: function (): string {
+            return this.venusNextExtension
+                ? 'board-cont board-with-venus'
+                : "board-cont board-without-venus";
+        },
     },
     template: `
     <div :class="getGameBoardClassName()">
@@ -273,5 +278,5 @@ export const Board = Vue.component("board", {
             </svg>
         </div>
     </div>
-    `
+    `,
 });

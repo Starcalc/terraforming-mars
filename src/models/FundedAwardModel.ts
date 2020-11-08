@@ -1,5 +1,4 @@
-
-import {IAward  } from "../awards/IAward";
+import { IAward } from "../awards/IAward";
 import { Color } from "../Color";
 
 export interface IAwardScore {

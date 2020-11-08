@@ -15,9 +15,12 @@ export class SmallAnimals implements IActionCard, IProjectCard, IResourceCard {
     public name = CardName.SMALL_ANIMALS;
     public cardType = CardType.ACTIVE;
     public resourceType = ResourceType.ANIMAL;
-    public resourceCount: number = 0;
+    public resourceCount = 0;
     public canPlay(player: Player, game: Game): boolean {
-        return game.getOxygenLevel() >= 6 - player.getRequirementsBonus(game) && game.someoneHasResourceProduction(Resources.PLANTS,1);
+        return (
+            game.getOxygenLevel() >= 6 - player.getRequirementsBonus(game) &&
+            game.someoneHasResourceProduction(Resources.PLANTS, 1)
+        );
     }
     public getVictoryPoints(): number {
         return Math.floor(this.resourceCount / 2);

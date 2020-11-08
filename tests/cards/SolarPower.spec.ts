@@ -1,12 +1,11 @@
-
 import { expect } from "chai";
 import { SolarPower } from "../../src/cards/SolarPower";
 import { Color } from "../../src/Color";
 import { Player } from "../../src/Player";
 import { Resources } from "../../src/Resources";
 
-describe("SolarPower", function () {
-    it("Should play", function () {
+describe("SolarPower", () => {
+    it('Should play', () => {
         const card = new SolarPower();
         const player = new Player("test", Color.BLUE, false);
         const action = card.play(player);

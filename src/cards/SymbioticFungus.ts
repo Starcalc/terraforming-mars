@@ -15,7 +15,7 @@ export class SymbioticFungus implements IActionCard, IProjectCard {
     public cardType = CardType.ACTIVE;
     public name = CardName.SYMBIOTIC_FUNGUS;
     public canPlay(player: Player, game: Game): boolean {
-        return game.getTemperature() >= -14 - (2 * player.getRequirementsBonus(game));
+        return game.getTemperature() >= -14 - 2 * player.getRequirementsBonus(game);
     }
     public play() {
         return undefined;
@@ -33,11 +33,15 @@ export class SymbioticFungus implements IActionCard, IProjectCard {
             return undefined;
         }
 
-        return new SelectCard("Select card to add microbe", "Add microbe", availableCards, (foundCards: Array<ICard>) => {
-            player.addResourceTo(foundCards[0]);
-            LogHelper.logAddResource(game, player, foundCards[0]);
-            return undefined;
-        });
+        return new SelectCard(
+            "Select card to add microbe",
+            "Add microbe",
+            availableCards,
+            (foundCards: Array<ICard>) => {
+                player.addResourceTo(foundCards[0]);
+                LogHelper.logAddResource(game, player, foundCards[0]);
+                return undefined;
+            }
+        );
     }
 }
- 

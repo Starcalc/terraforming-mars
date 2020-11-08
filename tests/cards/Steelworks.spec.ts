@@ -4,21 +4,21 @@ import { Color } from "../../src/Color";
 import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 
-describe("Steelworks", function () {
-    let card : Steelworks, player : Player, game : Game;
+describe("Steelworks", () => {
+    let card: Steelworks, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new Steelworks();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't act", function () {
+    it("Can't act", () => {
         player.energy = 3;
         expect(card.canAct(player, game)).is.not.true;
     });
 
-    it("Should act", function () {
+    it('Should act', () => {
         player.energy = 4;
         expect(card.canAct(player, game)).is.true;
 

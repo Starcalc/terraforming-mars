@@ -16,11 +16,11 @@ export class ReleaseOfInertGases implements IProjectCard {
 
     public canPlay(player: Player, game: Game): boolean {
         if (PartyHooks.shouldApplyPolicy(game, PartyName.REDS)) {
-          return player.canAfford(player.getCardCost(game, this) + REDS_RULING_POLICY_COST * 2);
+            return player.canAfford(player.getCardCost(game, this) + REDS_RULING_POLICY_COST * 2);
         }
-  
+
         return true;
-      }
+    }
 
     public play(player: Player, game: Game) {
         player.increaseTerraformRatingSteps(2, game);

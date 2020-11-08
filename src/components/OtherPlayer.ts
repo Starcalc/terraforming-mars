@@ -13,23 +13,26 @@ export const OtherPlayer = Vue.component("other-player", {
             type: Object as () => PlayerModel,
         },
         playerIndex: {
-            type: Number
-        }
+            type: Number,
+        },
     },
     components: {
         "stacked-cards": StackedCards,
-        Card
+        Card,
     },
     mixins: [PlayerMixin],
     methods: {
         hideMe: function () {
-            hidePlayerData(this.$root as unknown as typeof mainAppSettings.methods, this.playerIndex);
+            hidePlayerData(
+                (this.$root as unknown) as typeof mainAppSettings.methods,
+                this.playerIndex
+            );
         },
         isVisible: function () {
-            return (this.$root as unknown as typeof mainAppSettings.methods).getVisibilityState(
+            return ((this.$root as unknown) as typeof mainAppSettings.methods).getVisibilityState(
                 "pinned_player_" + this.playerIndex
             );
-        }
+        },
     },
     template: `<div>
             <div v-show="isVisible()" class="other_player_cont menu">
@@ -57,5 +60,5 @@ export const OtherPlayer = Vue.component("other-player", {
                     </div>
                 </div>
             </div>
-        </div>`
+        </div>`,
 });

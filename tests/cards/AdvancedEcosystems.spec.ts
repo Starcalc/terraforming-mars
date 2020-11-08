@@ -7,20 +7,20 @@ import { TundraFarming } from "../../src/cards/TundraFarming";
 import { ResearchCoordination } from "../../src/cards/prelude/ResearchCoordination";
 import { ResearchNetwork } from "../../src/cards/prelude/ResearchNetwork";
 
-describe("AdvancedEcosystems", function () {
-    let card : AdvancedEcosystems, player : Player
+describe("AdvancedEcosystems", () => {
+    let card: AdvancedEcosystems, player: Player;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new AdvancedEcosystems();
         player = new Player("test", Color.BLUE, false);
         player.playedCards.push(new TundraFarming(), new ResearchNetwork());
     });
 
-    it("Can't play if tag requirements is unmet", function () {
+    it("Can't play if tag requirements is unmet", () => {
         expect(card.canPlay(player)).is.not.true;
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         expect(card.canPlay(player)).is.not.true;
 
         player.playedCards.push(new Tardigrades());
@@ -31,8 +31,8 @@ describe("AdvancedEcosystems", function () {
         expect(player.victoryPointsBreakdown.victoryPoints).to.eq(3);
     });
 
-    it("Can play with two wildcards", function () {
+    it('Can play with two wildcards', () => {
         player.playedCards.push(new ResearchCoordination());
-        expect(card.canPlay(player)).is.true; 
+        expect(card.canPlay(player)).is.true;
     });
 });

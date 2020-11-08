@@ -19,16 +19,22 @@ export class StripMine implements IProjectCard {
         const hasEnergyProduction = player.getProduction(Resources.ENERGY) >= 2;
         const remainingOxygenSteps = MAX_OXYGEN_LEVEL - game.getOxygenLevel();
         const stepsRaised = Math.min(remainingOxygenSteps, 2);
-  
+
         if (PartyHooks.shouldApplyPolicy(game, PartyName.REDS)) {
-          return player.canAfford(player.getCardCost(game, this) + REDS_RULING_POLICY_COST * stepsRaised, game, true) && hasEnergyProduction;
+            return (
+                player.canAfford(
+                    player.getCardCost(game, this) + REDS_RULING_POLICY_COST * stepsRaised,
+                    game,
+                    true
+                ) && hasEnergyProduction
+            );
         }
 
         return hasEnergyProduction;
     }
     public play(player: Player, game: Game) {
-        player.addProduction(Resources.ENERGY,-2);
-        player.addProduction(Resources.STEEL,2);
+        player.addProduction(Resources.ENERGY, -2);
+        player.addProduction(Resources.STEEL, 2);
         player.addProduction(Resources.TITANIUM);
         return game.increaseOxygenLevel(player, 2);
     }

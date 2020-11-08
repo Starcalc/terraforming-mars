@@ -1,4 +1,3 @@
-
 import { IActionCard } from "./ICard";
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
@@ -14,14 +13,14 @@ export class DevelopmentCenter implements IActionCard, IProjectCard {
     public cardType = CardType.ACTIVE;
 
     public play() {
-      return undefined;
+        return undefined;
     }
     public canAct(player: Player): boolean {
-      return player.energy > 0;
+        return player.energy > 0;
     }
     public action(player: Player, game: Game) {
-      player.energy--;
-      player.cardsInHand.push(game.dealer.dealCard());
-      return undefined;
+        player.energy--;
+        player.cardsInHand.push(game.dealer.dealCard());
+        return undefined;
     }
 }

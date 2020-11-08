@@ -1,4 +1,3 @@
-
 import { expect } from "chai";
 import { NitrogenRichAsteroid } from "../../src/cards/NitrogenRichAsteroid";
 import { Color } from "../../src/Color";
@@ -7,11 +6,11 @@ import { Game } from "../../src/Game";
 import { Bushes } from "../../src/cards/Bushes";
 import { Resources } from "../../src/Resources";
 
-describe("NitrogenRichAsteroid", function () {
-    it("Should play", function () {
+describe("NitrogenRichAsteroid", () => {
+    it('Should play', () => {
         const card = new NitrogenRichAsteroid();
         const player = new Player("test", Color.BLUE, false);
-        const game = new Game("foobar", [player,player], player);
+        const game = new Game("foobar", [player, player], player);
         const action = card.play(player, game);
         expect(action).is.undefined;
         expect(player.getTerraformRating()).to.eq(23);

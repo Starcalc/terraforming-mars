@@ -1,4 +1,3 @@
-
 import Vue from "vue";
 import { Button } from "../components/common/Button";
 import { GameHomeModel } from "../models/GameHomeModel";
@@ -6,12 +5,12 @@ import { mainAppSettings } from "./App";
 
 export const LoadGameForm = Vue.component("load-game-form", {
     components: {
-        "Button": Button
+        "Button": Button,
     },
     data: function () {
         return {
             gameId: "",
-        }
+        };
     },
     methods: {
         loadGame: function () {
@@ -20,7 +19,7 @@ export const LoadGameForm = Vue.component("load-game-form", {
             xhr.open("PUT", "/load_game");
             xhr.onerror = function () {
                 alert("Error loading game");
-            }
+            };
             xhr.onload = () => {
                 if (xhr.status === 200) {
                     const response = xhr.response as GameHomeModel;
@@ -28,19 +27,27 @@ export const LoadGameForm = Vue.component("load-game-form", {
                         window.location.href = "/player?id=" + response.players[0].id;
                         return;
                     } else {
-                        window.history.replaceState(response, "Teraforming Mars - Game", "/game?id=" + response.id);
-                        (this.$root.$data as unknown as typeof mainAppSettings.data).game = response;
-                        (this.$root.$data as unknown as typeof mainAppSettings.data).screen = "game-home";
+                        window.history.replaceState(
+                            response,
+                            'Teraforming Mars - Game',
+                            '/game?id=' + response.id
+                        );
+                        ((this.$root
+                            .$data as unknown) as typeof mainAppSettings.data).game = response;
+                        ((this.$root.$data as unknown) as typeof mainAppSettings.data).screen =
+                            "game-home";
                     }
                 } else {
                     alert("Unexpected server response");
                 }
             };
             xhr.responseType = "json";
-            xhr.send(JSON.stringify({
-                game_id: gameId
-            }));
-        }
+            xhr.send(
+                JSON.stringify({
+                    game_id: gameId,
+                })
+            );
+        },
     },
     template: `
         <div id="load-game">
@@ -55,6 +62,5 @@ export const LoadGameForm = Vue.component("load-game-form", {
                 </div>
             </div>
         </div>
-    `
+    `,
 });
-

@@ -10,15 +10,15 @@ export class AntiGravityTechnology implements IProjectCard {
     public name = CardName.ANTI_GRAVITY_TECHNOLOGY;
     public cardType = CardType.ACTIVE;
     public canPlay(player: Player): boolean {
-      return player.getTagCount(Tags.SCIENCE) >= 7;
+        return player.getTagCount(Tags.SCIENCE) >= 7;
     }
     public getCardDiscount() {
-      return 2;
+        return 2;
     }
     public play() {
-      return undefined;
+        return undefined;
     }
     public getVictoryPoints() {
-      return 3;
+        return 3;
     }
 }

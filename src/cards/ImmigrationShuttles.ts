@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { CardType } from "./CardType";
@@ -17,7 +16,7 @@ export class ImmigrationShuttles implements IProjectCard {
         return Math.floor(game.getCitiesInPlay() / 3);
     }
     public play(player: Player) {
-        player.addProduction(Resources.MEGACREDITS,5);
+        player.addProduction(Resources.MEGACREDITS, 5);
         return undefined;
     }
 }

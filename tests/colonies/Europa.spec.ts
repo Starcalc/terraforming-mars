@@ -6,10 +6,10 @@ import { Game } from "../../src/Game";
 import { Resources } from "../../src/Resources";
 import { PlaceOceanTile } from "../../src/deferredActions/PlaceOceanTile";
 
-describe("Europa", function() {
+describe("Europa", () => {
     let europa: Europa, player: Player, player2: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         europa = new Europa();
         player = new Player("test", Color.BLUE, false);
         player2 = new Player("test2", Color.RED, false);
@@ -18,7 +18,7 @@ describe("Europa", function() {
         game.colonies.push(europa);
     });
 
-    it("Should build", function() {
+    it('Should build', () => {
         europa.onColonyPlaced(player, game);
         expect(game.deferredActions).has.lengthOf(1);
         const action = game.deferredActions.shift()!;
@@ -26,13 +26,13 @@ describe("Europa", function() {
         expect(action.player).to.eq(player);
     });
 
-    it("Should trade", function() {
+    it('Should trade', () => {
         europa.trade(player, game);
         expect(player.getProduction(Resources.MEGACREDITS)).to.eq(1);
         expect(player2.getProduction(Resources.MEGACREDITS)).to.eq(0);
     });
 
-    it("Should give trade bonus", function() {
+    it('Should give trade bonus', () => {
         europa.onColonyPlaced(player, game);
         game.deferredActions.shift();
 

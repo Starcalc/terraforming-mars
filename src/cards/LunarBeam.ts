@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { CardType } from "./CardType";
@@ -16,9 +15,9 @@ export class LunarBeam implements IProjectCard {
         return player.getProduction(Resources.MEGACREDITS) >= -3;
     }
     public play(player: Player) {
-        player.addProduction(Resources.MEGACREDITS,-2);
-        player.addProduction(Resources.HEAT,2);
-        player.addProduction(Resources.ENERGY,2);
+        player.addProduction(Resources.MEGACREDITS, -2);
+        player.addProduction(Resources.HEAT, 2);
+        player.addProduction(Resources.ENERGY, 2);
         return undefined;
     }
 }

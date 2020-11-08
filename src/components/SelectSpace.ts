@@ -1,4 +1,3 @@
-
 import Vue, { VNode } from "vue";
 import { PlayerInputModel } from "../models/PlayerInputModel";
 import { $t } from "../directives/i18n";
@@ -6,22 +5,22 @@ import { $t } from "../directives/i18n";
 export const SelectSpace = Vue.component("select-space", {
     props: {
         playerinput: {
-            type: Object as () => PlayerInputModel
+            type: Object as () => PlayerInputModel,
         },
         onsave: {
-            type: Object as () => (out: Array<Array<string>>) => void
+            type: Object as () => (out: Array<Array<string>>) => void,
         },
         showsave: {
-            type: Boolean
+            type: Boolean,
         },
         showtitle: {
-            type: Boolean
-        }
+            type: Boolean,
+        },
     },
     data: function () {
         return {
             spaceId: undefined,
-            warning: undefined
+            warning: undefined,
         };
     },
     methods: {
@@ -31,11 +30,11 @@ export const SelectSpace = Vue.component("select-space", {
                 return;
             }
             this.onsave([[this.$data.spaceId]]);
-        }
+        },
     },
-    mounted: function() {
+    mounted: function () {
         const playerInput: PlayerInputModel = this.playerinput as PlayerInputModel;
-        const setOfSpaces: {[x: string]: boolean} = {};
+        const setOfSpaces: { [x: string]: boolean } = {};
 
         if (playerInput.availableSpaces !== undefined) {
             playerInput.availableSpaces.forEach((spaceId: string) => {
@@ -43,7 +42,7 @@ export const SelectSpace = Vue.component("select-space", {
             });
         }
 
-        const clearAllAvailableSpaces = function() {
+        const clearAllAvailableSpaces = function () {
             const elTiles = document.getElementsByClassName("board-space-selectable");
             for (let i = 0; i < elTiles.length; i++) {
                 elTiles[i].classList.remove("board-space--available");
@@ -56,9 +55,9 @@ export const SelectSpace = Vue.component("select-space", {
             const elTiles = document.getElementsByClassName("board-space-selectable");
             for (let i = 0; i < elTiles.length; i++) {
                 const elTile = elTiles[i] as HTMLElement;
-                var el_id = elTile.getAttribute("data_space_id");
-                if ( ! el_id || ! setOfSpaces[el_id]) continue;
-                
+                const el_id = elTile.getAttribute("data_space_id");
+                if (!el_id || !setOfSpaces[el_id]) continue;
+
                 elTile.classList.add("board-space--available");
 
                 elTile.onclick = () => {
@@ -67,9 +66,9 @@ export const SelectSpace = Vue.component("select-space", {
                         (elTiles[j] as HTMLElement).onclick = null;
                     }
                     this.$data.spaceId = elTile.getAttribute("data_space_id");
-                    elTile.classList.add("board-space--selected")
+                    elTile.classList.add("board-space--selected");
                     this.saveData();
-                }
+                };
             }
         }
     },
@@ -77,13 +76,22 @@ export const SelectSpace = Vue.component("select-space", {
         const playerInput: PlayerInputModel = this.playerinput as PlayerInputModel;
         const children: Array<VNode> = [];
         if (this.showtitle) {
-            children.push(createElement("div", {"class": "wf-select-space"}, $t(playerInput.title)));
+            children.push(
+                createElement('div', { 'class': 'wf-select-space' }, $t(playerInput.title))
+            );
         }
         if (this.$data.warning) {
-            children.push(createElement("div", { domProps: { className: "nes-container is-rounded" } }, [createElement("span", { domProps: { className: "nes-text is-warning" } }, this.$data.warning)]));
+            children.push(
+                createElement('div', { domProps: { className: 'nes-container is-rounded' } }, [
+                    createElement(
+                        'span',
+                        { domProps: { className: 'nes-text is-warning' } },
+                        this.$data.warning
+                    ),
+                ])
+            );
         }
 
         return createElement("div", children);
-    }
+    },
 });
-

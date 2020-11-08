@@ -19,7 +19,7 @@ export class GHGProducingBacteria implements IActionCard, IProjectCard, IResourc
     public name = CardName.GHG_PRODUCING_BACTERIA;
     public cardType = CardType.ACTIVE;
     public resourceType = ResourceType.MICROBE;
-    public resourceCount: number = 0;
+    public resourceCount = 0;
     public canPlay(player: Player, game: Game): boolean {
         return game.getOxygenLevel() >= 4 - player.getRequirementsBonus(game);
     }
@@ -36,22 +36,36 @@ export class GHGProducingBacteria implements IActionCard, IProjectCard, IResourc
             return undefined;
         }
 
-        let orOptions = new OrOptions();
+        const orOptions = new OrOptions();
         const redsAreRuling = PartyHooks.shouldApplyPolicy(game, PartyName.REDS);
 
         if (!redsAreRuling || (redsAreRuling && player.canAfford(REDS_RULING_POLICY_COST))) {
-            orOptions.options.push(new SelectOption("Remove 2 microbes to raise temperature 1 step", "Remove microbes", () => {
-                player.removeResourceFrom(this,2);
-                LogHelper.logRemoveResource(game, player, this, 2, "raise temperature 1 step");
-                return game.increaseTemperature(player, 1);
-            }));
+            orOptions.options.push(
+                new SelectOption(
+                    'Remove 2 microbes to raise temperature 1 step',
+                    'Remove microbes',
+                    () => {
+                        player.removeResourceFrom(this, 2);
+                        LogHelper.logRemoveResource(
+                            game,
+                            player,
+                            this,
+                            2,
+                            'raise temperature 1 step'
+                        );
+                        return game.increaseTemperature(player, 1);
+                    }
+                )
+            );
         }
 
-        orOptions.options.push(new SelectOption("Add 1 microbe to this card", "Add microbe", () => {
-            player.addResourceTo(this);
-            LogHelper.logAddResource(game, player, this);
-            return undefined;
-        }));
+        orOptions.options.push(
+            new SelectOption("Add 1 microbe to this card", "Add microbe", () => {
+                player.addResourceTo(this);
+                LogHelper.logAddResource(game, player, this);
+                return undefined;
+            })
+        );
 
         if (orOptions.options.length === 1) return orOptions.options[0].cb();
         return orOptions;

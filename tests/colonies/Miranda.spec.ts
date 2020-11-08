@@ -7,10 +7,10 @@ import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 import { AddResourcesToCard } from "../../src/deferredActions/AddResourcesToCard";
 
-describe("Miranda", function() {
+describe("Miranda", () => {
     let miranda: Miranda, pets: Pets, player: Player, player2: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         miranda = new Miranda();
         pets = new Pets();
         player = new Player("test", Color.BLUE, false);
@@ -20,13 +20,13 @@ describe("Miranda", function() {
         game.colonies.push(miranda);
     });
 
-    it("Should activate", function() {
+    it('Should activate', () => {
         expect(miranda.isActive).is.false;
         player.playCard(game, pets);
         expect(miranda.isActive).is.true;
     });
 
-    it("Should build", function() {
+    it('Should build', () => {
         player.playCard(game, pets);
         miranda.onColonyPlaced(player, game);
 
@@ -40,7 +40,7 @@ describe("Miranda", function() {
         expect(pets.resourceCount).to.eq(2); // Pets starts with 1 resource
     });
 
-    it("Should trade", function() {
+    it('Should trade', () => {
         player.playCard(game, pets);
         miranda.trade(player, game);
 
@@ -54,7 +54,7 @@ describe("Miranda", function() {
         expect(pets.resourceCount).to.eq(2);
     });
 
-    it("Should give trade bonus", function() {
+    it('Should give trade bonus', () => {
         const predators = new Predators();
         player.playCard(game, pets);
         player2.playCard(game, predators);

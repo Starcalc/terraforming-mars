@@ -13,16 +13,17 @@ import { HelpIconology } from "./HelpIconology";
 import * as raw_settings from "../../assets/settings.json";
 
 interface MainAppData {
-    screen: "create-game-form" |
-            "debug-ui" |
-            "empty" |
-            "game-home" |
-            "games-overview" |
-            "help-iconology" |
-            "load" |
-            "player-home" |
-            "start-screen" |
-            "the-end";
+    screen:
+        | 'create-game-form'
+        | 'debug-ui'
+        | 'empty'
+        | 'game-home'
+        | 'games-overview'
+        | 'help-iconology'
+        | 'load'
+        | 'player-home'
+        | 'start-screen'
+        | "the-end";
     /**
      * We set player once the app component has loaded. Vue only
      * watches properties that exist initially. When we
@@ -33,7 +34,7 @@ interface MainAppData {
     playerkey: number;
     settings: typeof raw_settings;
     isServerSideRequestInProgress: boolean;
-    componentsVisibility: {[x: string]: boolean};
+    componentsVisibility: { [x: string]: boolean };
     game: GameHomeModel | undefined;
 }
 
@@ -54,8 +55,8 @@ export const mainAppSettings = {
             "pinned_player_3": false,
             "pinned_player_4": false,
             "turmoil_parties": false,
-        } as {[x: string]: boolean},
-        game: undefined as GameHomeModel | undefined
+        } as { [x: string]: boolean },
+        game: undefined as GameHomeModel | undefined,
     } as MainAppData,
     "components": {
         "start-screen": StartScreen,
@@ -71,20 +72,22 @@ export const mainAppSettings = {
     "methods": {
         setVisibilityState: function (targetVar: string, isVisible: boolean) {
             if (isVisible === this.getVisibilityState(targetVar)) return;
-            (this as unknown as typeof mainAppSettings.data).componentsVisibility[targetVar] = isVisible;
+            ((this as unknown) as typeof mainAppSettings.data).componentsVisibility[
+                targetVar
+            ] = isVisible;
         },
         getVisibilityState: function (targetVar: string): boolean {
-            return (this as unknown as typeof mainAppSettings.data).componentsVisibility[targetVar] ? true : false;
+            return ((this as unknown) as typeof mainAppSettings.data).componentsVisibility[
+                targetVar
+            ]
+                ? true
+                : false;
         },
         updatePlayer: function () {
             const currentPathname: string = window.location.pathname;
             const xhr = new XMLHttpRequest();
-            const app = this as unknown as typeof mainAppSettings.data;
-            xhr.open(
-                "GET",
-                "/api/player" +
-                    window.location.search.replace("&noredirect", "")
-            );
+            const app = (this as unknown) as typeof mainAppSettings.data;
+            xhr.open('GET', '/api/player' + window.location.search.replace('&noredirect', ''));
             xhr.onerror = function () {
                 alert("Error getting game data");
             };
@@ -124,7 +127,8 @@ export const mainAppSettings = {
     },
     "mounted": function () {
         const currentPathname: string = window.location.pathname;
-        const app = this as unknown as (typeof mainAppSettings.data) & (typeof mainAppSettings.methods);
+        const app = (this as unknown) as typeof mainAppSettings.data &
+            typeof mainAppSettings.methods;
         if (currentPathname === "/player" || currentPathname === "/the-end") {
             app.updatePlayer();
         } else if (currentPathname === "/game") {
@@ -150,10 +154,7 @@ export const mainAppSettings = {
             xhr.send();
         } else if (currentPathname === "/games-overview") {
             app.screen = "games-overview";
-        } else if (
-            currentPathname === "/new-game" ||
-            currentPathname === "/solo"
-        ) {
+        } else if (currentPathname === '/new-game' || currentPathname === '/solo') {
             app.screen = "create-game-form";
         } else if (currentPathname === "/load") {
             app.screen = "load";

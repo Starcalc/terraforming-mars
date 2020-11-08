@@ -9,18 +9,18 @@ import { Ants } from "../../src/cards/Ants";
 import { SecurityFleet } from "../../src/cards/SecurityFleet";
 import { Fish } from "../../src/cards/Fish";
 
-describe("SponsoredProjects", function () {
-    it("resolve play", function () {
+describe("SponsoredProjects", () => {
+    it('resolve play', () => {
         const card = new SponsoredProjects();
         const player = new Player("test", Color.BLUE, false);
         const player2 = new Player("test2", Color.RED, false);
-        const game = new Game("foobar", [player,player2], player);
+        const game = new Game("foobar", [player, player2], player);
         const turmoil = new Turmoil(game);
-        
+
         player.playedCards.push(new Ants());
         if (player.playedCards[0].resourceCount !== undefined) {
             player.playedCards[0].resourceCount++;
-        }    
+        }
         player2.playedCards.push(new SecurityFleet());
         if (player2.playedCards[0].resourceCount !== undefined) {
             player2.playedCards[0].resourceCount++;

@@ -1,4 +1,3 @@
-
 import { CardType } from "./CardType";
 import { Tags } from "./Tags";
 import { IProjectCard } from "./IProjectCard";
@@ -14,7 +13,7 @@ export class EnergySaving implements IProjectCard {
     public name = CardName.ENERGY_SAVING;
 
     public play(player: Player, game: Game) {
-      player.addProduction(Resources.ENERGY,game.getCitiesInPlay());
-      return undefined;
+        player.addProduction(Resources.ENERGY, game.getCitiesInPlay());
+        return undefined;
     }
 }

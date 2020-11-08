@@ -1,4 +1,3 @@
-
 import { IActionCard, IResourceCard } from "./ICard";
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
@@ -13,7 +12,7 @@ export class PhysicsComplex implements IActionCard, IProjectCard, IResourceCard 
     public name = CardName.PHYSICS_COMPLEX;
     public cardType = CardType.ACTIVE;
     public resourceType = ResourceType.SCIENCE;
-    public resourceCount: number = 0;
+    public resourceCount = 0;
 
     public getVictoryPoints(): number {
         return 2 * this.resourceCount;

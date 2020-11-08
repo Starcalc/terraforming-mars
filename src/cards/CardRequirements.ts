@@ -33,7 +33,7 @@ class Builder {
         return new CardRequirements(this.reqs);
     }
 
-    public oceans(amount: number = -1): Builder {
+    public oceans(amount = -1): Builder {
         this.reqs.push(new CardRequirement(RequirementType.OCEANS, amount));
         return this;
     }
@@ -68,37 +68,37 @@ class Builder {
         return this;
     }
 
-    public forests(amount: number = -1): Builder {
+    public forests(amount = -1): Builder {
         this.reqs.push(new CardRequirement(RequirementType.FORESTS, amount));
         return this;
     }
 
-    public cities(amount: number = -1): Builder {
+    public cities(amount = -1): Builder {
         this.reqs.push(new CardRequirement(RequirementType.CITIES, amount));
         return this;
     }
 
-    public colonies(amount: number = -1): Builder {
+    public colonies(amount = -1): Builder {
         this.reqs.push(new CardRequirement(RequirementType.COLONIES, amount));
         return this;
     }
 
-    public floaters(amount: number = -1): Builder {
+    public floaters(amount = -1): Builder {
         this.reqs.push(new CardRequirement(RequirementType.FLOATERS, amount));
         return this;
     }
 
-    public partyLeaders(amount: number = -1): Builder {
+    public partyLeaders(amount = -1): Builder {
         this.reqs.push(new CardRequirement(RequirementType.PARTY_LEADERS, amount));
         return this;
     }
 
-    public tag(tag: Tags, amount: number = -1): Builder {
+    public tag(tag: Tags, amount = -1): Builder {
         this.reqs.push(new TagCardRequirement(tag, amount));
         return this;
     }
 
-    public production(resource: Resources, amount: number = -1): Builder {
+    public production(resource: Resources, amount = -1): Builder {
         this.reqs.push(new ProductionCardRequirement(resource, amount));
         return this;
     }

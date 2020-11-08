@@ -4,21 +4,21 @@ import { Color } from "../../src/Color";
 import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 
-describe("OreProcessor", function () {
-    let card : OreProcessor, player : Player, game : Game;
+describe("OreProcessor", () => {
+    let card: OreProcessor, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new OreProcessor();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't act", function () {
+    it("Can't act", () => {
         player.energy = 3;
         expect(card.canAct(player, game)).is.not.true;
     });
 
-    it("Should act", function () {
+    it('Should act', () => {
         player.energy = 4;
         expect(card.canAct(player, game)).is.true;
         card.action(player, game);
@@ -27,4 +27,4 @@ describe("OreProcessor", function () {
         expect(player.titanium).to.eq(1);
         expect(game.getOxygenLevel()).to.eq(1);
     });
- });
+});

@@ -17,25 +17,27 @@ export class AerobrakedAmmoniaAsteroid implements IProjectCard {
     public cardType = CardType.EVENT;
 
     public play(player: Player, game: Game) {
-      const cardsToPick = player.getResourceCards(ResourceType.MICROBE);
-      player.addProduction(Resources.HEAT,3);
-      player.addProduction(Resources.PLANTS);
+        const cardsToPick = player.getResourceCards(ResourceType.MICROBE);
+        player.addProduction(Resources.HEAT, 3);
+        player.addProduction(Resources.PLANTS);
 
-      if (cardsToPick.length < 1) return undefined;
+        if (cardsToPick.length < 1) return undefined;
 
-      if (cardsToPick.length === 1) {
-        player.addResourceTo(cardsToPick[0], 2);
-        LogHelper.logAddResource(game, player, cardsToPick[0], 2);
-        return undefined;
-      }
-
-      return new SelectCard(
-          "Select card to add 2 microbes", "Add microbes", cardsToPick,
-          (foundCards: Array<ICard>) => {
-            player.addResourceTo(foundCards[0], 2);
-            LogHelper.logAddResource(game, player, foundCards[0], 2);
+        if (cardsToPick.length === 1) {
+            player.addResourceTo(cardsToPick[0], 2);
+            LogHelper.logAddResource(game, player, cardsToPick[0], 2);
             return undefined;
-          }
-      );
+        }
+
+        return new SelectCard(
+            "Select card to add 2 microbes",
+            "Add microbes",
+            cardsToPick,
+            (foundCards: Array<ICard>) => {
+                player.addResourceTo(foundCards[0], 2);
+                LogHelper.logAddResource(game, player, foundCards[0], 2);
+                return undefined;
+            }
+        );
     }
 }

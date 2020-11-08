@@ -1,4 +1,3 @@
-
 import { expect } from "chai";
 import { MirandaResort } from "../../src/cards/MirandaResort";
 import { Color } from "../../src/Color";
@@ -6,8 +5,8 @@ import { Player } from "../../src/Player";
 import { BusinessNetwork } from "../../src/cards/BusinessNetwork";
 import { Resources } from "../../src/Resources";
 
-describe("MirandaResort", function () {
-    it("Should play", function () {
+describe("MirandaResort", () => {
+    it('Should play', () => {
         const card = new MirandaResort();
         const player = new Player("test", Color.BLUE, false);
         player.playedCards.push(new BusinessNetwork());

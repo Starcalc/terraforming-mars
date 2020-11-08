@@ -10,15 +10,14 @@ import { PlaceOceanTile } from "../deferredActions/PlaceOceanTile";
 
 export class Europa extends Colony implements IColony {
     public name = ColonyName.EUROPA;
-    public description: string = "Production";
-    public trade(player: Player, game: Game, usesTradeFleet: boolean = true): void {
+    public description = "Production";
+    public trade(player: Player, game: Game, usesTradeFleet = true): void {
         if (player.colonyTradeOffset && usesTradeFleet) {
-            game.defer(new IncreaseColonyTrack(
-                player,
-                game,
-                this,
-                () => this.handleTrade(player, game, usesTradeFleet)
-            ));
+            game.defer(
+                new IncreaseColonyTrack(player, game, this, () =>
+                    this.handleTrade(player, game, usesTradeFleet)
+                )
+            );
         } else {
             this.handleTrade(player, game, usesTradeFleet);
         }
@@ -38,7 +37,6 @@ export class Europa extends Colony implements IColony {
         if (usesTradeFleet) this.afterTrade(this, player, game);
     }
 
-
     public onColonyPlaced(player: Player, game: Game): undefined {
         super.addColony(this, player, game);
         game.defer(new PlaceOceanTile(player, game, 'Select ocean for Europa colony'));
@@ -47,5 +45,5 @@ export class Europa extends Colony implements IColony {
     public giveTradeBonus(player: Player): undefined | PlayerInput {
         player.megaCredits++;
         return undefined;
-    }    
+    }
 }

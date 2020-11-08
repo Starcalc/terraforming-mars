@@ -48,55 +48,55 @@ const tileTypeToCssClassAresOverride = new Map<TileType, string>([
 export const BoardSpace = Vue.component("board-space", {
     props: {
         space: {
-            type: Object as () => SpaceModel
+            type: Object as () => SpaceModel,
         },
         text: {
-            type: String
+            type: String,
         },
         is_selectable: {
-            type: Boolean
+            type: Boolean,
         },
         aresExtension: {
-            type: Boolean
-        }
+            type: Boolean,
+        },
     },
     data: function () {
-        return {}
+        return {};
     },
     components: {
-        "bonus": Bonus
+        "bonus": Bonus,
     },
     methods: {
         getVerboseTitle: function (tileType: TileType | undefined): string {
-            let ret: string = ""; 
+            let ret = "";
             if (tileType === TileType.MOHOLE_AREA) {
-                ret = "Mohole Area"
+                ret = "Mohole Area";
             } else if (tileType === TileType.COMMERCIAL_DISTRICT) {
-                ret = "Commercial District: 1 VP per adjacent city tile"
+                ret = "Commercial District: 1 VP per adjacent city tile";
             } else if (tileType === TileType.ECOLOGICAL_ZONE) {
-                ret = "Ecological Zone"
+                ret = "Ecological Zone";
             } else if (tileType === TileType.INDUSTRIAL_CENTER) {
-                ret = "Industrial Center"
+                ret = "Industrial Center";
             } else if (tileType === TileType.LAVA_FLOWS) {
-                ret = "Lava Flows"
+                ret = "Lava Flows";
             } else if (tileType === TileType.CAPITAL) {
-                ret = "Capital"
+                ret = "Capital";
             } else if (tileType === TileType.MINING_AREA) {
-                ret = "Mining Area"
+                ret = "Mining Area";
             } else if (tileType === TileType.MINING_RIGHTS) {
-                ret = "Mining Rights"
+                ret = "Mining Rights";
             } else if (tileType === TileType.NATURAL_PRESERVE) {
-                ret = "Natural Preserve"
+                ret = "Natural Preserve";
             } else if (tileType === TileType.NUCLEAR_ZONE) {
-                ret = "Nuclear Zone"
+                ret = "Nuclear Zone";
             } else if (tileType === TileType.RESTRICTED_AREA) {
-                ret = "Restricted Area"
+                ret = "Restricted Area";
             } else if (tileType === TileType.GREAT_DAM) {
-                ret = "Great Dam"
+                ret = "Great Dam";
             } else if (tileType === TileType.MAGNETIC_FIELD_GENERATORS) {
-                ret = "Magnetic field generators"
+                ret = "Magnetic field generators";
             } else if (tileType === TileType.DEIMOS_DOWN) {
-                ret = "Deimos Down"
+                ret = "Deimos Down";
             } else if (tileType === TileType.CITY) {
                 ret = "City: 1 VP per adjacent greenery";
             } else if (tileType === TileType.GREENERY) {
@@ -131,7 +131,7 @@ export const BoardSpace = Vue.component("board-space", {
         getMainClass: function (): string {
             let css = "board-space board-space-" + this.space.id.toString();
             if (this.is_selectable) {
-                css += " board-space-selectable"
+                css += " board-space-selectable";
             }
             const tileType = this.space.tileType;
             if (tileType !== undefined) {
@@ -148,20 +148,20 @@ export const BoardSpace = Vue.component("board-space", {
                     default:
                         let cssClass = tileTypeToCssClass.get(tileType);
                         if (this.aresExtension && tileTypeToCssClassAresOverride.has(tileType)) {
-                            cssClass = tileTypeToCssClassAresOverride.get(tileType)
+                            cssClass = tileTypeToCssClassAresOverride.get(tileType);
                         }
-                        css += " board-space-tile--" + cssClass
+                        css += " board-space-tile--" + cssClass;
                 }
             } else {
                 if (this.space.spaceType === "ocean") {
-                    css += " board-space-type-ocean"
+                    css += " board-space-type-ocean";
                 } else {
-                    css += " board-space-type-land"
+                    css += " board-space-type-land";
                 }
             }
 
             return css;
-        }
+        },
     },
     template: `
         <div :class="getMainClass()" :data_space_id="space.id" :title="getVerboseTitle(space.tileType)">
@@ -169,5 +169,5 @@ export const BoardSpace = Vue.component("board-space", {
             <bonus :bonus="space.bonus" v-if="space.tileType === undefined"></bonus>
             <div :class="'board-cube board-cube--'+space.color" v-if="space.color !== undefined"></div>
         </div>
-    `
+    `,
 });

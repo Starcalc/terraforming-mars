@@ -28,9 +28,7 @@ export const DebugUI = Vue.component("debug-ui", {
         filtered: function (cardName: string): boolean {
             return (
                 this.$data.filterText.length === 0 ||
-                cardName
-                    .toUpperCase()
-                    .indexOf(this.$data.filterText.toUpperCase()) > -1
+                cardName.toUpperCase().indexOf(this.$data.filterText.toUpperCase()) > -1
             );
         },
     },

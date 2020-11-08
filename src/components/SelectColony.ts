@@ -7,26 +7,26 @@ import { PlayerInputModel } from "../models/PlayerInputModel";
 export const SelectColony = Vue.component("select-colony", {
     props: {
         playerinput: {
-            type: Object as  () => PlayerInputModel
+            type: Object as () => PlayerInputModel,
         },
         onsave: {
-            type: Object as () => (out: Array<Array<string>>) => void
+            type: Object as () => (out: Array<Array<string>>) => void,
         },
         showsave: {
-            type: Boolean
+            type: Boolean,
         },
         showtitle: {
-            type: Boolean
-        }
+            type: Boolean,
+        },
     },
     data: function () {
         return {
-            selectedColony: undefined as string | undefined
+            selectedColony: undefined as string | undefined,
         };
     },
     components: {
         "colony": Colony,
-        "Button": Button
+        "Button": Button,
     },
     methods: {
         saveData: function () {
@@ -47,6 +47,5 @@ export const SelectColony = Vue.component("select-colony", {
         <div v-if="showsave === true" class="nofloat">
             <Button :onClick="saveData" :title="playerinput.buttonLabel" /> 
         </div>
-    </div>`
+    </div>`,
 });
-

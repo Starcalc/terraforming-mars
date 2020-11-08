@@ -21,14 +21,17 @@ export class BlackPolarDust implements IProjectCard {
         const oceansMaxed = game.board.getOceansOnBoard() === MAX_OCEAN_TILES;
 
         if (PartyHooks.shouldApplyPolicy(game, PartyName.REDS) && !oceansMaxed) {
-            return player.canAfford(player.getCardCost(game, this) + REDS_RULING_POLICY_COST) && meetsMcProdRequirement;
+            return (
+                player.canAfford(player.getCardCost(game, this) + REDS_RULING_POLICY_COST) &&
+                meetsMcProdRequirement
+            );
         }
 
         return meetsMcProdRequirement;
     }
     public play(player: Player, game: Game) {
-        player.addProduction(Resources.MEGACREDITS,-2);
-        player.addProduction(Resources.HEAT,3);
+        player.addProduction(Resources.MEGACREDITS, -2);
+        player.addProduction(Resources.HEAT, 3);
         game.defer(new PlaceOceanTile(player, game));
         return undefined;
     }

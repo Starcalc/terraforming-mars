@@ -6,20 +6,20 @@ import { Game } from "../../src/Game";
 import { GeneRepair } from "../../src/cards/GeneRepair";
 import { Research } from "../../src/cards/Research";
 
-describe("InterstellarColonyShip", function () {
-    let card : InterstellarColonyShip, player : Player, game : Game;
+describe("InterstellarColonyShip", () => {
+    let card: InterstellarColonyShip, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new InterstellarColonyShip();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't play", function () {
+    it("Can't play", () => {
         expect(card.canPlay(player)).is.not.true;
     });
-    
-    it("Should play", function () {
+
+    it('Should play', () => {
         player.playedCards.push(new Research(), new Research(), new GeneRepair());
         expect(card.canPlay(player)).is.true;
 

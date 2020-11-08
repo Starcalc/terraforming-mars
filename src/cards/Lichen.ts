@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { CardType } from "./CardType";
@@ -13,11 +12,10 @@ export class Lichen implements IProjectCard {
     public name = CardName.LICHEN;
     public cardType = CardType.AUTOMATED;
     public canPlay(player: Player, game: Game): boolean {
-        return game.getTemperature() >= -24 - (2 * player.getRequirementsBonus(game));
+        return game.getTemperature() >= -24 - 2 * player.getRequirementsBonus(game);
     }
     public play(player: Player) {
         player.addProduction(Resources.PLANTS);
         return undefined;
     }
 }
-

@@ -36,17 +36,10 @@ import { TileType } from "./src/TileType";
 import { Phase } from "./src/Phase";
 import { Resources } from "./src/Resources";
 import { CardType } from "./src/cards/CardType";
-import {
-    ClaimedMilestoneModel,
-    IMilestoneScore,
-} from "./src/models/ClaimedMilestoneModel";
+import { ClaimedMilestoneModel, IMilestoneScore } from "./src/models/ClaimedMilestoneModel";
 import { FundedAwardModel, IAwardScore } from "./src/models/FundedAwardModel";
 import { Database } from "./src/database/Database";
-import {
-    PartyModel,
-    DelegatesModel,
-    TurmoilModel,
-} from "./src/models/TurmoilModel";
+import { PartyModel, DelegatesModel, TurmoilModel } from "./src/models/TurmoilModel";
 import { SelectDelegate } from "./src/inputs/SelectDelegate";
 import { SelectColony } from "./src/inputs/SelectColony";
 import { SelectProductionToLose } from "./src/inputs/SelectProductionToLose";
@@ -116,13 +109,8 @@ function processRequest(req: http.IncomingMessage, res: http.ServerResponse): vo
             createGame(req, res);
         } else if (req.method === "PUT" && req.url.indexOf("/load") === 0) {
             loadGame(req, res);
-        } else if (
-            req.method === "POST" &&
-            req.url.indexOf("/player/input?id=") === 0
-        ) {
-            const playerId: string = req.url.substring(
-                "/player/input?id=".length
-            );
+        } else if (req.method === 'POST' && req.url.indexOf('/player/input?id=') === 0) {
+            const playerId: string = req.url.substring('/player/input?id='.length);
             gameLoader.getGameByPlayerId(playerId, (game) => {
                 if (game === undefined) {
                     route.notFound(req, res);
@@ -148,10 +136,7 @@ function processRequest(req: http.IncomingMessage, res: http.ServerResponse): vo
     }
 }
 
-function requestHandler(
-    req: http.IncomingMessage,
-    res: http.ServerResponse
-): void {
+function requestHandler(req: http.IncomingMessage, res: http.ServerResponse): void {
     try {
         processRequest(req, res);
     } catch (error) {
@@ -163,18 +148,11 @@ let server: http.Server | https.Server;
 
 // If they've set up https
 if (process.env.KEY_PATH && process.env.CERT_PATH) {
-    const httpsHowto =
-        "https://nodejs.org/en/knowledge/HTTP/servers/how-to-create-a-HTTPS-server/";
+    const httpsHowto = "https://nodejs.org/en/knowledge/HTTP/servers/how-to-create-a-HTTPS-server/";
     if (!fs.existsSync(process.env.KEY_PATH)) {
-        console.error(
-            "TLS KEY_PATH is set in .env, but cannot find key! Check out " +
-                httpsHowto
-        );
+        console.error('TLS KEY_PATH is set in .env, but cannot find key! Check out ' + httpsHowto);
     } else if (!fs.existsSync(process.env.CERT_PATH)) {
-        console.error(
-            "TLS CERT_PATH is set in .env, but cannot find cert! Check out" +
-                httpsHowto
-        );
+        console.error('TLS CERT_PATH is set in .env, but cannot find cert! Check out' + httpsHowto);
     }
     const options = {
         key: fs.readFileSync(process.env.KEY_PATH),
@@ -200,21 +178,21 @@ function processInput(
     game: Game
 ): void {
     let body = "";
-    req.on("data", function (data) {
+    req.on("data", (data) => {
         body += data.toString();
     });
-    req.once("end", function () {
+    req.once("end", () => {
         try {
             const entity = JSON.parse(body);
             player.process(game, entity);
-            res.setHeader("Content-Type", "application/json");
+            res.setHeader('Content-Type', 'application/json');
             res.write(getPlayer(player, game));
             res.end();
         } catch (err) {
             res.writeHead(400, {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
             });
-            console.warn("Error processing input from player", err);
+            console.warn('Error processing input from player', err);
             res.write(
                 JSON.stringify({
                     message: err.message,
@@ -226,20 +204,17 @@ function processInput(
 }
 
 function getClonableGames(res: http.ServerResponse): void {
-    Database.getInstance().getClonableGames(function (err, allGames) {
+    Database.getInstance().getClonableGames((err, allGames) => {
         if (err) {
             return;
         }
-        res.setHeader("Content-Type", "application/json");
+        res.setHeader('Content-Type', 'application/json');
         res.write(JSON.stringify(allGames));
         res.end();
     });
 }
 
-function apiGetGames(
-    req: http.IncomingMessage,
-    res: http.ServerResponse
-): void {
+function apiGetGames(req: http.IncomingMessage, res: http.ServerResponse): void {
     if (!isServerIdValid(req)) {
         route.notAuthorized(req, res);
         return;
@@ -251,29 +226,25 @@ function apiGetGames(
 
 function loadGame(req: http.IncomingMessage, res: http.ServerResponse): void {
     let body = "";
-    req.on("data", function (data) {
+    req.on("data", (data) => {
         body += data.toString();
     });
-    req.once("end", function () {
+    req.once("end", () => {
         try {
             const gameReq = JSON.parse(body);
 
             const game_id = gameReq.game_id;
 
-            const player = new Player("test", Color.BLUE, false, 0);
-            const player2 = new Player("test2", Color.RED, false, 0);
+            const player = new Player('test', Color.BLUE, false, 0);
+            const player2 = new Player('test2', Color.RED, false, 0);
             const gameToRebuild = new Game(game_id, [player, player2], player);
-            Database.getInstance().restoreGameLastSave(
-                game_id,
-                gameToRebuild,
-                function (err) {
-                    if (err) {
-                        return;
-                    }
-                    gameLoader.addGame(gameToRebuild);
+            Database.getInstance().restoreGameLastSave(game_id, gameToRebuild, (err) => {
+                if (err) {
+                    return;
                 }
-            );
-            res.setHeader("Content-Type", "application/json");
+                gameLoader.addGame(gameToRebuild);
+            });
+            res.setHeader('Content-Type', 'application/json');
             res.write(getGame(gameToRebuild));
             res.end();
         } catch (error) {
@@ -283,7 +254,7 @@ function loadGame(req: http.IncomingMessage, res: http.ServerResponse): void {
 }
 
 function apiGetGame(req: http.IncomingMessage, res: http.ServerResponse): void {
-    const routeRegExp: RegExp = /^\/api\/game\?id\=([0-9abcdef]+)$/i;
+    const routeRegExp = /^\/api\/game\?id\=([0-9abcdef]+)$/i;
 
     if (req.url === undefined) {
         console.warn("url not defined");
@@ -308,7 +279,6 @@ function apiGetGame(req: http.IncomingMessage, res: http.ServerResponse): void {
     const gameId: string = matches[1];
 
     gameLoader.getGameByGameId(gameId, (game: Game | undefined) => {
-
         if (game === undefined) {
             console.warn("game is undefined");
             route.notFound(req, res);
@@ -321,10 +291,7 @@ function apiGetGame(req: http.IncomingMessage, res: http.ServerResponse): void {
     });
 }
 
-function apiGetWaitingFor(
-    req: http.IncomingMessage,
-    res: http.ServerResponse
-): void {
+function apiGetWaitingFor(req: http.IncomingMessage, res: http.ServerResponse): void {
     const qs: string = req.url!.substring("/api/waitingfor?".length);
     const queryParams = querystring.parse(qs);
     const playerId = (queryParams as any)["id"];
@@ -360,10 +327,7 @@ function apiGetWaitingFor(
     });
 }
 
-function apiGetPlayer(
-    req: http.IncomingMessage,
-    res: http.ServerResponse
-): void {
+function apiGetPlayer(req: http.IncomingMessage, res: http.ServerResponse): void {
     const qs = req.url!.substring("/api/player?".length);
     const queryParams = querystring.parse(qs);
     let playerId = queryParams["id"] as string | Array<string> | undefined;
@@ -396,20 +360,15 @@ function apiGetPlayer(
 
 function createGame(req: http.IncomingMessage, res: http.ServerResponse): void {
     let body = "";
-    req.on("data", function (data) {
+    req.on("data", (data) => {
         body += data.toString();
     });
-    req.once("end", function () {
+    req.once("end", () => {
         try {
             const gameReq = JSON.parse(body);
             const gameId = generateRandomGameId();
             const players = gameReq.players.map((obj: any) => {
-                return new Player(
-                    obj.name,
-                    obj.color,
-                    obj.beginner,
-                    obj.handicap
-                );
+                return new Player(obj.name, obj.color, obj.beginner, obj.handicap);
             });
             let firstPlayer = players[0];
             for (let i = 0; i < gameReq.players.length; i++) {
@@ -419,7 +378,7 @@ function createGame(req: http.IncomingMessage, res: http.ServerResponse): void {
                 }
             }
 
-            if (gameReq.board === "random") {
+            if (gameReq.board === 'random') {
                 const boards = Object.values(BoardName);
                 gameReq.board = boards[Math.floor(Math.random() * boards.length)];
             }
@@ -442,10 +401,9 @@ function createGame(req: http.IncomingMessage, res: http.ServerResponse): void {
                 promoCardsOption: gameReq.promoCardsOption,
                 communityCardsOption: gameReq.communityCardsOption,
                 solarPhaseOption: gameReq.solarPhaseOption,
-                removeNegativeGlobalEventsOption:
-                    gameReq.removeNegativeGlobalEventsOption,
+                removeNegativeGlobalEventsOption: gameReq.removeNegativeGlobalEventsOption,
                 includeVenusMA: gameReq.includeVenusMA,
-                
+
                 draftVariant: gameReq.draftVariant,
                 initialDraftVariant: gameReq.initialDraft,
                 startingCorporations: gameReq.startingCorporations,
@@ -459,7 +417,7 @@ function createGame(req: http.IncomingMessage, res: http.ServerResponse): void {
 
             const game = new Game(gameId, players, firstPlayer, gameOptions);
             gameLoader.addGame(game);
-            res.setHeader("Content-Type", "application/json");
+            res.setHeader('Content-Type', 'application/json');
             res.write(getGame(game));
             res.end();
         } catch (error) {
@@ -474,9 +432,7 @@ function getMilestones(game: Game): Array<ClaimedMilestoneModel> {
     const milestoneModels: Array<ClaimedMilestoneModel> = [];
 
     for (const idx in allMilestones) {
-        const claimed = claimedMilestones.find(
-            (m) => m.milestone.name === allMilestones[idx].name
-        );
+        const claimed = claimedMilestones.find((m) => m.milestone.name === allMilestones[idx].name);
         const scores: Array<IMilestoneScore> = [];
         if (claimed === undefined && claimedMilestones.length < 3) {
             game.getPlayers().forEach((player) => {
@@ -504,9 +460,7 @@ function getAwards(game: Game): Array<FundedAwardModel> {
     const awardModels: Array<FundedAwardModel> = [];
 
     for (const idx in allAwards) {
-        const funded = fundedAwards.find(
-            (a) => a.award.name === allAwards[idx].name
-        );
+        const funded = fundedAwards.find((a) => a.award.name === allAwards[idx].name);
         const scores: Array<IAwardScore> = [];
         if (fundedAwards.length < 3 || funded !== undefined) {
             game.getPlayers().forEach((player) => {
@@ -529,13 +483,13 @@ function getAwards(game: Game): Array<FundedAwardModel> {
 }
 
 function getCorporationCard(player: Player): CardModel | undefined {
-    if (player.corporationCard === undefined) return undefined; 
+    if (player.corporationCard === undefined) return undefined;
     return {
         name: player.corporationCard.name,
         resources: player.getResourcesOnCard(player.corporationCard),
         calculatedCost: 0,
         cardType: CardType.CORPORATION,
-        isDisabled: player.corporationCard.isDisabled
+        isDisabled: player.corporationCard.isDisabled,
     } as CardModel;
 }
 
@@ -614,31 +568,24 @@ function getPlayer(player: Player, game: Game): string {
     return JSON.stringify(output);
 }
 
-function getCardsAsCardModel(
-    cards: Array<ICard>,
-    showResouces: boolean = true
-): Array<CardModel> {
+function getCardsAsCardModel(cards: Array<ICard>, showResouces = true): Array<CardModel> {
     const result: Array<CardModel> = [];
     cards.forEach((card) => {
         result.push({
             name: card.name,
             resources:
-                card.resourceCount !== undefined && showResouces
-                    ? card.resourceCount
-                    : undefined,
+                card.resourceCount !== undefined && showResouces ? card.resourceCount : undefined,
             resourceType: card.resourceType,
             calculatedCost: 0,
             cardType: CardType.AUTOMATED,
-            isDisabled: false
+            isDisabled: false,
         });
     });
 
     return result;
 }
 
-function getWaitingFor(
-    waitingFor: PlayerInput | undefined
-): PlayerInputModel | undefined {
+function getWaitingFor(waitingFor: PlayerInput | undefined): PlayerInputModel | undefined {
     if (waitingFor === undefined) {
         return undefined;
     }
@@ -667,8 +614,7 @@ function getWaitingFor(
         case PlayerInputTypes.AND_OPTIONS:
         case PlayerInputTypes.OR_OPTIONS:
             result.options = [];
-            for (const option of (waitingFor as AndOptions | OrOptions)
-                .options) {
+            for (const option of (waitingFor as AndOptions | OrOptions).options) {
                 const subOption = getWaitingFor(option);
                 if (subOption !== undefined) {
                     result.options.push(subOption);
@@ -676,28 +622,19 @@ function getWaitingFor(
             }
             break;
         case PlayerInputTypes.SELECT_HOW_TO_PAY_FOR_CARD:
-            result.cards = getCardsAsCardModel(
-                (waitingFor as SelectHowToPayForCard).cards,
-                false
-            );
+            result.cards = getCardsAsCardModel((waitingFor as SelectHowToPayForCard).cards, false);
             result.microbes = (waitingFor as SelectHowToPayForCard).microbes;
             result.floaters = (waitingFor as SelectHowToPayForCard).floaters;
             result.canUseHeat = (waitingFor as SelectHowToPayForCard).canUseHeat;
             break;
         case PlayerInputTypes.SELECT_CARD:
-            result.cards = getCardsAsCardModel(
-                (waitingFor as SelectCard<ICard>).cards
-            );
-            result.maxCardsToSelect = (waitingFor as SelectCard<
-                ICard
-            >).maxCardsToSelect;
-            result.minCardsToSelect = (waitingFor as SelectCard<
-                ICard
-            >).minCardsToSelect;
+            result.cards = getCardsAsCardModel((waitingFor as SelectCard<ICard>).cards);
+            result.maxCardsToSelect = (waitingFor as SelectCard<ICard>).maxCardsToSelect;
+            result.minCardsToSelect = (waitingFor as SelectCard<ICard>).minCardsToSelect;
             break;
         case PlayerInputTypes.SELECT_COLONY:
             result.coloniesModel = (waitingFor as SelectColony).coloniesModel;
-            break;            
+            break;
         case PlayerInputTypes.SELECT_HOW_TO_PAY:
             result.amount = (waitingFor as SelectHowToPay).amount;
             result.canUseSteel = (waitingFor as SelectHowToPay).canUseSteel;
@@ -705,9 +642,7 @@ function getWaitingFor(
             result.canUseHeat = (waitingFor as SelectHowToPay).canUseHeat;
             break;
         case PlayerInputTypes.SELECT_PLAYER:
-            result.players = (waitingFor as SelectPlayer).players.map(
-                (player) => player.color
-            );
+            result.players = (waitingFor as SelectPlayer).players.map((player) => player.color);
             break;
         case PlayerInputTypes.SELECT_SPACE:
             result.availableSpaces = (waitingFor as SelectSpace).availableSpaces.map(
@@ -718,15 +653,13 @@ function getWaitingFor(
             result.max = (waitingFor as SelectAmount).max;
             break;
         case PlayerInputTypes.SELECT_DELEGATE:
-            result.players = (waitingFor as SelectDelegate).players.map(
-                (player) => {
-                    if (player === "NEUTRAL") {
-                        return "NEUTRAL";
-                    } else {
-                        return player.color;
-                    }
+            result.players = (waitingFor as SelectDelegate).players.map((player) => {
+                if (player === "NEUTRAL") {
+                    return "NEUTRAL";
+                } else {
+                    return player.color;
                 }
-            );
+            });
             break;
         case PlayerInputTypes.SELECT_PRODUCTION_TO_LOSE:
             const _player = (waitingFor as SelectProductionToLose).player;
@@ -738,14 +671,13 @@ function getWaitingFor(
                     titanium: _player.getProduction(Resources.TITANIUM),
                     plants: _player.getProduction(Resources.PLANTS),
                     energy: _player.getProduction(Resources.ENERGY),
-                    heat: _player.getProduction(Resources.HEAT)
-                }
+                    heat: _player.getProduction(Resources.HEAT),
+                },
             };
             break;
         case PlayerInputTypes.SHIFT_ARES_GLOBAL_PARAMETERS:
-            result.aresData = (waitingFor as ShiftAresGlobalParameters).aresData
+            result.aresData = (waitingFor as ShiftAresGlobalParameters).aresData;
             break;
-    
     }
     return result;
 }
@@ -754,7 +686,7 @@ function getCards(
     player: Player,
     cards: Array<IProjectCard>,
     game: Game,
-    showResouces: boolean = true
+    showResouces = true
 ): Array<CardModel> {
     return cards.map((card) => ({
         resources: showResouces ? player.getResourcesOnCard(card) : undefined,
@@ -762,7 +694,7 @@ function getCards(
         name: card.name,
         calculatedCost: player.getCardCost(game, card),
         cardType: card.cardType,
-        isDisabled: false
+        isDisabled: false,
     }));
 }
 
@@ -805,15 +737,11 @@ function getPlayers(players: Array<Player>, game: Game): Array<PlayerModel> {
             colonies: getColonies(game),
             tags: player.getAllTags(),
             showOtherPlayersVP: game.gameOptions.showOtherPlayersVP,
-            actionsThisGeneration: Array.from(
-                player.getActionsThisGeneration()
-            ),
+            actionsThisGeneration: Array.from(player.getActionsThisGeneration()),
             fleetSize: player.fleetSize,
             tradesThisTurn: player.tradesThisTurn,
             turmoil: turmoil,
-            selfReplicatingRobotsCards: player.getSelfReplicatingRobotsCards(
-                game
-            ),
+            selfReplicatingRobotsCards: player.getSelfReplicatingRobotsCards(game),
             needsToDraft: player.needsToDraft,
             deckSize: game.dealer.getDeckSize(),
             actionsTakenThisRound: player.actionsTakenThisRound,
@@ -825,16 +753,12 @@ function getPlayers(players: Array<Player>, game: Game): Array<PlayerModel> {
 function getColonies(game: Game): Array<ColonyModel> {
     return game.colonies.map(
         (colony): ColonyModel => ({
-            colonies: colony.colonies.map(
-                (playerId): Color => game.getPlayerById(playerId).color
-            ),
+            colonies: colony.colonies.map((playerId): Color => game.getPlayerById(playerId).color),
             isActive: colony.isActive,
             name: colony.name,
             trackPosition: colony.trackPosition,
             visitor:
-                colony.visitor === undefined
-                    ? undefined
-                    : game.getPlayerById(colony.visitor).color,
+                colony.visitor === undefined ? undefined : game.getPlayerById(colony.visitor).color,
         })
     );
 }
@@ -857,10 +781,7 @@ function getTurmoil(game: Game): TurmoilModel | undefined {
             ruling = game.turmoil.rulingParty.name;
         }
 
-        const lobby = Array.from(
-            game.turmoil.lobby,
-            (player) => game.getPlayerById(player).color
-        );
+        const lobby = Array.from(game.turmoil.lobby, (player) => game.getPlayerById(player).color);
 
         const reserve = game.turmoil.getPresentPlayers().map((player) => {
             const number = game.turmoil!.getDelegates(player);
@@ -922,11 +843,11 @@ function getTurmoil(game: Game): TurmoilModel | undefined {
 
 function getParties(game: Game): Array<PartyModel> | undefined {
     if (game.gameOptions.turmoilExtension && game.turmoil) {
-        return game.turmoil.parties.map(function (party) {
+        return game.turmoil.parties.map((party) => {
             const delegates = new Array<DelegatesModel>();
             party.getPresentPlayers().forEach((player) => {
                 const number = party.getDelegates(player);
-                if (player !== "NEUTRAL") {
+                if (player !== 'NEUTRAL') {
                     delegates.push({
                         color: game.getPlayerById(player).color,
                         number: number,
@@ -937,7 +858,7 @@ function getParties(game: Game): Array<PartyModel> | undefined {
             });
             let partyLeader;
             if (party.partyLeader) {
-                if (party.partyLeader === "NEUTRAL") {
+                if (party.partyLeader === 'NEUTRAL') {
                     partyLeader = Color.NEUTRAL;
                 } else {
                     partyLeader = game.getPlayerById(party.partyLeader).color;
@@ -992,18 +913,15 @@ function getGame(game: Game): string {
         players: game.getPlayers().map((player) => ({
             color: player.color,
             id: player.id,
-            name: player.name
-        }))
+            name: player.name,
+        })),
     };
     return JSON.stringify(output);
 }
 
 function isServerIdValid(req: http.IncomingMessage): boolean {
     const queryParams = querystring.parse(req.url!.replace(/^.*\?/, ""));
-    if (
-        queryParams.serverId === undefined ||
-        queryParams.serverId !== serverId
-    ) {
+    if (queryParams.serverId === undefined || queryParams.serverId !== serverId) {
         console.warn("No or invalid serverId given");
         return false;
     }
@@ -1011,11 +929,11 @@ function isServerIdValid(req: http.IncomingMessage): boolean {
 }
 
 function serveApp(req: http.IncomingMessage, res: http.ServerResponse): void {
-    fs.readFile("index.html", function (err, data) {
+    fs.readFile("index.html", (err, data) => {
         if (err) {
             return route.internalServerError(req, res, err);
         }
-        res.setHeader("Content-Type", "text/html; charset=utf-8");
+        res.setHeader('Content-Type', 'text/html; charset=utf-8');
         res.write(data);
         res.end();
     });
@@ -1068,7 +986,7 @@ function serveAsset(req: http.IncomingMessage, res: http.ServerResponse): void {
     if (req.url !== "/main.js" && req.url !== "/main.js.map") {
         res.setHeader("Cache-Control", "max-age=" + assetCacheMaxAge);
     }
-    fs.readFile(file, function (err, data) {
+    fs.readFile(file, (err, data) => {
         if (err) {
             return route.internalServerError(req, res, err);
         }
@@ -1094,7 +1012,5 @@ console.log(
         serverId +
         "\x1b[0m. Use it to access the following administrative routes:\n"
 );
-console.log(
-    "* Overview of existing games: /games-overview?serverId=" + serverId
-);
+console.log('* Overview of existing games: /games-overview?serverId=' + serverId);
 console.log("* API for game IDs: /api/games?serverId=" + serverId + "\n");

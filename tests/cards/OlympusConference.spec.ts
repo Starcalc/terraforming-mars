@@ -10,23 +10,23 @@ import { OrOptions } from "../../src/inputs/OrOptions";
 import { Research } from "../../src/cards/Research";
 import { DeferredActionsQueue } from "../../src/deferredActions/DeferredActionsQueue";
 
-describe("OlympusConference", function () {
-    let card : OlympusConference, player : Player, game : Game;
+describe("OlympusConference", () => {
+    let card: OlympusConference, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new OlympusConference();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         player.playedCards.push(card);
         card.play();
-        
+
         player.victoryPointsBreakdown.setVictoryPoints('victoryPoints', card.getVictoryPoints());
         expect(player.victoryPointsBreakdown.victoryPoints).to.eq(1);
 
-        card.onCardPlayed(player, game, new Bushes()); 
+        card.onCardPlayed(player, game, new Bushes());
         expect(game.deferredActions).has.lengthOf(0);
 
         // No resource
@@ -52,7 +52,7 @@ describe("OlympusConference", function () {
         expect(game.deferredActions).has.lengthOf(0);
     });
 
-    it("Plays twice for Research", function () {
+    it('Plays twice for Research', () => {
         player.playedCards.push(card);
         card.onCardPlayed(player, game, new Research());
         expect(game.deferredActions).has.lengthOf(2);
@@ -73,7 +73,7 @@ describe("OlympusConference", function () {
         expect(game.deferredActions).has.lengthOf(0);
     });
 
-    it("Triggers before Mars University", function() {
+    it('Triggers before Mars University', () => {
         const marsUniversity = new MarsUniversity();
         const scienceTagCard = new ScienceTagCard();
 
@@ -94,11 +94,9 @@ describe("OlympusConference", function () {
         orOptions.options[1].cb();
         expect(card.resourceCount).to.eq(2);
 
-
         // Reset the state
         game.deferredActions = new DeferredActionsQueue();
         player.playedCards = [];
-
 
         // Mars University played before Olympus Conference
         player.playedCards.push(marsUniversity);

@@ -12,10 +12,10 @@ export class AsteroidMining implements IProjectCard {
     public name = CardName.ASTEROID_MINING;
 
     public play(player: Player) {
-      player.addProduction(Resources.TITANIUM,2);
-      return undefined;
+        player.addProduction(Resources.TITANIUM, 2);
+        return undefined;
     }
     public getVictoryPoints() {
-      return 2;
+        return 2;
     }
 }

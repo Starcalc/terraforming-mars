@@ -1,12 +1,11 @@
-
 import { expect } from "chai";
 import { FueledGenerators } from "../../src/cards/FueledGenerators";
 import { Color } from "../../src/Color";
 import { Player } from "../../src/Player";
 import { Resources } from "../../src/Resources";
 
-describe("FueledGenerators", function () {
-    it("Should play", function () {
+describe("FueledGenerators", () => {
+    it('Should play', () => {
         const card = new FueledGenerators();
         const player = new Player("test", Color.BLUE, false);
         player.addProduction(Resources.PLANTS);

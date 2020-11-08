@@ -11,12 +11,12 @@ import { PowerPlant } from "../../src/cards/PowerPlant";
 import { Asteroid } from "../../src/cards/Asteroid";
 import { SelectCard } from "../../src/inputs/SelectCard";
 
-describe("ParadigmBreakdown", function () {
-    it("resolve play", function () {
+describe("ParadigmBreakdown", () => {
+    it('resolve play', () => {
         const card = new ParadigmBreakdown();
         const player = new Player("test", Color.BLUE, false);
         const player2 = new Player("test2", Color.RED, false);
-        const game = new Game("foobar", [player,player2], player);
+        const game = new Game("foobar", [player, player2], player);
         const turmoil = new Turmoil(game);
 
         turmoil.initGlobalEvent(game);
@@ -35,7 +35,7 @@ describe("ParadigmBreakdown", function () {
         player.cardsInHand.push(asteroid, dustSeals, powerPlant);
         player2.megaCredits = 10;
         player2.cardsInHand.push(dustSeals);
-        
+
         card.resolve(game, turmoil);
         while (game.deferredActions.length) {
             const action = game.deferredActions.next()!;

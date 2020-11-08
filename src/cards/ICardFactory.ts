@@ -4,5 +4,5 @@ import { GameModule } from "../GameModule";
 export interface ICardFactory<T> {
     cardName: CardName;
     factory: new () => T;
-    compatibility ?: GameModule ;
+    compatibility?: GameModule;
 }

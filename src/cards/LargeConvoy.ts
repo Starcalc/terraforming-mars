@@ -1,21 +1,21 @@
-import { ICard } from "./ICard";
-import { Player } from "../Player";
-import { Game } from "../Game";
-import { IProjectCard } from "./IProjectCard";
-import { Tags } from "./Tags";
-import { CardType } from "./CardType";
-import { OrOptions } from "../inputs/OrOptions";
-import { SelectCard } from "../inputs/SelectCard";
-import { SelectOption } from "../inputs/SelectOption";
-import { PlayerInput } from "../PlayerInput";
-import { ResourceType } from "../ResourceType";
-import { CardName } from "../CardName";
-import { LogHelper } from "../components/LogHelper";
-import { Resources } from "../Resources";
-import { MAX_OCEAN_TILES, REDS_RULING_POLICY_COST } from "../constants";
-import { PartyHooks } from "../turmoil/parties/PartyHooks";
-import { PartyName } from "../turmoil/parties/PartyName";
-import { PlaceOceanTile } from "../deferredActions/PlaceOceanTile";
+import { ICard } from './ICard';
+import { Player } from '../Player';
+import { Game } from '../Game';
+import { IProjectCard } from './IProjectCard';
+import { Tags } from './Tags';
+import { CardType } from './CardType';
+import { OrOptions } from '../inputs/OrOptions';
+import { SelectCard } from '../inputs/SelectCard';
+import { SelectOption } from '../inputs/SelectOption';
+import { PlayerInput } from '../PlayerInput';
+import { ResourceType } from '../ResourceType';
+import { CardName } from '../CardName';
+import { LogHelper } from '../components/LogHelper';
+import { Resources } from '../Resources';
+import { MAX_OCEAN_TILES, REDS_RULING_POLICY_COST } from '../constants';
+import { PartyHooks } from '../turmoil/parties/PartyHooks';
+import { PartyName } from '../turmoil/parties/PartyName';
+import { PlaceOceanTile } from '../deferredActions/PlaceOceanTile';
 
 export class LargeConvoy implements IProjectCard {
     public cost = 36;
@@ -26,11 +26,15 @@ export class LargeConvoy implements IProjectCard {
 
     public canPlay(player: Player, game: Game): boolean {
         const oceansMaxed = game.board.getOceansOnBoard() === MAX_OCEAN_TILES;
-    
+
         if (PartyHooks.shouldApplyPolicy(game, PartyName.REDS) && !oceansMaxed) {
-            return player.canAfford(player.getCardCost(game, this) + REDS_RULING_POLICY_COST, game, false, true);
-        }
-    
+            return player.canAfford(
+                player.getCardCost(game, this) + REDS_RULING_POLICY_COST,
+                game,
+                false,
+                true
+            );
+
         return true;
     }
 
@@ -39,42 +43,44 @@ export class LargeConvoy implements IProjectCard {
 
         const animalCards = player.getResourceCards(ResourceType.ANIMAL);
 
-        const gainPlants = function() {
+        const gainPlants = function () {
             player.plants += 5;
             LogHelper.logGainStandardResource(game, player, Resources.PLANTS, 5);
             game.defer(new PlaceOceanTile(player, game));
             return undefined;
-        }
+        };
 
-        if (animalCards.length === 0 ) return gainPlants();
+        if (animalCards.length === 0) return gainPlants();
 
-        let availableActions = new Array<SelectOption | SelectCard<ICard>>();
+        const availableActions = new Array<SelectOption | SelectCard<ICard>>();
 
-        const gainPlantsOption = new SelectOption("Gain 5 plants", "Gain plants",gainPlants);
+        const gainPlantsOption = new SelectOption('Gain 5 plants', 'Gain plants', gainPlants);
         availableActions.push(gainPlantsOption);
 
         if (animalCards.length === 1) {
             const targetAnimalCard = animalCards[0];
-            availableActions.push(new SelectOption("Add 4 animals to " + targetAnimalCard.name, "Add animals", () => {
-                player.addResourceTo(targetAnimalCard, 4);
-                LogHelper.logAddResource(game, player, targetAnimalCard, 4);
-                game.defer(new PlaceOceanTile(player, game));
-                return undefined;
-            }))
+            availableActions.push(
+                new SelectOption('Add 4 animals to ' + targetAnimalCard.name, 'Add animals', () => {
+                    player.addResourceTo(targetAnimalCard, 4);
+                    LogHelper.logAddResource(game, player, targetAnimalCard, 4);
+                    game.defer(new PlaceOceanTile(player, game));
+                    return undefined;
+                })
+            );
         } else {
             availableActions.push(
                 new SelectCard(
-                    "Select card to add 4 animals", 
-                    "Add animals",
-                    animalCards, 
-                    (foundCards: Array<ICard>) => { 
+                    'Select card to add 4 animals',
+                    'Add animals',
+                    animalCards,
+                    (foundCards: Array<ICard>) => {
                         player.addResourceTo(foundCards[0], 4);
                         LogHelper.logAddResource(game, player, foundCards[0], 4);
                         game.defer(new PlaceOceanTile(player, game));
                         return undefined;
                     }
                 )
-            )
+            );
         }
 
         return new OrOptions(...availableActions);

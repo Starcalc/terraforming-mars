@@ -11,8 +11,8 @@ export class AdvancedAlloys implements IProjectCard {
     public cardType = CardType.ACTIVE;
 
     public play(player: Player) {
-      player.increaseTitaniumValue();
-      player.steelValue++;
-      return undefined;
+        player.increaseTitaniumValue();
+        player.steelValue++;
+        return undefined;
     }
 }

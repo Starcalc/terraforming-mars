@@ -5,17 +5,17 @@ import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 import { OrOptions } from "../../src/inputs/OrOptions";
 
-describe("MiningExpedition", function () {
-    let card : MiningExpedition, player : Player, player2 : Player, game : Game;
+describe("MiningExpedition", () => {
+    let card: MiningExpedition, player: Player, player2: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new MiningExpedition();
         player = new Player("test", Color.BLUE, false);
         player2 = new Player("test2", Color.RED, false);
         game = new Game("foobar", [player, player2], player);
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         player2.plants = 8;
         card.play(player, game);
         expect(game.deferredActions).has.lengthOf(1);

@@ -6,21 +6,21 @@ import { Game } from "../../src/Game";
 import { Resources } from "../../src/Resources";
 import { TharsisRepublic } from "../../src/cards/corporation/TharsisRepublic";
 
-describe("ImmigrantCity", function () {
-    let card : ImmigrantCity, player : Player, player2 : Player, game : Game;
+describe("ImmigrantCity", () => {
+    let card: ImmigrantCity, player: Player, player2: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new ImmigrantCity();
         player = new Player("test", Color.BLUE, false);
         player2 = new Player("test2", Color.RED, false);
         game = new Game("foobar", [player, player2], player);
     });
-    
-    it("Can't play without energy production", function () {
+
+    it("Can't play without energy production", () => {
         expect(card.canPlay(player, game)).is.not.true;
     });
-    
-    it("Should play", function () {
+
+    it('Should play', () => {
         player.addProduction(Resources.ENERGY);
         const action = card.play(player, game);
         action.cb(action.availableSpaces[0]);
@@ -33,7 +33,7 @@ describe("ImmigrantCity", function () {
         expect(player.getProduction(Resources.MEGACREDITS)).to.eq(-1);
     });
 
-    it("Can play at -4 MC production", function () {
+    it('Can play at -4 MC production', () => {
         player.addProduction(Resources.ENERGY);
         player.addProduction(Resources.MEGACREDITS, -4);
         expect(card.canPlay(player, game)).is.true;
@@ -44,13 +44,13 @@ describe("ImmigrantCity", function () {
         expect(player.getProduction(Resources.ENERGY)).to.eq(0);
         expect(player.getProduction(Resources.MEGACREDITS)).to.eq(-5);
         player.playedCards.push(card);
-    
+
         // add another city tile
         game.addCityTile(player, game.board.getAvailableSpacesOnLand(player)[0].id);
         expect(player.getProduction(Resources.MEGACREDITS)).to.eq(-4);
     });
-    
-    it("Tharsis can play at -5 MC production", function () {
+
+    it('Tharsis can play at -5 MC production', () => {
         player.corporationCard = new TharsisRepublic();
         player.addProduction(Resources.ENERGY);
         player.addProduction(Resources.MEGACREDITS, -5);
@@ -62,7 +62,7 @@ describe("ImmigrantCity", function () {
         expect(player.getProduction(Resources.ENERGY)).to.eq(0);
         expect(player.getProduction(Resources.MEGACREDITS)).to.eq(-5); // should not increase
         player.playedCards.push(card);
-    
+
         // add another city tile - MC prod should increase by 2 (1 from Tharsis, 1 from IC)
         game.addCityTile(player, game.board.getAvailableSpacesOnLand(player)[0].id);
         expect(player.getProduction(Resources.MEGACREDITS)).to.eq(-3);

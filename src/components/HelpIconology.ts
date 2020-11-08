@@ -3,11 +3,9 @@ import { Card } from "./card/Card";
 
 export const HelpIconology = Vue.component("help-iconology", {
     components: {
-        Card
+        Card,
     },
-    methods: {
-        
-    },
+    methods: {},
     template: `
     <div class="help-page-container">
         <div class="help-page-column">
@@ -208,5 +206,5 @@ export const HelpIconology = Vue.component("help-iconology", {
             </div>
         </div>
     </div>
-    `
-})
+    `,
+});

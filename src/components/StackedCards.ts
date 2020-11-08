@@ -5,14 +5,13 @@ import { CardModel } from "../models/CardModel";
 export const StackedCards = Vue.component("stacked-cards", {
     props: {
         cards: {
-            type: Object as () => Array<CardModel>
-        }
+            type: Object as () => Array<CardModel>,
+        },
     },
     components: {
-        Card
+        Card,
     },
-    methods: {
-    },
+    methods: {},
     template: `
     <div class="cardbox">
         <div v-for="(card, index) in cards" :key="card.name" :class="{'cards-stack':(index > 0),'cards-stack-first':(index === 0) }">

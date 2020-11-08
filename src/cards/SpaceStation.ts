@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { Player } from "../Player";
@@ -25,4 +24,3 @@ export class SpaceStation implements IProjectCard {
         return 1;
     }
 }
-    

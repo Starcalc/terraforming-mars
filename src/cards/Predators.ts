@@ -15,7 +15,7 @@ export class Predators implements IProjectCard, IActionCard, IResourceCard {
     public name = CardName.PREDATORS;
     public cardType = CardType.ACTIVE;
     public resourceType = ResourceType.ANIMAL;
-    public resourceCount: number = 0;
+    public resourceCount = 0;
 
     public canPlay(player: Player, game: Game): boolean {
         return game.getOxygenLevel() >= 11 - player.getRequirementsBonus(game);
@@ -31,18 +31,20 @@ export class Predators implements IProjectCard, IActionCard, IResourceCard {
 
     public canAct(player: Player, game: Game): boolean {
         if (game.isSoloMode()) return true;
-        return RemoveResourcesFromCard.getAvailableTargetCards(player, game, this.resourceType).length > 0;
+        return (
+            RemoveResourcesFromCard.getAvailableTargetCards(player, game, this.resourceType)
+                .length > 0
+        );
     }
 
     public action(player: Player, game: Game) {
         game.defer(new RemoveResourcesFromCard(player, game, this.resourceType));
-        game.defer(new DeferredAction(
-            player,
-            () => {
+        game.defer(
+            new DeferredAction(player, () => {
                 player.addResourceTo(this);
                 return undefined;
-            }
-        ));
+            })
+        );
         return undefined;
     }
 }

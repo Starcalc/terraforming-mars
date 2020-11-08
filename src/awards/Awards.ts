@@ -3,7 +3,7 @@ import { Banker } from "./Banker";
 import { Scientist } from "./Scientist";
 import { Thermalist } from "./Thermalist";
 import { Miner } from "./Miner";
-import { Venuphile } from "./Venuphile"
+import { Venuphile } from "./Venuphile";
 import { IAward } from "./IAward";
 import { Industrialist } from "./Industrialist";
 import { Celebrity } from "./Celebrity";
@@ -22,29 +22,25 @@ export const ORIGINAL_AWARDS: Array<IAward> = [
     new Scientist(),
     new Banker(),
     new Thermalist(),
-    new Miner()
-]
+    new Miner(),
+];
 
-export const VENUS_AWARDS: Array<IAward> = [
-    new Venuphile()
-]
+export const VENUS_AWARDS: Array<IAward> = [new Venuphile()];
 
 export const ELYSIUM_AWARDS: Array<IAward> = [
     new Celebrity(),
     new Industrialist(),
     new DesertSettler(),
     new EstateDealer(),
-    new Benefactor()
-]  
+    new Benefactor(),
+];
 
 export const HELLAS_AWARDS: Array<IAward> = [
     new Cultivator(),
     new Magnate(),
     new SpaceBaron(),
     new Excentric(),
-    new Contractor()
-] 
-
-export const ARES_AWARDS: Array<IAward> = [
-    new Entrepeneur()
+    new Contractor(),
 ];
+
+export const ARES_AWARDS: Array<IAward> = [new Entrepeneur()];

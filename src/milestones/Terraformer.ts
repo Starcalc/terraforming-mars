@@ -3,10 +3,15 @@ import { Player } from "../Player";
 import { Game } from "../Game";
 
 export class Terraformer implements IMilestone {
-    public name: string = "Terraformer";
-    private terraformRating: number = 35;
-    private terraformRatingTurmoil: number = 26;
-    public description: string = "Having a terraform rating of at least "+this.terraformRating+ " or " + this.terraformRatingTurmoil + " with Turmoil.";
+    public name = "Terraformer";
+    private terraformRating = 35;
+    private terraformRatingTurmoil = 26;
+    public description: string =
+        'Having a terraform rating of at least ' +
+        this.terraformRating +
+        ' or ' +
+        this.terraformRatingTurmoil +
+        " with Turmoil.";
     public getScore(player: Player): number {
         return player.getTerraformRating();
     }
@@ -15,5 +20,5 @@ export class Terraformer implements IMilestone {
             return this.getScore(player) >= this.terraformRatingTurmoil;
         }
         return this.getScore(player) >= this.terraformRating;
-    }   
+    }
 }

@@ -3,21 +3,21 @@ import { PhysicsComplex } from "../../src/cards/PhysicsComplex";
 import { Color } from "../../src/Color";
 import { Player } from "../../src/Player";
 
-describe("PhysicsComplex", function () {
-    let card : PhysicsComplex, player : Player;
+describe("PhysicsComplex", () => {
+    let card: PhysicsComplex, player: Player;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new PhysicsComplex();
         player = new Player("test", Color.BLUE, false);
     });
 
-    it("Can't act", function () {
+    it("Can't act", () => {
         card.play();
         player.energy = 5;
         expect(card.canAct(player)).is.not.true;
     });
 
-    it("Should act", function () {
+    it('Should act', () => {
         player.playedCards.push(card);
         player.energy = 6;
         expect(card.canAct(player)).is.true;

@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { CardType } from "./CardType";
@@ -8,7 +7,7 @@ import { CardName } from "../CardName";
 
 export class TectonicStressPower implements IProjectCard {
     public cost = 18;
-     public tags = [Tags.ENERGY, Tags.STEEL];
+    public tags = [Tags.ENERGY, Tags.STEEL];
     public name = CardName.TECTONIC_STRESS_POWER;
     public cardType = CardType.AUTOMATED;
     public canPlay(player: Player): boolean {
@@ -18,7 +17,7 @@ export class TectonicStressPower implements IProjectCard {
         if (player.getTagCount(Tags.SCIENCE) < 2) {
             throw "Requires 2 science tags";
         }
-        player.addProduction(Resources.ENERGY,3);
+        player.addProduction(Resources.ENERGY, 3);
         return undefined;
     }
     public getVictoryPoints() {

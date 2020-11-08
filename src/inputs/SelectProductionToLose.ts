@@ -5,15 +5,14 @@ import { Player } from "../Player";
 
 export class SelectProductionToLose implements PlayerInput {
     public inputType = PlayerInputTypes.SELECT_PRODUCTION_TO_LOSE;
-  
+
     constructor(
         public title: string,
         public unitsToLose: number,
         public player: Player,
         public cb: (units: IProductionUnits) => PlayerInput | undefined,
-        public buttonLabel: string = "Save",
-        ) {
-            this.buttonLabel = buttonLabel;
+        public buttonLabel: string = "Save"
+    ) {
+        this.buttonLabel = buttonLabel;
     }
-
 }

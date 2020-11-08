@@ -5,25 +5,27 @@ import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 import { TileType } from "../../src/TileType";
 
-describe("Mangrove", function () {
-    let card : Mangrove, player : Player, game : Game;
+describe("Mangrove", () => {
+    let card: Mangrove, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new Mangrove();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't play", function () {
+    it("Can't play", () => {
         expect(card.canPlay(player, game)).is.not.true;
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         const action = card.play(player, game);
         expect(action).is.not.undefined;
 
         action.cb(action.availableSpaces[0]);
-        expect(action.availableSpaces[0].tile && action.availableSpaces[0].tile.tileType).to.eq(TileType.GREENERY);
+        expect(action.availableSpaces[0].tile && action.availableSpaces[0].tile.tileType).to.eq(
+            TileType.GREENERY
+        );
         expect(action.availableSpaces[0].player).to.eq(player);
 
         player.victoryPointsBreakdown.setVictoryPoints('victoryPoints', card.getVictoryPoints());

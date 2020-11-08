@@ -4,19 +4,19 @@ import { Color } from "../../src/Color";
 import { Player } from "../../src/Player";
 import { Resources } from "../../src/Resources";
 
-describe("BeamFromAThoriumAsteroid", function () {
-    let card : BeamFromAThoriumAsteroid, player : Player;
+describe("BeamFromAThoriumAsteroid", () => {
+    let card: BeamFromAThoriumAsteroid, player: Player;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new BeamFromAThoriumAsteroid();
         player = new Player("test", Color.BLUE, false);
     });
 
-    it("Cannot play without a Jovian tag", function () {
+    it('Cannot play without a Jovian tag', () => {
         expect(card.canPlay(player)).is.not.true;
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         player.playedCards.push(card);
         expect(card.canPlay(player)).is.true;
 

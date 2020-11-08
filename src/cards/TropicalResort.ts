@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { CardType } from "./CardType";
@@ -16,8 +15,8 @@ export class TropicalResort implements IProjectCard {
         return player.getProduction(Resources.HEAT) >= 2;
     }
     public play(player: Player) {
-        player.addProduction(Resources.HEAT,-2);
-        player.addProduction(Resources.MEGACREDITS,3);
+        player.addProduction(Resources.HEAT, -2);
+        player.addProduction(Resources.MEGACREDITS, 3);
         return undefined;
     }
     public getVictoryPoints() {

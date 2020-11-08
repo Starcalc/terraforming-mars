@@ -8,13 +8,13 @@ import { AddResourcesToCard } from "../deferredActions/AddResourcesToCard";
 
 export class Miranda extends Colony implements IColony {
     public name = ColonyName.MIRANDA;
-    public description: string = "Animals";
+    public description = "Animals";
     public isActive = false;
     public resourceType = ResourceType.ANIMAL;
-    public trade(player: Player, game: Game, usesTradeFleet: boolean = true): void {
+    public trade(player: Player, game: Game, usesTradeFleet = true): void {
         if (usesTradeFleet) this.beforeTrade(this, player, game);
 
-        let animals: number = 0;
+        let animals = 0;
         if (this.trackPosition < 3) {
             animals = 1;
         } else if (this.trackPosition < 5) {
@@ -34,5 +34,5 @@ export class Miranda extends Colony implements IColony {
     public giveTradeBonus(player: Player, game: Game): undefined | PlayerInput {
         player.cardsInHand.push(game.dealer.dealCard());
         return undefined;
-    }    
+    }
 }

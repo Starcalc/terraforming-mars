@@ -9,7 +9,7 @@ export class PlaceGreeneryTile implements DeferredAction {
         public player: Player,
         public game: Game,
         public title: string = 'Select space for greenery tile'
-    ){}
+    ) {}
 
     public execute() {
         const availableSpaces = this.game.board.getAvailableSpacesForGreenery(this.player);
@@ -17,13 +17,9 @@ export class PlaceGreeneryTile implements DeferredAction {
             return undefined;
         }
 
-        return new SelectSpace(
-            this.title,
-            availableSpaces,
-            (space: ISpace) => {
-                this.game.addGreenery(this.player, space.id);
-                return undefined;
-            }
-        );
+        return new SelectSpace(this.title, availableSpaces, (space: ISpace) => {
+            this.game.addGreenery(this.player, space.id);
+            return undefined;
+        });
     }
-}    
+}

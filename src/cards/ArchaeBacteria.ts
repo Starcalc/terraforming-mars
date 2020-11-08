@@ -12,12 +12,10 @@ export class ArchaeBacteria implements IProjectCard {
     public name = CardName.ARCHAEBACTERIA;
     public cardType = CardType.AUTOMATED;
     public canPlay(player: Player, game: Game): boolean {
-      return game.getTemperature() <= -18 + (
-        player.getRequirementsBonus(game) * 2
-      );
+        return game.getTemperature() <= -18 + player.getRequirementsBonus(game) * 2;
     }
     public play(player: Player) {
-      player.addProduction(Resources.PLANTS);
-      return undefined;
+        player.addProduction(Resources.PLANTS);
+        return undefined;
     }
 }

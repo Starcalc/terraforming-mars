@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { CardType } from "./CardType";
@@ -20,8 +19,8 @@ export class NuclearPower implements IProjectCard {
         if (player.getProduction(Resources.MEGACREDITS) < -3) {
             throw "Not enough mega credit production";
         }
-        player.addProduction(Resources.MEGACREDITS,-2);
-        player.addProduction(Resources.ENERGY,3);
+        player.addProduction(Resources.MEGACREDITS, -2);
+        player.addProduction(Resources.ENERGY, 3);
         return undefined;
     }
 }

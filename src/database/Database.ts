@@ -6,7 +6,7 @@ export class Database {
     private static instance: IDatabase;
 
     private constructor() {}
-  
+
     public static getInstance() {
         if (!Database.instance) {
             if (process.env.POSTGRES_HOST !== undefined) {

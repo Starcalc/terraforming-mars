@@ -10,12 +10,12 @@ export class AdaptationTechnology implements IProjectCard {
     public cardType = CardType.ACTIVE;
 
     public getRequirementBonus(): number {
-      return 2;
+        return 2;
     }
     public play() {
-      return undefined;
+        return undefined;
     }
     public getVictoryPoints() {
-      return 1;
+        return 1;
     }
 }

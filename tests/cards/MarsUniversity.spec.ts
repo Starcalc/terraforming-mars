@@ -7,16 +7,16 @@ import { Pets } from "../../src/cards/Pets";
 import { OrOptions } from "../../src/inputs/OrOptions";
 import { Research } from "../../src/cards/Research";
 
-describe("MarsUniversity", function () {
-    let card : MarsUniversity, player : Player, game : Game;
+describe("MarsUniversity", () => {
+    let card: MarsUniversity, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new MarsUniversity();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         const action = card.play();
         expect(action).is.undefined;
 
@@ -37,13 +37,13 @@ describe("MarsUniversity", function () {
         expect(game.deferredActions).has.lengthOf(0);
     });
 
-    it("Gives victory point", function () {
+    it('Gives victory point', () => {
         card.play();
         player.victoryPointsBreakdown.setVictoryPoints('victoryPoints', card.getVictoryPoints());
         expect(player.victoryPointsBreakdown.victoryPoints).to.eq(1);
     });
 
-    it("Runs twice for multiple science tags", function () {
+    it('Runs twice for multiple science tags', () => {
         player.cardsInHand.push(card, card);
         card.onCardPlayed(player, game, new Research());
         expect(game.deferredActions).has.lengthOf(2);

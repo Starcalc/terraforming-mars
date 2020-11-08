@@ -18,13 +18,14 @@ export const CardsFilter = Vue.component("cards-filter", {
         return {
             selectedCardNames: [],
             foundCardNames: [],
-            searchTerm: ""
-        } as CardsFilterModel
+            searchTerm: "",
+        } as CardsFilterModel;
     },
     methods: {
-        removeCard: function (cardNameToRemove: CardName) { 
-            this.selectedCardNames = this.selectedCardNames.filter((curCardName) => curCardName !== cardNameToRemove).sort();
-            
+        removeCard: function (cardNameToRemove: CardName) {
+            this.selectedCardNames = this.selectedCardNames.filter(
+                (curCardName) => curCardName !== cardNameToRemove
+            );
         },
         addCard: function (cardNameToAdd: CardName) {
             if (this.selectedCardNames.includes(cardNameToAdd)) return;
@@ -32,9 +33,9 @@ export const CardsFilter = Vue.component("cards-filter", {
             this.selectedCardNames = this.selectedCardNames.sort();
             this.searchTerm = "";
         },
-        getCardsInputPlaceholder: function() {
+        getCardsInputPlaceholder: function () {
             return $t("Start typing the card name to exclude");
-        }   
+        },
     },
     watch: {
         selectedCardNames: function (value) {
@@ -45,12 +46,15 @@ export const CardsFilter = Vue.component("cards-filter", {
                 this.foundCardNames = [];
                 return;
             }
-            const newCardNames = allItems.filter(
-                (candidate: CardName) => ! this.selectedCardNames.includes(candidate) && candidate.toLowerCase().indexOf(value.toLowerCase()) !== -1
-            ).sort();
-            this.foundCardNames = newCardNames.slice(0, 5)
-             
-        } 
+            const newCardNames = allItems
+                .filter(
+                    (candidate: CardName) =>
+                        !this.selectedCardNames.includes(candidate) &&
+                        candidate.toLowerCase().indexOf(value.toLowerCase()) !== -1
+                )
+                .sort();
+            this.foundCardNames = newCardNames.slice(0, 5);
+        },
     },
     template: `
     <div class="cards-filter">
@@ -72,5 +76,5 @@ export const CardsFilter = Vue.component("cards-filter", {
             </div>
         </div>
     </div>
-    `
+    `,
 });

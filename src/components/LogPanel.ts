@@ -13,29 +13,29 @@ import { CardFinder } from "./../CardFinder";
 export const LogPanel = Vue.component("log-panel", {
     props: {
         id: {
-            type: String
+            type: String,
         },
         players: {
-            type: Object as () => Array<PlayerModel>
-        }
+            type: Object as () => Array<PlayerModel>,
+        },
     },
     data: function () {
         return {
             cards: new Array<string>(),
-            messages: new Array<LogMessage>()
-        }
+            messages: new Array<LogMessage>(),
+        };
     },
     components: {
         Card,
     },
     methods: {
-        scrollToEnd: function() { 
+        scrollToEnd: function () {
             const scrollablePanel = document.getElementById("logpanel-scrollable");
             if (scrollablePanel !== null) {
                 scrollablePanel.scrollTop = scrollablePanel.scrollHeight;
             }
         },
-        parseCardType: function(cardType: CardType, cardName: string) {
+        parseCardType: function (cardType: CardType, cardName: string) {
             cardName = $t(cardName);
             const suffixFreeCardName = cardName.split(":")[0];
             let className: string | undefined;
@@ -52,31 +52,46 @@ export const LogPanel = Vue.component("log-panel", {
             if (className === undefined) {
                 return suffixFreeCardName;
             } else {
-                return "<log-card class=\""+ className + "\">" + suffixFreeCardName + "</log-card>";
+                return '<log-card class="' + className + '">' + suffixFreeCardName + "</log-card>";
             }
         },
-        parseData: function(data: LogMessageData) {
+        parseData: function (data: LogMessageData) {
             const translatableMessageDataTypes = [
                 LogMessageDataType.STRING,
                 LogMessageDataType.STANDARD_PROJECT,
                 LogMessageDataType.MILESTONE,
                 LogMessageDataType.AWARD,
                 LogMessageDataType.COLONY,
-                LogMessageDataType.PARTY
+                LogMessageDataType.PARTY,
             ];
             if (data.type !== undefined && data.value !== undefined) {
                 if (data.type === LogMessageDataType.PLAYER) {
                     for (const player of this.players) {
                         if (data.value === player.color || data.value === player.id) {
-                            return "<log-player class=\"player_bg_color_"+player.color+"\">"+player.name+"</log-player>";
+                            return (
+                                '<log-player class="player_bg_color_' +
+                                player.color +
+                                '">' +
+                                player.name +
+                                "</log-player>"
+                            );
                         }
                     }
                 } else if (data.type === LogMessageDataType.CARD) {
                     for (const player of this.players) {
-                        if (player.corporationCard !== undefined && data.value === player.corporationCard.name) {
-                            return "<log-card class=\"background-color-corporation\">" + $t(data.value) + "</log-card>";
+                        if (
+                            player.corporationCard !== undefined &&
+                            data.value === player.corporationCard.name
+                        ) {
+                            return (
+                                '<log-card class="background-color-corporation">' +
+                                $t(data.value) +
+                                "</log-card>"
+                            );
                         } else {
-                            const cards = player.playedCards.concat(player.selfReplicatingRobotsCards);
+                            const cards = player.playedCards.concat(
+                                player.selfReplicatingRobotsCards
+                            );
                             for (const card of cards) {
                                 if (data.value === card.name && card.cardType !== undefined) {
                                     return this.parseCardType(card.cardType, data.value);
@@ -84,18 +99,18 @@ export const LogPanel = Vue.component("log-panel", {
                             }
                         }
                     }
-                    const card = new CardFinder().getProjectCardByName(data.value)
+                    const card = new CardFinder().getProjectCardByName(data.value);
                     if (card && card.cardType) return this.parseCardType(card.cardType, data.value);
                 } else if (translatableMessageDataTypes.includes(data.type)) {
                     return $t(data.value);
-                } else  {
+                } else {
                     return data.value;
                 }
             }
             return "";
         },
         // Called in the event that a bad log message comes down. Does its best to return something.
-        safeMessage: function(message: LogMessage) {
+        safeMessage: function (message: LogMessage) {
             try {
                 if (message === undefined) {
                     return "undefined";
@@ -103,32 +118,39 @@ export const LogPanel = Vue.component("log-panel", {
                 if (message.data === undefined) {
                     return `BUG: Unparseable message: ${message.message}`;
                 }
-                const data = message.data.map(datum => {
-                    return (datum === undefined)
+                const data = message.data.map((datum) => {
+                    return datum === undefined
                         ? "undefined"
-                        : ("(" + datum.type + ") " + datum.value)
-                    });
+                        : '(' + datum.type + ') ' + datum.value;
+                });
                 return `BUG: Unparseable message: ${message.message}, (${data.join(", ")})`;
-            } catch(err) {
+            } catch (err) {
                 return `BUG: Unparseable message: ${message.message} ${err.toString()}`;
             }
         },
-        parseMessage: function(message: LogMessage) {
+        parseMessage: function (message: LogMessage) {
             try {
-                const logEntryBullet = (this.isNewGeneration(message.type)) ? "" : `<span title="${new Date(message.timestamp).toLocaleString()}">&#x1f551;</span>`;
+                const logEntryBullet = this.isNewGeneration(message.type)
+                    ? ''
+                    : `<span title="${new Date(
+                          message.timestamp
+                      ).toLocaleString()}">&#x1f551;</span>`;
                 if (message.type !== undefined && message.message !== undefined) {
                     message.message = $t(message.message);
-                    return logEntryBullet+message.message.replace(/\$\{([0-9]{1})\}/gi, (_match, idx) => {
-                        return this.parseData(message.data[idx]);
-                    });
+                    return (
+                        logEntryBullet +
+                        message.message.replace(/\$\{([0-9]{1})\}/gi, (_match, idx) => {
+                            return this.parseData(message.data[idx]);
+                        })
+                    );
                 }
-            } catch(err) {
+            } catch (err) {
                 return this.safeMessage(message);
             }
             return "";
         },
-        isNewGeneration: function(type: LogMessageType) {
-            return (type === LogMessageType.NEW_GENERATION);
+        isNewGeneration: function (type: LogMessageType) {
+            return type === LogMessageType.NEW_GENERATION;
         },
         cardClicked: function (message: LogMessage) {
             const datas = message.data;
@@ -149,9 +171,9 @@ export const LogPanel = Vue.component("log-panel", {
         hideMe: function () {
             this.cards = new Array<string>();
         },
-        getCrossHtml: function() {
+        getCrossHtml: function () {
             return "<i class='icon icon-cross' /i>";
-        }
+        },
     },
     mounted: function () {
         fetch(`/api/game/logs?id=${this.id}&limit=50`)
@@ -181,5 +203,5 @@ export const LogPanel = Vue.component("log-panel", {
             </div>
         </div>
     </div>
-    `
+    `,
 });

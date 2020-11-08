@@ -1,4 +1,3 @@
-
 import { CardType } from "./CardType";
 import { IProjectCard } from "./IProjectCard";
 import { Player } from "../Player";
@@ -19,8 +18,8 @@ export class LandClaim implements IProjectCard {
     }
     public play(player: Player, game: Game) {
         return new SelectSpace(
-            "Select space for claim", 
-            game.board.getAvailableSpacesOnLand(player), 
+            "Select space for claim",
+            game.board.getAvailableSpacesOnLand(player),
             (foundSpace: ISpace) => {
                 foundSpace.player = player;
                 LogHelper.logBoardTileAction(game, player, foundSpace, "land claim");

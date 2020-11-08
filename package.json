@@ -15,14 +15,14 @@
     "pg": "^8.2.1",
     "spectre.css": "^0.5.8",
     "sqlite3": "^4.2.0",
-    "typescript": "^3.8.3",
+    "typescript": "^4.0.3",
     "vue": "2.6.10",
     "vue-template-compiler": "2.6.10",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.0"
   },
   "devDependencies": {
-    "@types/node": "^10.17.32",
+    "@types/node": "^14.11.2",
     "@types/sqlite3": "^3.1.6",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.30.0",
@@ -33,21 +33,25 @@
     "js-beautify": "^1.13.0",
     "jsdom": "^16.4.0",
     "mocha": "^6.2.3",
-    "nyc": "^14.1.1"
+    "nyc": "^14.1.1",
+    "gts": "^3.0.2"
   },
   "nyc": {
     "extends": "@istanbuljs/nyc-config-typescript"
   },
   "scripts": {
     "clean": "rm -r ./dist/ ./styles.css || true",
-    "build": "node make_static_json.js && eslint src/*.ts src/components/**/*.ts src/database/**/*.ts && lessc src/styles/common.less styles.css && tsc --build tsconfig.json && npm run templates && webpack --config webpack.config.js",
-    "start": "node make_static_json.js && lessc src/styles/common.less styles.css && tsc --build tsconfig.json && webpack --config webpack.config.js && node dist/server.js",
+    "build": "node make_static_json.js && npm run lint && lessc src/styles/common.less styles.css && npm run compile && npm run templates && webpack --config webpack.config.js",
+    "start": "node make_static_json.js && lessc src/styles/common.less styles.css && npm run compile && webpack --config webpack.config.js && node dist/server.js",
     "pretest": "tsc --build tsconfig-test.json",
     "templates": "node compile-vue-templates.js && tsc --build tsconfig-vue.json",
     "test": "mocha --file dist/tests/utils/Vue.js --recursive dist/tests",
     "testgiven": "tsc --build tsconfig.json && webpack --config webpack.config.js && tsc --build tsconfig-test.json && mocha",
     "precover": "tsc --build tsconfig-test.json",
-    "cover": "nyc mocha --file dist/tests/utils/Vue.js --recursive dist/tests"
+    "cover": "nyc mocha --file dist/tests/utils/Vue.js --recursive dist/tests",
+    "lint": "eslint --fix src/**/*.ts",
+    "compile": "tsc",
+    "fix": "gts fix src/**/*.ts *.ts"
   },
   "repository": {
     "type": "git",

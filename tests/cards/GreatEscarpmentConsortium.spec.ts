@@ -6,26 +6,26 @@ import { Game } from "../../src/Game";
 import { Resources } from "../../src/Resources";
 import { SelectPlayer } from "../../src/inputs/SelectPlayer";
 
-describe("GreatEscarpmentConsortium", function () {
-    let card : GreatEscarpmentConsortium, player : Player, player2 : Player, game : Game;
+describe("GreatEscarpmentConsortium", () => {
+    let card: GreatEscarpmentConsortium, player: Player, player2: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new GreatEscarpmentConsortium();
         player = new Player("test", Color.BLUE, false);
         player2 = new Player("test2", Color.RED, false);
         game = new Game("foobar", [player, player2], player);
     });
 
-    it("Cannot play without steel production", function () {
+    it('Cannot play without steel production', () => {
         expect(card.canPlay(player)).is.not.true;
     });
 
-    it("Can play if player has steel production", function () {
+    it('Can play if player has steel production', () => {
         player.addProduction(Resources.STEEL);
         expect(card.canPlay(player)).is.true;
     });
-    
-    it("Should play - auto select if single target", function () {
+
+    it('Should play - auto select if single target', () => {
         player.addProduction(Resources.STEEL);
         card.play(player, game); // can decrease own production
         const input = game.deferredActions.next()!.execute();
@@ -33,7 +33,7 @@ describe("GreatEscarpmentConsortium", function () {
         expect(player.getProduction(Resources.STEEL)).to.eq(1);
     });
 
-    it("Should play - multiple targets", function () {
+    it('Should play - multiple targets', () => {
         player.addProduction(Resources.STEEL);
         player2.addProduction(Resources.STEEL);
         card.play(player, game);
@@ -45,11 +45,11 @@ describe("GreatEscarpmentConsortium", function () {
         expect(player2.getProduction(Resources.STEEL)).to.eq(0);
     });
 
-    it("Can play in solo - won't reduce own production", function () {
+    it("Can play in solo - won't reduce own production", () => {
         game = new Game("foobar", [player], player);
         player.addProduction(Resources.STEEL);
         expect(player.getProduction(Resources.STEEL)).to.eq(1);
-        
+
         card.play(player, game);
 
         const input = game.deferredActions.next()!.execute();

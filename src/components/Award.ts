@@ -4,24 +4,22 @@ import { FundedAwardModel } from "../models/FundedAwardModel";
 export const Award = Vue.component("award", {
     props: {
         awards_list: {
-            type: Array as () => Array<FundedAwardModel>
-        }
+            type: Array as () => Array<FundedAwardModel>,
+        },
     },
     data: function () {
-        const showDescription: {[x: string]: boolean}  = {};
+        const showDescription: { [x: string]: boolean } = {};
         for (const award of this.awards_list) {
             showDescription[award.award.name] = false;
         }
         return {
             showDescription,
-            showList: true
-        }
+            showList: true,
+        };
     },
     methods: {
         getNameCss: function (awardName: string): string {
-            return (
-                "ma-name ma-name--" + awardName.replace(/ /g, "-").toLowerCase()
-            );
+            return 'ma-name ma-name--' + awardName.replace(/ /g, '-').toLowerCase();
         },
         shouldShow: function (award: FundedAwardModel): boolean {
             return this.showDescription[award.award.name] === true;
@@ -34,7 +32,7 @@ export const Award = Vue.component("award", {
         },
         toggleList: function () {
             this.showList = !this.showList;
-        }
+        },
     },
     template: `
     <div class="awards_cont" v-trim-whitespace>

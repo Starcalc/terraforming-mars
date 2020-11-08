@@ -20,7 +20,7 @@ import { Leavitt } from "../cards/community/Leavitt";
 
 export interface IColonyFactory<T> {
     colonyName: ColonyName;
-    factory: new () => T
+    factory: new () => T;
 }
 
 // ALL COLONIES TILES is now a const not and attribute of Colony Dealer
@@ -50,7 +50,9 @@ export const COMMUNITY_COLONIES_TILES: Array<IColonyFactory<IColony>> = [
 // Function to return a card object by its name
 export function getColonyByName(colonyName: string): IColony | undefined {
     const colonyTiles = ALL_COLONIES_TILES.concat(COMMUNITY_COLONIES_TILES);
-    let colonyFactory = colonyTiles.find((colonyFactory) => colonyFactory.colonyName === colonyName);
+    const colonyFactory = colonyTiles.find(
+        (colonyFactory) => colonyFactory.colonyName === colonyName
+    );
     if (colonyFactory !== undefined) {
         return new colonyFactory.factory();
     }
@@ -72,14 +74,20 @@ export class ColonyDealer {
     public discard(card: IColony): void {
         this.discardedColonies.push(card);
     }
-    public drawColonies(players: number, allowList: Array<ColonyName> = [], venusNextExtension: boolean, addCommunityColonies: boolean = false): Array<IColony> {
+    public drawColonies(
+        players: number,
+        allowList: Array<ColonyName> = [],
+        venusNextExtension: boolean,
+        addCommunityColonies = false
+    ): Array<IColony> {
         let count: number = players + 2;
         let colonyTiles = ALL_COLONIES_TILES;
         if (addCommunityColonies) colonyTiles = colonyTiles.concat(COMMUNITY_COLONIES_TILES);
-        if (!venusNextExtension) colonyTiles = colonyTiles.filter((c) => c.colonyName !== ColonyName.VENUS);
+        if (!venusNextExtension)
+            colonyTiles = colonyTiles.filter((c) => c.colonyName !== ColonyName.VENUS);
 
         if (allowList.length === 0) {
-            colonyTiles.forEach(e => allowList.push(e.colonyName))
+            colonyTiles.forEach((e) => allowList.push(e.colonyName));
         }
         if (players === 1) {
             count = 4;
@@ -87,19 +95,17 @@ export class ColonyDealer {
             count = 5;
         }
 
-        let tempDeck = this.shuffle(
-            colonyTiles.filter(
-                el => allowList.includes(el.colonyName)
-            ).map(
-                (cf) => new cf.factory()
-            )
+        const tempDeck = this.shuffle(
+            colonyTiles
+                .filter((el) => allowList.includes(el.colonyName))
+                .map((cf) => new cf.factory())
         );
         for (let i = 0; i < count; i++) {
             this.coloniesDeck.push(tempDeck.pop()!);
-        }    
+        }
         this.discardedColonies.push(...tempDeck);
-        this.discardedColonies.sort((a,b) => (a.name > b.name) ? 1 : -1);
-        this.coloniesDeck.sort((a,b) => (a.name > b.name) ? 1 : -1);
+        this.discardedColonies.sort((a, b) => (a.name > b.name ? 1 : -1));
+        this.coloniesDeck.sort((a, b) => (a.name > b.name ? 1 : -1));
 
         return this.coloniesDeck;
     }

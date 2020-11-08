@@ -23,11 +23,11 @@ import * as raw_settings from "../../assets/settings.json";
 export const PlayerHome = Vue.component("player-home", {
     props: {
         player: {
-            type: Object as () => PlayerModel
+            type: Object as () => PlayerModel,
         },
         settings: {
-            type: Object as () => typeof raw_settings
-        }
+            type: Object as () => typeof raw_settings,
+        },
     },
     components: {
         "board": Board,
@@ -45,17 +45,11 @@ export const PlayerHome = Vue.component("player-home", {
     },
     mixins: [PlayerMixin],
     methods: {
-        getPlayerCssForTurnOrder: (
-            player: PlayerModel,
-            highlightActive: boolean
-        ): string => {
+        getPlayerCssForTurnOrder: (player: PlayerModel, highlightActive: boolean): string => {
             const classes = ["highlighter_box"];
 
             if (highlightActive) {
-                if (
-                    player.needsToDraft ||
-                    (player.needsToDraft === undefined && player.isActive)
-                ) {
+                if (player.needsToDraft || (player.needsToDraft === undefined && player.isActive)) {
                     classes.push("player_is_active");
                 }
                 classes.push(playerColorClass(player.color, "bg"));
@@ -72,13 +66,10 @@ export const PlayerHome = Vue.component("player-home", {
         getGenerationText: function (): string {
             if (this.player.players.length === 1) {
                 const MAX_GEN = this.player.preludeExtension ? 12 : 14;
-                let retText =
-                    "generation " + this.player.generation + " of " + MAX_GEN;
+                let retText = "generation " + this.player.generation + " of " + MAX_GEN;
                 if (MAX_GEN === this.player.generation) {
                     retText =
-                        "<span class='last-generation blink-animation'>" +
-                        retText +
-                        "</span>";
+                        "<span class='last-generation blink-animation'>" + retText + "</span>";
                 }
 
                 return retText;
@@ -88,9 +79,7 @@ export const PlayerHome = Vue.component("player-home", {
         },
     },
     mounted: function () {
-        dialogPolyfill.default.registerDialog(
-            document.getElementById("dialog-default")
-        );
+        dialogPolyfill.default.registerDialog(document.getElementById('dialog-default'));
     },
     template: `
         <div id="player-home" :class="player.turmoil ? 'with-turmoil': ''">

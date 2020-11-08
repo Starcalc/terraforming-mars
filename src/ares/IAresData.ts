@@ -6,16 +6,16 @@ export interface IAresData {
 }
 
 export interface IHazardConstraint {
-    threshold: number,
-    available: boolean
+    threshold: number;
+    available: boolean;
 }
 
 export interface IHazardData {
-    erosionOceanCount: IHazardConstraint,
-    removeDustStormsOceanCount: IHazardConstraint,
-    severeErosionTemperature: IHazardConstraint,
-    severeDustStormOxygen: IHazardConstraint
-};
+    erosionOceanCount: IHazardConstraint;
+    removeDustStormsOceanCount: IHazardConstraint;
+    severeErosionTemperature: IHazardConstraint;
+    severeDustStormOxygen: IHazardConstraint;
+}
 
 export interface IMilestoneCount {
     id: string;

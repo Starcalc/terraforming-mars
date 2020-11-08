@@ -4,19 +4,19 @@ import { Color } from "../../src/Color";
 import { Player } from "../../src/Player";
 import { Resources } from "../../src/Resources";
 
-describe("CarbonateProcessing", function () {
-    let card : CarbonateProcessing, player : Player;
+describe("CarbonateProcessing", () => {
+    let card: CarbonateProcessing, player: Player;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new CarbonateProcessing();
         player = new Player("test", Color.BLUE, false);
     });
 
-    it("Can't play", function () {
+    it("Can't play", () => {
         expect(card.canPlay(player)).is.not.true;
     });
 
-    it("Should play", function () { 
+    it('Should play', () => {
         player.addProduction(Resources.ENERGY);
         expect(card.canPlay(player)).is.true;
 

@@ -1,4 +1,3 @@
-
 import Vue from "vue";
 import { Button } from "../components/common/Button";
 import { VueModelCheckbox, VueModelRadio } from "./VueTypes";
@@ -11,34 +10,38 @@ import { Card } from "./card/Card";
 import { CardModel } from "../models/CardModel";
 import { PlayerInputModel } from "../models/PlayerInputModel";
 
-export const SelectCard = Vue.component("select-card", { 
+export const SelectCard = Vue.component("select-card", {
     props: {
         playerinput: {
-            type: Object as () => PlayerInputModel
+            type: Object as () => PlayerInputModel,
         },
         onsave: {
-            type: Object as () => (out: Array<Array<string>>) => void
+            type: Object as () => (out: Array<Array<string>>) => void,
         },
         showsave: {
-            type: Boolean
+            type: Boolean,
         },
         showtitle: {
-            type: Boolean
-        }
+            type: Boolean,
+        },
     },
     data: function () {
         return {
-            cards: []
+            cards: [],
         } as SelectCardModel;
     },
     components: {
         Card,
-        Button
+        Button,
     },
     methods: {
         saveData: function () {
-            this.onsave([Array.isArray(this.$data.cards) ? this.$data.cards.map(card => card.name) : [this.$data.cards.name]]);
-        }
+            this.onsave([
+                Array.isArray(this.$data.cards)
+                    ? this.$data.cards.map((card) => card.name)
+                    : [this.$data.cards.name],
+            ]);
+        },
     },
     template: `<div class="wf-component wf-component--select-card">
         <div v-if="showtitle === true" class="nofloat wf-component-title" v-i18n>{{playerinput.title}}</div>
@@ -50,6 +53,5 @@ export const SelectCard = Vue.component("select-card", {
         <div v-if="showsave === true" class="nofloat">
             <Button type="submit" :onClick="saveData" :title="playerinput.buttonLabel" />
         </div>
-    </div>`
+    </div>`,
 });
-

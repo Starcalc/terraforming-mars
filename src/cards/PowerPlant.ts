@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { CardType } from "./CardType";
@@ -17,4 +16,3 @@ export class PowerPlant implements IProjectCard {
         return undefined;
     }
 }
-

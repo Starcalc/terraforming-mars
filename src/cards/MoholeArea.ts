@@ -1,4 +1,3 @@
-
 import { TileType } from "../TileType";
 import { CardType } from "./CardType";
 import { IProjectCard } from "./IProjectCard";
@@ -20,11 +19,15 @@ export class MoholeArea implements IProjectCard {
     public adjacencyBonus?: IAdjacencyBonus = undefined;
 
     public play(player: Player, game: Game) {
-        return new SelectSpace("Select an ocean space for special tile", game.board.getAvailableSpacesForOcean(player), (space: ISpace) => {
-            game.addTile(player, SpaceType.OCEAN, space, { tileType: TileType.MOHOLE_AREA });
-            space.adjacency = this.adjacencyBonus;
-            player.addProduction(Resources.HEAT,4);
-            return undefined;
-        });
+        return new SelectSpace(
+            "Select an ocean space for special tile",
+            game.board.getAvailableSpacesForOcean(player),
+            (space: ISpace) => {
+                game.addTile(player, SpaceType.OCEAN, space, { tileType: TileType.MOHOLE_AREA });
+                space.adjacency = this.adjacencyBonus;
+                player.addProduction(Resources.HEAT, 4);
+                return undefined;
+            }
+        );
     }
 }

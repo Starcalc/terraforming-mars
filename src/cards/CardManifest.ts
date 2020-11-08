@@ -6,17 +6,17 @@ import { IProjectCard } from "./IProjectCard";
 
 export class CardManifest {
     module: GameModule;
-    projectCards : Deck<IProjectCard>;
+    projectCards: Deck<IProjectCard>;
     projectCardsToRemove: Array<String>;
-    corporationCards : Deck<CorporationCard>;
-    preludeCards : Deck<IProjectCard>;
+    corporationCards: Deck<CorporationCard>;
+    preludeCards: Deck<IProjectCard>;
     constructor(arg: {
-         module: GameModule,
-         projectCards?: Array<ICardFactory<IProjectCard>>,
-         projectCardsToRemove?: Array<String>,
-         corporationCards?: Array<ICardFactory<CorporationCard>>,
-         preludeCards?: Array<ICardFactory<IProjectCard>>,
-         }) {
+        module: GameModule;
+        projectCards?: Array<ICardFactory<IProjectCard>>;
+        projectCardsToRemove?: Array<String>;
+        corporationCards?: Array<ICardFactory<CorporationCard>>;
+        preludeCards?: Array<ICardFactory<IProjectCard>>;
+    }) {
         this.module = arg.module;
         this.projectCards = new Deck<IProjectCard>(arg.projectCards || []);
         this.projectCardsToRemove = arg.projectCardsToRemove || [];

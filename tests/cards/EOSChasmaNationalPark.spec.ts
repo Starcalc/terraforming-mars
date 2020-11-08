@@ -8,20 +8,20 @@ import { Birds } from "../../src/cards/Birds";
 import { Fish } from "../../src/cards/Fish";
 import { Resources } from "../../src/Resources";
 
-describe("EosChasmaNationalPark", function () {
-    let card : EosChasmaNationalPark, player : Player, game : Game;
+describe("EosChasmaNationalPark", () => {
+    let card: EosChasmaNationalPark, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new EosChasmaNationalPark();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't play", function () {
+    it("Can't play", () => {
         expect(card.canPlay(player, game)).is.not.true;
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         (game as any).temperature = -12;
         const birds = new Birds();
         const fish = new Fish();
@@ -32,7 +32,7 @@ describe("EosChasmaNationalPark", function () {
         expect(action instanceof SelectCard).is.true;
         player.playedCards.push(card);
         action!.cb([birds]);
-        
+
         expect(player.getResourcesOnCard(birds)).to.eq(1);
         expect(player.plants).to.eq(3);
         expect(player.getProduction(Resources.MEGACREDITS)).to.eq(2);
@@ -40,8 +40,8 @@ describe("EosChasmaNationalPark", function () {
         player.getVictoryPoints(game);
         expect(player.victoryPointsBreakdown.victoryPoints).to.eq(2);
     });
-    
-    it("Should play - single target", function () {
+
+    it('Should play - single target', () => {
         (game as any).temperature = -12;
         const birds = new Birds();
         player.playedCards.push(birds);
@@ -58,4 +58,3 @@ describe("EosChasmaNationalPark", function () {
         expect(player.victoryPointsBreakdown.victoryPoints).to.eq(2);
     });
 });
-

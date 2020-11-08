@@ -8,12 +8,12 @@ import { Kelvinists } from "../../src/turmoil/parties/Kelvinists";
 import { Resources } from "../../src/Resources";
 import { CorroderSuits } from "../../src/cards/venusNext/CorroderSuits";
 
-describe("VenusInfrastructure", function () {
-    it("resolve play", function () {
+describe("VenusInfrastructure", () => {
+    it('resolve play', () => {
         const card = new VenusInfrastructure();
         const player = new Player("test", Color.BLUE, false);
         const player2 = new Player("test2", Color.RED, false);
-        const game = new Game("foobar", [player,player2], player);
+        const game = new Game("foobar", [player, player2], player);
         const turmoil = new Turmoil(game);
 
         player.playedCards.push(new CorroderSuits());

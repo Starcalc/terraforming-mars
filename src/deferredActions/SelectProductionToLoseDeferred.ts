@@ -8,8 +8,8 @@ export class SelectProductionToLoseDeferred implements DeferredAction {
     constructor(
         public player: Player,
         private unitsToLose: number,
-        private title: string = `Choose ${unitsToLose} unit(s) of production to lose`,
-    ){}
+        private title: string = `Choose ${unitsToLose} unit(s) of production to lose`
+    ) {}
 
     public execute() {
         return new SelectProductionToLose(

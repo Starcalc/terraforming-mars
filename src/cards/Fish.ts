@@ -14,11 +14,14 @@ export class Fish implements IActionCard, IProjectCard, IResourceCard {
     public tags = [Tags.ANIMAL];
     public name = CardName.FISH;
     public resourceType = ResourceType.ANIMAL;
-    public resourceCount: number = 0;
+    public resourceCount = 0;
     public cardType = CardType.ACTIVE;
 
     public canPlay(player: Player, game: Game): boolean {
-        return game.getTemperature() >= 2 - (player.getRequirementsBonus(game) * 2) && game.someoneHasResourceProduction(Resources.PLANTS,1);
+        return (
+            game.getTemperature() >= 2 - player.getRequirementsBonus(game) * 2 &&
+            game.someoneHasResourceProduction(Resources.PLANTS, 1)
+        );
     }
     public getVictoryPoints(): number {
         return this.resourceCount;

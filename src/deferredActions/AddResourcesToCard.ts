@@ -15,13 +15,15 @@ export class AddResourcesToCard implements DeferredAction {
         public count: number = 1,
         public restrictedTag?: Tags,
         public title: string = "Select card to add " + count + " " + resourceType + "(s)"
-    ){}
+    ) {}
 
     public execute() {
         let resourceCards = this.player.getResourceCards(this.resourceType);
 
         if (this.restrictedTag !== undefined) {
-            resourceCards = resourceCards.filter(card => card.tags.indexOf(this.restrictedTag!) !== -1);
+            resourceCards = resourceCards.filter(
+                (card) => card.tags.indexOf(this.restrictedTag!) !== -1
+            );
         }
 
         if (resourceCards.length === 0) {
@@ -45,4 +47,4 @@ export class AddResourcesToCard implements DeferredAction {
             }
         );
     }
-}    
+}

@@ -5,20 +5,20 @@ import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 import { InventorsGuild } from "../../src/cards/InventorsGuild";
 
-describe("Plantation", function () {
-    let card : Plantation, player : Player, game : Game;
+describe("Plantation", () => {
+    let card: Plantation, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new Plantation();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't play", function () {
+    it("Can't play", () => {
         expect(card.canPlay(player, game)).is.not.true;
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         player.playedCards.push(new InventorsGuild(), new InventorsGuild());
         expect(card.canPlay(player, game)).is.true;
 

@@ -5,21 +5,21 @@ import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 import { Resources } from "../../src/Resources";
 
-describe("DesignedMicroOrganisms", function () {
-    let card : DesignedMicroOrganisms, player : Player, game : Game;
+describe("DesignedMicroOrganisms", () => {
+    let card: DesignedMicroOrganisms, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new DesignedMicroOrganisms();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't play", function () {
+    it("Can't play", () => {
         (game as any).temperature = -12;
         expect(card.canPlay(player, game)).is.not.true;
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         (game as any).temperature = -14;
         expect(card.canPlay(player, game)).is.true;
         card.play(player);

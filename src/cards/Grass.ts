@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { CardType } from "./CardType";
@@ -13,7 +12,7 @@ export class Grass implements IProjectCard {
     public cardType = CardType.AUTOMATED;
     public name = CardName.GRASS;
     public canPlay(player: Player, game: Game): boolean {
-        return game.getTemperature() >= -16 - (2 * player.getRequirementsBonus(game));
+        return game.getTemperature() >= -16 - 2 * player.getRequirementsBonus(game);
     }
     public play(player: Player) {
         player.addProduction(Resources.PLANTS);

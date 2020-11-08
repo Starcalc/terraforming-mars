@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { CardType } from "./CardType";
@@ -16,11 +15,11 @@ export class SoilFactory implements IProjectCard {
         return player.getProduction(Resources.ENERGY) >= 1;
     }
     public play(player: Player) {
-        player.addProduction(Resources.ENERGY,-1);
+        player.addProduction(Resources.ENERGY, -1);
         player.addProduction(Resources.PLANTS);
         return undefined;
     }
     public getVictoryPoints() {
         return 1;
-    } 
+    }
 }

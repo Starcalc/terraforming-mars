@@ -10,56 +10,57 @@ function corpCardNames(module: GameModule): Array<CardName> {
         console.log("manifest %s not found", manifest);
         return [];
     } else {
-        return manifest.corporationCards.cards.map(cf => cf.cardName);
+        return manifest.corporationCards.cards.map((cf) => cf.cardName);
     }
 }
 
 // TODO(kberg): no need for both ALL_CORPORATION_DECKS and MANIFEST_BY_MODULE
-const allItems: Array<CardName> =
-    ALL_CORPORATION_DECKS.map((deck) => deck.cards.map((cf) => cf.cardName))
-        .reduce((accumulator, cards) => accumulator.concat(cards));
+const allItems: Array<CardName> = ALL_CORPORATION_DECKS.map((deck) =>
+    deck.cards.map((cf) => cf.cardName)
+).reduce((accumulator, cards) => accumulator.concat(cards));
 
 export const CorporationsFilter = Vue.component("corporations-filter", {
     props: {
         corporateEra: {
-            type: Boolean
+            type: Boolean,
         },
         prelude: {
-            type: Boolean
+            type: Boolean,
         },
         venusNext: {
-            type: Boolean
+            type: Boolean,
         },
         colonies: {
-            type: Boolean
+            type: Boolean,
         },
         turmoil: {
-            type: Boolean
+            type: Boolean,
         },
         promoCardsOption: {
-            type: Boolean
+            type: Boolean,
         },
         communityCardsOption: {
-            type: Boolean
-        }
+            type: Boolean,
+        },
     },
     data: function () {
-        const cardsByModuleMap: Map<GameModule, Array<CardName>> =
-            new Map(ALL_CARD_MANIFESTS.map(m => [m.module, corpCardNames(m.module)]));
+        const cardsByModuleMap: Map<GameModule, Array<CardName>> = new Map(
+            ALL_CARD_MANIFESTS.map((m) => [m.module, corpCardNames(m.module)])
+        );
         return {
             cardsByModuleMap: cardsByModuleMap,
             customCorporationsList: false,
             selectedCorporations: [
                 ...cardsByModuleMap.get(GameModule.Base)!,
-                ...this.corporateEra ? cardsByModuleMap.get(GameModule.CorpEra)! : [],
-                ...this.prelude ? cardsByModuleMap.get(GameModule.Prelude)! : [],
-                ...this.venusNext ? cardsByModuleMap.get(GameModule.Venus)! : [],
-                ...this.colonies ? cardsByModuleMap.get(GameModule.Colonies)! : [],
-                ...this.turmoil ? cardsByModuleMap.get(GameModule.Turmoil)! : [],
-                ...this.promoCardsOption ? cardsByModuleMap.get(GameModule.Promo)! : [],
+                ...(this.corporateEra ? cardsByModuleMap.get(GameModule.CorpEra)! : []),
+                ...(this.prelude ? cardsByModuleMap.get(GameModule.Prelude)! : []),
+                ...(this.venusNext ? cardsByModuleMap.get(GameModule.Venus)! : []),
+                ...(this.colonies ? cardsByModuleMap.get(GameModule.Colonies)! : []),
+                ...(this.turmoil ? cardsByModuleMap.get(GameModule.Turmoil)! : []),
+                ...(this.promoCardsOption ? cardsByModuleMap.get(GameModule.Promo)! : []),
             ] as Array<CardName> | boolean /* v-model thinks this can be boolean */,
-            corpsByModule: Array.from(cardsByModuleMap)
-        }
+            corpsByModule: Array.from(cardsByModuleMap),
+        };
     },
     methods: {
         getSelected: function (): Array<CardName> {
@@ -89,9 +90,9 @@ export const CorporationsFilter = Vue.component("corporations-filter", {
             }
         },
         removeFromSelection: function (cardName: CardName) {
-            const itemIdx = this.getSelected().indexOf(cardName)
+            const itemIdx = this.getSelected().indexOf(cardName);
             if (itemIdx !== -1) {
-                this.getSelected().splice(itemIdx, 1)
+                this.getSelected().splice(itemIdx, 1);
             }
         },
         selectNone: function (group: string) {
@@ -110,7 +111,7 @@ export const CorporationsFilter = Vue.component("corporations-filter", {
                     this.getSelected().push(items[idx]);
                 }
             }
-        }
+        },
     },
     watch: {
         selectedCorporations: function (value) {
@@ -136,7 +137,7 @@ export const CorporationsFilter = Vue.component("corporations-filter", {
         },
         communityCardsOption: function (enabled) {
             enabled ? this.selectAll(GameModule.Community) : this.selectNone(GameModule.Community);
-        }
+        },
     },
     template: `
     <div class="corporations-filter">
@@ -165,5 +166,5 @@ export const CorporationsFilter = Vue.component("corporations-filter", {
             </div>
         </div>
     </div>
-    `
+    `,
 });

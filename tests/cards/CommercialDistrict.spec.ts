@@ -7,20 +7,20 @@ import { SelectSpace } from "../../src/inputs/SelectSpace";
 import { TileType } from "../../src/TileType";
 import { Resources } from "../../src/Resources";
 
-describe("CommercialDistrict", function () {
-    let card : CommercialDistrict, player : Player, game : Game;
+describe("CommercialDistrict", () => {
+    let card: CommercialDistrict, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new CommercialDistrict();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't play", function () {
+    it("Can't play", () => {
         expect(card.canPlay(player, game)).is.not.true;
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         player.addProduction(Resources.ENERGY);
         expect(card.canPlay(player, game)).is.true;
 
@@ -30,7 +30,7 @@ describe("CommercialDistrict", function () {
 
         expect(player.getProduction(Resources.ENERGY)).to.eq(0);
         expect(player.getProduction(Resources.MEGACREDITS)).to.eq(4);
-        
+
         const adjacent = game.board.getAdjacentSpaces(action.availableSpaces[0]);
         adjacent[0].tile = { tileType: TileType.CITY, card: card.name };
         adjacent[0].player = player;

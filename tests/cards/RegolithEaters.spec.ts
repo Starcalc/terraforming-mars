@@ -5,16 +5,16 @@ import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 import { OrOptions } from "../../src/inputs/OrOptions";
 
-describe("RegolithEaters", function () {
-    let card : RegolithEaters, player : Player, game : Game;
+describe("RegolithEaters", () => {
+    let card: RegolithEaters, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new RegolithEaters();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Should act", function () {
+    it('Should act', () => {
         player.playedCards.push(card);
         const action = card.action(player, game);
         expect(action).is.undefined;
@@ -27,7 +27,7 @@ describe("RegolithEaters", function () {
 
         orOptions!.options[1].cb();
         expect(card.resourceCount).to.eq(3);
-        
+
         orOptions!.options[0].cb();
         expect(card.resourceCount).to.eq(1);
         expect(game.getOxygenLevel()).to.eq(1);

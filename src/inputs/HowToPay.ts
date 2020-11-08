@@ -1,4 +1,3 @@
-
 export interface HowToPay {
     heat: number;
     megaCredits: number;
@@ -8,4 +7,3 @@ export interface HowToPay {
     floaters: number;
     isResearchPhase: boolean;
 }
-

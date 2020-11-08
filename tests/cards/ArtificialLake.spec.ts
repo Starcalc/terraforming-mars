@@ -8,20 +8,20 @@ import { SpaceType } from "../../src/SpaceType";
 import { TileType } from "../../src/TileType";
 import * as constants from "../../src/constants";
 
-describe("ArtificialLake", function () {
-    let card : ArtificialLake, player : Player, game : Game;
+describe("ArtificialLake", () => {
+    let card: ArtificialLake, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new ArtificialLake();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't play", function () {
+    it("Can't play", () => {
         expect(card.canPlay(player, game)).is.not.true;
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         const action = card.play(player, game);
         expect(action instanceof SelectSpace).is.true;
 
@@ -32,19 +32,19 @@ describe("ArtificialLake", function () {
         action!.cb(action!.availableSpaces[0]);
         const placedTile = action!.availableSpaces[0].tile;
         expect(placedTile!.tileType).to.eq(TileType.OCEAN);
-        
+
         player.victoryPointsBreakdown.setVictoryPoints('victoryPoints', card.getVictoryPoints());
         expect(player.victoryPointsBreakdown.victoryPoints).to.eq(1);
     });
 
-    it("Cannot place ocean if all oceans are already placed", function () {
+    it('Cannot place ocean if all oceans are already placed', () => {
         // Set temperature level to fit requirements
         (game as any).temperature = -6;
 
         // Set oceans count to the max value
         for (const space of game.board.getSpaces(SpaceType.OCEAN, player)) {
             if (game.board.getOceansOnBoard() < constants.MAX_OCEAN_TILES) {
-                game.addOceanTile(player, space.id)
+                game.addOceanTile(player, space.id);
             }
         }
 

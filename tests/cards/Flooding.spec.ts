@@ -9,17 +9,17 @@ import { SpaceType } from "../../src/SpaceType";
 import { OrOptions } from "../../src/inputs/OrOptions";
 import { LandClaim } from "../../src/cards/LandClaim";
 
-describe("Flooding", function () {
-    let card : Flooding, player : Player, player2 : Player, game : Game;
+describe("Flooding", () => {
+    let card: Flooding, player: Player, player2: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new Flooding();
         player = new Player("test", Color.BLUE, false);
         player2 = new Player("test2", Color.RED, false);
         game = new Game("foobar", [player, player2], player);
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         const oceans = game.board.getAvailableSpacesForOcean(player);
         const action = card.play(player, game);
         expect(action instanceof SelectSpace).is.true;
@@ -50,7 +50,7 @@ describe("Flooding", function () {
         expect(player.victoryPointsBreakdown.victoryPoints).to.eq(-1);
     });
 
-    it("Does not suggest to remove money from yourself", function() {
+    it('Does not suggest to remove money from yourself', () => {
         const oceanSpaces = game.board.getAvailableSpacesForOcean(player);
         const action = card.play(player, game);
 
@@ -66,10 +66,12 @@ describe("Flooding", function () {
         expect(subActionSelectPlayer.players[0]).to.eq(player2);
     });
 
-    it("Does not suggest player who played Land Claim", function() {
+    it('Does not suggest player who played Land Claim', () => {
         const landClaim = new LandClaim();
         const landClaimAction = landClaim.play(player2, game);
-        const adjacentSpace = game.board.getAvailableSpacesOnLand(player).filter((space) => space.id === "03")[0];
+        const adjacentSpace = game.board
+            .getAvailableSpacesOnLand(player)
+            .filter((space) => space.id === "03")[0];
 
         landClaimAction.cb(adjacentSpace);
         expect(adjacentSpace.player).to.eq(player2);

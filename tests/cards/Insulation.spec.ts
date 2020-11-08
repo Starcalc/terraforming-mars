@@ -1,4 +1,3 @@
-
 import { expect } from "chai";
 import { Insulation } from "../../src/cards/Insulation";
 import { Color } from "../../src/Color";
@@ -6,11 +5,11 @@ import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 import { Resources } from "../../src/Resources";
 
-describe("Insulation", function () {
-    it("Should play", function () {
+describe("Insulation", () => {
+    it('Should play', () => {
         const card = new Insulation();
         const player = new Player("test", Color.BLUE, false);
-        const game = new Game("foobar", [player,player], player);
+        const game = new Game("foobar", [player, player], player);
         player.addProduction(Resources.HEAT);
         const action = card.play(player, game);
         expect(action).is.not.undefined;

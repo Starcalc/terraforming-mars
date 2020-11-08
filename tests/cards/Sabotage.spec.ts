@@ -5,23 +5,23 @@ import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 import { OrOptions } from "../../src/inputs/OrOptions";
 
-describe("Sabotage", function () {
-    let card : Sabotage, player : Player, player2: Player, game: Game;
+describe("Sabotage", () => {
+    let card: Sabotage, player: Player, player2: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new Sabotage();
         player = new Player("test", Color.BLUE, false);
         player2 = new Player("test2", Color.RED, false);
         game = new Game("foobar", [player, player2], player);
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         player2.titanium = 3;
         player2.steel = 4;
         player2.megaCredits = 7;
 
         const action = card.play(player, game) as OrOptions;
-        
+
         action.options[0].cb();
         expect(player2.titanium).to.eq(0);
 

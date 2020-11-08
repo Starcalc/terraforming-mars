@@ -4,18 +4,18 @@ import { SpaceBonus } from "../SpaceBonus";
 export const Bonus = Vue.component("bonus", {
     props: {
         bonus: {
-            type: Object as () => Array<SpaceBonus>
-        }
+            type: Object as () => Array<SpaceBonus>,
+        },
     },
     data: function () {
-        return {}
+        return {};
     },
     render: function (createElement) {
-        let bonuses = [];
+        const bonuses = [];
         let idx = 0;
 
-        let build_css_class = (idx: number, bonus: SpaceBonus):string => {
-            var ret = "board-space-bonus board-space-bonus--";
+        const build_css_class = (idx: number, bonus: SpaceBonus): string => {
+            let ret = "board-space-bonus board-space-bonus--";
             if (bonus == SpaceBonus.TITANIUM) {
                 ret += "titanium";
             } else if (bonus == SpaceBonus.STEEL) {
@@ -26,19 +26,17 @@ export const Bonus = Vue.component("bonus", {
                 ret += "card";
             } else if (bonus == SpaceBonus.HEAT) {
                 ret += "heat";
-             }else if (bonus == SpaceBonus.OCEAN) {
+            } else if (bonus == SpaceBonus.OCEAN) {
                 ret += "bonusocean";
             }
             ret += " board-space-bonus-pos--" + idx.toString();
-            return ret
-        }
+            return ret;
+        };
 
-        for (let bonus of this.bonus) {
+        for (const bonus of this.bonus) {
             idx += 1;
-            bonuses.push(
-                createElement("i", {"class": build_css_class(idx, bonus)})
-            )
+            bonuses.push(createElement('i', { 'class': build_css_class(idx, bonus) }));
         }
-        return createElement("div", {"class": "board-space-bonuses"}, bonuses);
-    }
+        return createElement("div", { "class": "board-space-bonuses" }, bonuses);
+    },
 });

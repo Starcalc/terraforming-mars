@@ -4,21 +4,21 @@ import { PlayerInputModel } from "../models/PlayerInputModel";
 
 export const SelectAmount = Vue.component("select-amount", {
     components: {
-        "Button": Button
+        "Button": Button,
     },
     props: {
         playerinput: {
-            type: Object as () => PlayerInputModel
+            type: Object as () => PlayerInputModel,
         },
         onsave: {
-            type: Object as () => (out: Array<Array<string>>) => void
+            type: Object as () => (out: Array<Array<string>>) => void,
         },
         showsave: {
-            type: Boolean
+            type: Boolean,
         },
         showtitle: {
-            type: Boolean
-        }
+            type: Boolean,
+        },
     },
     data: function () {
         return {

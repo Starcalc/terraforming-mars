@@ -17,10 +17,13 @@ export class Herbivores implements IProjectCard, IResourceCard {
     public cardType = CardType.ACTIVE;
     public name = CardName.HERBIVORES;
     public resourceType = ResourceType.ANIMAL;
-    public resourceCount: number = 0;
+    public resourceCount = 0;
 
     public canPlay(player: Player, game: Game): boolean {
-        return game.getOxygenLevel() >= 8 - player.getRequirementsBonus(game) && game.someoneHasResourceProduction(Resources.PLANTS,1);
+        return (
+            game.getOxygenLevel() >= 8 - player.getRequirementsBonus(game) &&
+            game.someoneHasResourceProduction(Resources.PLANTS, 1)
+        );
     }
 
     public getVictoryPoints(): number {
@@ -28,7 +31,11 @@ export class Herbivores implements IProjectCard, IResourceCard {
     }
 
     public onTilePlaced(cardOwner: Player, space: ISpace) {
-        if (space.player === cardOwner && space.tile !== undefined && space.tile.tileType === TileType.GREENERY) {
+        if (
+            space.player === cardOwner &&
+            space.tile !== undefined &&
+            space.tile.tileType === TileType.GREENERY
+        ) {
             cardOwner.addResourceTo(this);
         }
     }

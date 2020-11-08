@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { CardType } from "./CardType";
@@ -19,10 +18,10 @@ export class GeneRepair implements IProjectCard {
         if (player.getTagCount(Tags.SCIENCE) < 3) {
             throw "Requires 3 science tags.";
         }
-        player.addProduction(Resources.MEGACREDITS,2);
+        player.addProduction(Resources.MEGACREDITS, 2);
         return undefined;
     }
     public getVictoryPoints() {
-      return 2;
+        return 2;
     }
 }

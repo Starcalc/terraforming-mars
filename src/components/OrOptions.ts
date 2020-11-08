@@ -5,28 +5,28 @@ import { Button } from "../components/common/Button";
 import { PlayerModel } from "../models/PlayerModel";
 import { PlayerInputModel } from "../models/PlayerInputModel";
 
-let unique: number = 0;
+let unique = 0;
 
 export const OrOptions = Vue.component("or-options", {
     props: {
         player: {
-            type: Object as () => PlayerModel
+            type: Object as () => PlayerModel,
         },
         players: {
-            type: Object as () => Array<PlayerModel>
+            type: Object as () => Array<PlayerModel>,
         },
         playerinput: {
-            type: Object as () => PlayerInputModel
+            type: Object as () => PlayerInputModel,
         },
         onsave: {
-            type: Object as () => (out: Array<Array<string>>) => void
+            type: Object as () => (out: Array<Array<string>>) => void,
         },
         showsave: {
-            type: Boolean
+            type: Boolean,
         },
         showtitle: {
-            type: Boolean
-        }
+            type: Boolean,
+        },
     },
     data: function () {
         return {
@@ -35,9 +35,8 @@ export const OrOptions = Vue.component("or-options", {
     },
     methods: {
         saveData: function () {
-            const componentInstance = this.$data.childComponents[
-                this.$data.selectedOption
-            ].componentInstance;
+            const componentInstance = this.$data.childComponents[this.$data.selectedOption]
+                .componentInstance;
             if (componentInstance !== undefined) {
                 if ((componentInstance as any).saveData instanceof Function) {
                     (componentInstance as any).saveData();
@@ -53,9 +52,7 @@ export const OrOptions = Vue.component("or-options", {
         const children: Array<VNode> = [];
         if (this.showtitle) {
             children.push(
-                createElement("label", [
-                    createElement("div", $t(this.playerinput.title)),
-                ])
+                createElement("label", [createElement('div', $t(this.playerinput.title))])
             );
         }
         const optionElements: Array<VNode> = [];
@@ -68,8 +65,7 @@ export const OrOptions = Vue.component("or-options", {
                 type: "radio",
                 value: String(idx),
             };
-            const displayStyle: string =
-                this.$data.selectedOption === idx ? "block" : "none";
+            const displayStyle: string = this.$data.selectedOption === idx ? "block" : "none";
             const subchildren: Array<VNode> = [];
             if (this.$data.selectedOption === idx) {
                 domProps.checked = true;
@@ -80,9 +76,7 @@ export const OrOptions = Vue.component("or-options", {
                         domProps,
                         on: {
                             change: (event: any) => {
-                                this.selectedOption = Number(
-                                    event.target.value
-                                );
+                                this.selectedOption = Number(event.target.value);
                             },
                         },
                     }),
@@ -108,15 +102,9 @@ export const OrOptions = Vue.component("or-options", {
                 )
             );
             subchildren.push(
-                createElement(
-                    "div",
-                    { style: { display: displayStyle, marginLeft: "30px" } },
-                    [
-                        this.$data.childComponents[
-                            this.$data.childComponents.length - 1
-                        ],
-                    ]
-                )
+                createElement('div', { style: { display: displayStyle, marginLeft: '30px' } }, [
+                    this.$data.childComponents[this.$data.childComponents.length - 1],
+                ])
             );
             optionElements.push(subchildren[subchildren.length - 1]);
             children.push(createElement("div", subchildren));

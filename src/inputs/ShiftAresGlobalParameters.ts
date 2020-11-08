@@ -11,13 +11,13 @@ export class ShiftAresGlobalParameters implements PlayerInput {
     constructor(
         public player: Player,
         public aresData: IAresData,
-        public cb: (units: IAresGlobalParametersResponse) => undefined) {}
-
+        public cb: (units: IAresGlobalParametersResponse) => undefined
+    ) {}
 }
 
 export interface IAresGlobalParametersResponse {
     lowOceanDelta: -1 | 0 | 1;
-    highOceanDelta:  -1 | 0 | 1;
-    temperatureDelta:  -1 | 0 | 1;
-    oxygenDelta:  -1 | 0 | 1;
-  }
+    highOceanDelta: -1 | 0 | 1;
+    temperatureDelta: -1 | 0 | 1;
+    oxygenDelta: -1 | 0 | 1;
+}

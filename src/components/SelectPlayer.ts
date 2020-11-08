@@ -1,4 +1,3 @@
-
 import Vue from "vue";
 import { Button } from "./common/Button";
 import { ColorWithNeutral } from "../Color";
@@ -10,29 +9,29 @@ import { VueModelRadio } from "./VueTypes";
 export const SelectPlayer = Vue.component("select-player", {
     props: {
         players: {
-            type: Array as () => Array<PlayerModel>
+            type: Array as () => Array<PlayerModel>,
         },
         playerinput: {
-            type: Object as () => PlayerInputModel
+            type: Object as () => PlayerInputModel,
         },
         onsave: {
-            type: Object as () => (out: Array<Array<string>>) => void
+            type: Object as () => (out: Array<Array<string>>) => void,
         },
         showsave: {
-            type: Boolean
+            type: Boolean,
         },
         showtitle: {
-            type: Boolean
-        }
+            type: Boolean,
+        },
     },
     data: function () {
         return {
-            selectedPlayer: undefined as VueModelRadio<ColorWithNeutral>
+            selectedPlayer: undefined as VueModelRadio<ColorWithNeutral>,
         };
     },
     components: {
         "select-player-row": SelectPlayerRow,
-        Button
+        Button,
     },
     methods: {
         saveData: function () {
@@ -42,7 +41,7 @@ export const SelectPlayer = Vue.component("select-player", {
                 result[0].push(this.selectedPlayer);
             }
             this.onsave(result);
-        }
+        },
     },
     template: `<div>
   <div v-if="showtitle === true">{{playerinput.title}}</div>
@@ -52,6 +51,5 @@ export const SelectPlayer = Vue.component("select-player", {
     <select-player-row :player="players.find((otherPlayer) => otherPlayer.color === player)"></select-player-row>
   </label>
   <Button v-if="showsave === true" size="big" :onClick="saveData" :title="playerinput.buttonLabel" />
-</div>`
+</div>`,
 });
-

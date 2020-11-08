@@ -4,35 +4,40 @@ import { Game } from "../../src/Game";
 import { GameLoader } from "../../src/database/GameLoader";
 import { Player } from "../../src/Player";
 
-describe("GameLoader", function () {
-
+describe("GameLoader", () => {
     let expectedGameIds: Array<string> = [];
     const originalGenerateId = (Player as any).prototype.generateId;
     const originalGetInstance = (Database as any).getInstance;
 
-    before(function () {
+    before(() => {
         (Player as any).prototype.generateId = function () {
             return "bar";
         };
         (Database as any).getInstance = function () {
             return {
-                getGames: function (getInstanceCb: (err: unknown, allGames: Array<string>) => void) {
+                getGames: function (
+                    getInstanceCb: (err: unknown, allGames: Array<string>) => void
+                ) {
                     getInstanceCb(undefined, expectedGameIds);
                 },
-                restoreGameLastSave: function (__gameId: string, __gameToRebuild: Game, theCb: (err: unknown) => void) {
+                restoreGameLastSave: function (
+                    __gameId: string,
+                    __gameToRebuild: Game,
+                    theCb: (err: unknown) => void
+                ) {
                     theCb(undefined);
                 },
-                saveGameState: function () {}
+                saveGameState: function () {},
             };
         };
     });
 
-    after(function () {
+    after(() => {
         (Player as any).prototype.generateId = originalGenerateId;
         (Database as any).getInstance = originalGetInstance;
     });
 
-    it("loads game after loaded from database", function () {
+    it('loads game after loaded from database', () => {
         const expectedGameId = "foo";
         expectedGameIds = [expectedGameId];
         const loader = new GameLoader();
@@ -47,7 +52,7 @@ describe("GameLoader", function () {
         expect(loader.getLoadedGameIds()).to.deep.eq(expectedGameIds);
     });
 
-    it("loads game already loaded from database", function () {
+    it('loads game already loaded from database', () => {
         const expectedGameId = "foo";
         expectedGameIds = [expectedGameId];
         const loader = new GameLoader();
@@ -61,7 +66,7 @@ describe("GameLoader", function () {
         expect(actual?.id).to.eq(expectedGameId);
     });
 
-    it("loads player after loaded from database", function () {
+    it('loads player after loaded from database', () => {
         const expectedGameId = "foo";
         const expectedPlayerId = "bar";
         expectedGameIds = [expectedGameId];
@@ -76,7 +81,7 @@ describe("GameLoader", function () {
         expect(actual?.id).to.eq(expectedGameId);
     });
 
-    it("loads player already loaded from database", function () {
+    it('loads player already loaded from database', () => {
         const expectedGameId = "foo";
         const expectedPlayerId = "bar";
         expectedGameIds = [expectedGameId];
@@ -91,7 +96,7 @@ describe("GameLoader", function () {
         expect(actual?.id).to.eq(expectedGameId);
     });
 
-    it("provides undefined for players never found after loading", function () {
+    it('provides undefined for players never found after loading', () => {
         const expectedGameId = "foo";
         const expectedPlayerId = "never";
         expectedGameIds = [expectedGameId];
@@ -104,7 +109,7 @@ describe("GameLoader", function () {
         expect(actual).to.be.undefined;
     });
 
-    it("provides undefined for game never found after loading", function () {
+    it('provides undefined for game never found after loading', () => {
         const expectedGameId = "foo";
         const expectedId = "never";
         expectedGameIds = [expectedGameId];

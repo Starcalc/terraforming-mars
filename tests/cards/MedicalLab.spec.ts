@@ -1,4 +1,3 @@
-
 import { expect } from "chai";
 import { MedicalLab } from "../../src/cards/MedicalLab";
 import { Color } from "../../src/Color";
@@ -6,8 +5,8 @@ import { Player } from "../../src/Player";
 import { Capital } from "../../src/cards/Capital";
 import { Resources } from "../../src/Resources";
 
-describe("MedicalLab", function () {
-    it("Should play", function () {
+describe("MedicalLab", () => {
+    it('Should play', () => {
         const card = new MedicalLab();
         const player = new Player("test", Color.BLUE, false);
         const action = card.play(player);

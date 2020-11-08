@@ -13,24 +13,20 @@ export class AICentral implements IActionCard, IProjectCard {
     public cardType = CardType.ACTIVE;
     public name = CardName.AI_CENTRAL;
     public canPlay(player: Player): boolean {
-      return player.getTagCount(Tags.SCIENCE) >= 3 &&
-      player.getProduction(Resources.ENERGY) >= 1;
+        return player.getTagCount(Tags.SCIENCE) >= 3 && player.getProduction(Resources.ENERGY) >= 1;
     }
     public play(player: Player) {
-      player.addProduction(Resources.ENERGY,-1);
-      return undefined;
+        player.addProduction(Resources.ENERGY, -1);
+        return undefined;
     }
     public canAct(): boolean {
-      return true;
+        return true;
     }
     public getVictoryPoints() {
-      return 1;
+        return 1;
     }
     public action(player: Player, game: Game) {
-      player.cardsInHand.push(
-          game.dealer.dealCard(),
-          game.dealer.dealCard()
-      );
-      return undefined;
+        player.cardsInHand.push(game.dealer.dealCard(), game.dealer.dealCard());
+        return undefined;
     }
 }

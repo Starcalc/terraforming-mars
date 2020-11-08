@@ -14,24 +14,27 @@ export class Birds implements IActionCard, IProjectCard, IResourceCard {
     public tags = [Tags.ANIMAL];
     public name = CardName.BIRDS;
     public resourceType = ResourceType.ANIMAL;
-    public resourceCount: number = 0;
+    public resourceCount = 0;
     public cardType = CardType.ACTIVE;
 
     public canPlay(player: Player, game: Game): boolean {
-      return game.getOxygenLevel() >= 13 - player.getRequirementsBonus(game) && game.someoneHasResourceProduction(Resources.PLANTS,2);
+        return (
+            game.getOxygenLevel() >= 13 - player.getRequirementsBonus(game) &&
+            game.someoneHasResourceProduction(Resources.PLANTS, 2)
+        );
     }
     public getVictoryPoints(): number {
-      return this.resourceCount;
+        return this.resourceCount;
     }
     public play(player: Player, game: Game) {
-      game.defer(new DecreaseAnyProduction(player, game, Resources.PLANTS, 2));
-      return undefined;
+        game.defer(new DecreaseAnyProduction(player, game, Resources.PLANTS, 2));
+        return undefined;
     }
     public canAct(): boolean {
-      return true;
+        return true;
     }
     public action(player: Player) {
-      player.addResourceTo(this);
-      return undefined;
+        player.addResourceTo(this);
+        return undefined;
     }
 }

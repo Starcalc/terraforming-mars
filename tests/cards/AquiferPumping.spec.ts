@@ -5,20 +5,20 @@ import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 import { maxOutOceans } from "../TestingUtils";
 
-describe("AquiferPumping", function () {
-    let card : AquiferPumping, player : Player, game : Game;
+describe("AquiferPumping", () => {
+    let card: AquiferPumping, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new AquiferPumping();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         expect(card.play()).is.undefined;
     });
 
-    it("Should act", function () {
+    it('Should act', () => {
         player.megaCredits = 8;
         const action = card.action(player, game);
         expect(action).is.undefined;
@@ -26,14 +26,14 @@ describe("AquiferPumping", function () {
         expect(player.megaCredits).to.eq(0);
     });
 
-    it("Cannot act if not enough to pay", function () {
+    it('Cannot act if not enough to pay', () => {
         expect(card.canAct(player, game)).is.not.true;
     });
 
-    it("Can act if can pay even after oceans are maxed", function () {
+    it('Can act if can pay even after oceans are maxed', () => {
         maxOutOceans(player, game);
         player.megaCredits = 8;
-        
+
         expect(card.canAct(player, game)).is.true;
     });
 });

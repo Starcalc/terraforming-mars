@@ -1,4 +1,3 @@
-
 import { IActionCard } from "./ICard";
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
@@ -30,4 +29,3 @@ export class SpaceElevator implements IActionCard, IProjectCard {
         return 2;
     }
 }
-

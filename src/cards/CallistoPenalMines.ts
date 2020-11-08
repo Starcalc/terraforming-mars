@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { CardType } from "./CardType";
@@ -13,10 +12,10 @@ export class CallistoPenalMines implements IProjectCard {
     public cardType = CardType.AUTOMATED;
 
     public play(player: Player) {
-      player.addProduction(Resources.MEGACREDITS,3);
-      return undefined;
+        player.addProduction(Resources.MEGACREDITS, 3);
+        return undefined;
     }
     public getVictoryPoints() {
-      return 2;
+        return 2;
     }
 }

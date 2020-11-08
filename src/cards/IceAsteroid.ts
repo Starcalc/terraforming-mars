@@ -19,11 +19,16 @@ export class IceAsteroid implements IProjectCard {
     public canPlay(player: Player, game: Game): boolean {
         const remainingOceans = MAX_OCEAN_TILES - game.board.getOceansOnBoard();
         const oceansPlaced = Math.min(remainingOceans, 2);
-  
+
         if (PartyHooks.shouldApplyPolicy(game, PartyName.REDS)) {
-          return player.canAfford(player.getCardCost(game, this) + REDS_RULING_POLICY_COST * oceansPlaced, game, false, true);
+            return player.canAfford(
+                player.getCardCost(game, this) + REDS_RULING_POLICY_COST * oceansPlaced,
+                game,
+                false,
+                true
+            );
         }
-  
+
         return true;
     }
 

@@ -18,21 +18,20 @@ export class EquatorialMagnetizer implements IActionCard, IProjectCard {
     public hasRequirements = false;
 
     public play() {
-      return undefined;
+        return undefined;
     }
     public canAct(player: Player, game: Game): boolean {
-      const hasEnergyProduction = player.getProduction(Resources.ENERGY) >= 1;
+        const hasEnergyProduction = player.getProduction(Resources.ENERGY) >= 1;
 
-      if (PartyHooks.shouldApplyPolicy(game, PartyName.REDS)) {
-        return player.canAfford(REDS_RULING_POLICY_COST) && hasEnergyProduction;
-      }
+        if (PartyHooks.shouldApplyPolicy(game, PartyName.REDS)) {
+            return player.canAfford(REDS_RULING_POLICY_COST) && hasEnergyProduction;
+        }
 
-      return hasEnergyProduction;
+        return hasEnergyProduction;
     }
     public action(player: Player, game: Game) {
-      player.addProduction(Resources.ENERGY,-1);
-      player.increaseTerraformRating(game);
-      return undefined;
+        player.addProduction(Resources.ENERGY, -1);
+        player.increaseTerraformRating(game);
+        return undefined;
     }
 }
-

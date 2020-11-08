@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { CardType } from "./CardType";
@@ -16,8 +15,8 @@ export class MethaneFromTitan implements IProjectCard {
         return game.getOxygenLevel() >= 2 - player.getRequirementsBonus(game);
     }
     public play(player: Player) {
-        player.addProduction(Resources.HEAT,2);
-        player.addProduction(Resources.PLANTS,2);
+        player.addProduction(Resources.HEAT, 2);
+        player.addProduction(Resources.PLANTS, 2);
         return undefined;
     }
     public getVictoryPoints() {

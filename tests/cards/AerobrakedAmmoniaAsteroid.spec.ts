@@ -7,26 +7,26 @@ import { Resources } from "../../src/Resources";
 import { Decomposers } from "../../src/cards/Decomposers";
 import { Game } from "../../src/Game";
 
-describe("AerobrakedAmmoniaAsteroid", function () {
-    let card : AerobrakedAmmoniaAsteroid, player : Player, game : Game;
+describe("AerobrakedAmmoniaAsteroid", () => {
+    let card: AerobrakedAmmoniaAsteroid, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new AerobrakedAmmoniaAsteroid();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Should play without microbe cards", function () {
+    it('Should play without microbe cards', () => {
         player.playedCards.push(card);
         const action = card.play(player, game);
         expect(player.getProduction(Resources.HEAT)).to.eq(3);
         expect(player.getProduction(Resources.PLANTS)).to.eq(1);
 
-         // It's okay to not have a card to collect Microbes on
-        expect(action).is.undefined; 
+        // It's okay to not have a card to collect Microbes on
+        expect(action).is.undefined;
     });
 
-    it("Adds microbes automatically if only 1 target", function () {
+    it('Adds microbes automatically if only 1 target', () => {
         player.playedCards.push(card);
 
         const selectedCard = new Ants();
@@ -38,7 +38,7 @@ describe("AerobrakedAmmoniaAsteroid", function () {
         expect(player.getResourcesOnCard(selectedCard)).to.eq(2);
     });
 
-    it("Adds microbes to another card", function () {
+    it('Adds microbes to another card', () => {
         player.playedCards.push(card);
 
         // Add card to collect Microbes on
@@ -50,7 +50,7 @@ describe("AerobrakedAmmoniaAsteroid", function () {
         expect(player.getProduction(Resources.HEAT)).to.eq(3);
         expect(player.getProduction(Resources.PLANTS)).to.eq(1);
 
-        expect(action).is.not.undefined; 
+        expect(action).is.not.undefined;
         action!.cb([selectedCard]);
 
         expect(player.getResourcesOnCard(selectedCard)).to.eq(2);

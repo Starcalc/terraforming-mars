@@ -5,21 +5,21 @@ import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 import { Resources } from "../../src/Resources";
 
-describe("NuclearPower", function () {
-    let card : NuclearPower, player : Player, game : Game;
+describe("NuclearPower", () => {
+    let card: NuclearPower, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new NuclearPower();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't play", function () {
-        player.addProduction(Resources.MEGACREDITS,-4);
+    it("Can't play", () => {
+        player.addProduction(Resources.MEGACREDITS, -4);
         expect(card.canPlay(player)).is.not.true;
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         expect(card.canPlay(player)).is.true;
         card.play(player, game);
         expect(player.getProduction(Resources.MEGACREDITS)).to.eq(-2);

@@ -4,24 +4,22 @@ import { ClaimedMilestoneModel } from "../models/ClaimedMilestoneModel";
 export const Milestone = Vue.component("milestone", {
     props: {
         milestones_list: {
-            type: Array as () => Array<ClaimedMilestoneModel>
-        }
+            type: Array as () => Array<ClaimedMilestoneModel>,
+        },
     },
     data: function () {
-        const showDescription: {[x: string]: boolean} = {};
+        const showDescription: { [x: string]: boolean } = {};
         for (const milestone of this.milestones_list) {
             showDescription[milestone.milestone.name] = false;
         }
         return {
             showList: true,
-            showDescription
+            showDescription,
         };
     },
     methods: {
         getNameCss: function (milestoneName: string): string {
-            return (
-                "ma-name ma-name--" + milestoneName.replace(/ /g, "-").toLowerCase()
-            );
+            return 'ma-name ma-name--' + milestoneName.replace(/ /g, '-').toLowerCase();
         },
         shouldShow: function (milestone: ClaimedMilestoneModel): boolean {
             return this.showDescription[milestone.milestone.name] === true;
@@ -30,11 +28,13 @@ export const Milestone = Vue.component("milestone", {
             return this.showList;
         },
         toggle: function (milestone: ClaimedMilestoneModel) {
-            this.showDescription[milestone.milestone.name] = !this.showDescription[milestone.milestone.name];
+            this.showDescription[milestone.milestone.name] = !this.showDescription[
+                milestone.milestone.name
+            ];
         },
         toggleList: function () {
             this.showList = !this.showList;
-        }
+        },
     },
     template: `
     <div class="milestones_cont" v-trim-whitespace>

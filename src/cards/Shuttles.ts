@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { CardType } from "./CardType";
@@ -13,7 +12,10 @@ export class Shuttles implements IProjectCard {
     public cardType = CardType.ACTIVE;
     public name = CardName.SHUTTLES;
     public canPlay(player: Player, game: Game): boolean {
-        return game.getOxygenLevel() >= 5 - player.getRequirementsBonus(game) && player.getProduction(Resources.ENERGY) >= 1;
+        return (
+            game.getOxygenLevel() >= 5 - player.getRequirementsBonus(game) &&
+            player.getProduction(Resources.ENERGY) >= 1
+        );
     }
     public getCardDiscount(_player: Player, _game: Game, card: IProjectCard) {
         if (card.tags.indexOf(Tags.SPACE) !== -1) {
@@ -22,11 +24,11 @@ export class Shuttles implements IProjectCard {
         return 0;
     }
     public play(player: Player) {
-        player.addProduction(Resources.ENERGY,-1);
-        player.addProduction(Resources.MEGACREDITS,2);
+        player.addProduction(Resources.ENERGY, -1);
+        player.addProduction(Resources.MEGACREDITS, 2);
         return undefined;
     }
     public getVictoryPoints() {
         return 1;
-    }    
+    }
 }

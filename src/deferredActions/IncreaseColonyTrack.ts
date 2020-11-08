@@ -12,7 +12,7 @@ export class IncreaseColonyTrack implements DeferredAction {
         public game: Game,
         public colony: Colony & IColony,
         public cb: () => void
-    ){}
+    ) {}
 
     public execute() {
         if (this.player.colonyTradeOffset === 0) {
@@ -20,7 +20,10 @@ export class IncreaseColonyTrack implements DeferredAction {
             return undefined;
         }
 
-        const maxSteps = Math.min(this.player.colonyTradeOffset, MAX_COLONY_TRACK_POSITION - this.colony.trackPosition);
+        const maxSteps = Math.min(
+            this.player.colonyTradeOffset,
+            MAX_COLONY_TRACK_POSITION - this.colony.trackPosition
+        );
 
         if (maxSteps <= 0) {
             this.cb();

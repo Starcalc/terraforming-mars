@@ -1,4 +1,3 @@
-
 import { expect } from "chai";
 import { PhobosSpaceHaven } from "../../src/cards/PhobosSpaceHaven";
 import { Color } from "../../src/Color";
@@ -6,11 +5,11 @@ import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 import { Resources } from "../../src/Resources";
 
-describe("PhobosSpaceHaven", function () {
-    it("Should play", function () {
+describe("PhobosSpaceHaven", () => {
+    it('Should play', () => {
         const card = new PhobosSpaceHaven();
         const player = new Player("test", Color.BLUE, false);
-        const game = new Game("foobar", [player,player], player);
+        const game = new Game("foobar", [player, player], player);
         const action = card.play(player, game);
         expect(action).is.undefined;
         expect(player.getProduction(Resources.TITANIUM)).to.eq(1);

@@ -5,11 +5,11 @@ import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 import { Resources } from "../../src/Resources";
 
-describe("VestaShipyard", function () {
-    it("Should play", function () {
+describe("VestaShipyard", () => {
+    it('Should play', () => {
         const card = new VestaShipyard();
         const player = new Player("test", Color.BLUE, false);
-        const game = new Game("foobar", [player,player], player);
+        const game = new Game("foobar", [player, player], player);
 
         card.play(player, game);
         expect(player.getProduction(Resources.TITANIUM)).to.eq(1);

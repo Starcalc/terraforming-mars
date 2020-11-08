@@ -5,21 +5,21 @@ import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 import { Resources } from "../../src/Resources";
 
-describe("Worms", function () {
-    let card : Worms, player : Player, game : Game;
+describe("Worms", () => {
+    let card: Worms, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new Worms();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't play", function () {
+    it("Can't play", () => {
         (game as any).oxygenLevel = 3;
         expect(card.canPlay(player, game)).is.not.true;
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         (game as any).oxygenLevel = 4;
         expect(card.canPlay(player, game)).is.true;
         player.playedCards.push(card);

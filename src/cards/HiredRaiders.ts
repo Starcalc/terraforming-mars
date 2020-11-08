@@ -28,29 +28,33 @@ export class HiredRaiders implements IProjectCard {
         }
 
         const availablePlayerTargets = game.getPlayers().filter((p) => p.id !== player.id);
-        let availableActions = new OrOptions();
+        const availableActions = new OrOptions();
 
         availablePlayerTargets.forEach((target) => {
             if (target.steel > 0) {
                 const amountStolen = Math.min(2, target.steel);
-                const optionTitle = "Steal " + amountStolen + " steel from " + target.name
+                const optionTitle = "Steal " + amountStolen + " steel from " + target.name;
 
-                availableActions.options.push(new SelectOption(optionTitle, "Confirm", () => {
-                    player.steel += amountStolen;
-                    target.setResource(Resources.STEEL, -2, game, player);
-                    return undefined;
-                }))
+                availableActions.options.push(
+                    new SelectOption(optionTitle, "Confirm", () => {
+                        player.steel += amountStolen;
+                        target.setResource(Resources.STEEL, -2, game, player);
+                        return undefined;
+                    })
+                );
             }
 
             if (target.megaCredits > 0) {
                 const amountStolen = Math.min(3, target.megaCredits);
-                const optionTitle = "Steal " + amountStolen + " MC from " + target.name
+                const optionTitle = "Steal " + amountStolen + " MC from " + target.name;
 
-                availableActions.options.push(new SelectOption(optionTitle, "Confirm", () => {
-                    player.megaCredits += amountStolen;
-                    target.setResource(Resources.MEGACREDITS, -3, game, player);
-                    return undefined;
-                }))
+                availableActions.options.push(
+                    new SelectOption(optionTitle, "Confirm", () => {
+                        player.megaCredits += amountStolen;
+                        target.setResource(Resources.MEGACREDITS, -3, game, player);
+                        return undefined;
+                    })
+                );
             }
         });
 
@@ -58,4 +62,3 @@ export class HiredRaiders implements IProjectCard {
         return undefined;
     }
 }
-

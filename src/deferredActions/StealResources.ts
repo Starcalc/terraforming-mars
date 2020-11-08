@@ -12,7 +12,7 @@ export class StealResources implements DeferredAction {
         public resource: Resources,
         public count: number = 1,
         public title: string = "Select player to steal up to " + count + " " + resource + " from"
-    ){}
+    ) {}
 
     public execute() {
         if (this.game.isSoloMode()) {
@@ -22,9 +22,18 @@ export class StealResources implements DeferredAction {
 
         let candidates: Array<Player> = [];
         if (this.resource === Resources.PLANTS) {
-            candidates = this.game.getPlayers().filter((p) => p.id !== this.player.id && p.getResource(this.resource) > 0 && !p.plantsAreProtected());
+            candidates = this.game
+                .getPlayers()
+                .filter(
+                    (p) =>
+                        p.id !== this.player.id &&
+                        p.getResource(this.resource) > 0 &&
+                        !p.plantsAreProtected()
+                );
         } else {
-            candidates = this.game.getPlayers().filter((p) => p.id !== this.player.id && p.getResource(this.resource) > 0);
+            candidates = this.game
+                .getPlayers()
+                .filter((p) => p.id !== this.player.id && p.getResource(this.resource) > 0);
         }
 
         if (candidates.length === 0) {
@@ -41,12 +50,14 @@ export class StealResources implements DeferredAction {
                     this.player.setResource(this.resource, qtyToSteal);
                     return undefined;
                 }
-            )
+            );
         });
 
         return new OrOptions(
             ...stealOptions,
-            new SelectOption("Do not steal", "Confirm", () => { return undefined; })
+            new SelectOption("Do not steal", "Confirm", () => {
+                return undefined;
+            })
         );
     }
 }

@@ -9,18 +9,18 @@ import { Moss } from "../../src/cards/Moss";
 import { OrOptions } from "../../src/inputs/OrOptions";
 import { EcologicalZone } from "../../src/cards/EcologicalZone";
 
-describe("ViralEnhancers", function () {
-    let card : ViralEnhancers, player : Player, game : Game;
+describe("ViralEnhancers", () => {
+    let card: ViralEnhancers, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new ViralEnhancers();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         card.play();
-        
+
         const ants = new Ants();
         const birds = new Birds();
         const moss = new Moss();
@@ -45,7 +45,7 @@ describe("ViralEnhancers", function () {
         expect(player.plants).to.eq(2);
     });
 
-    it("Should play for each tag", function () {
+    it('Should play for each tag', () => {
         card.play();
 
         const ecologicalZone = new EcologicalZone();
@@ -56,7 +56,7 @@ describe("ViralEnhancers", function () {
         orOptions.options[0].cb();
         expect(player.getResourcesOnCard(ecologicalZone)).to.eq(1);
         expect(game.deferredActions).has.lengthOf(1);
-        
+
         const orOptions2 = game.deferredActions.shift()!.execute() as OrOptions;
         orOptions2.options[1].cb();
         expect(player.plants).to.eq(1);

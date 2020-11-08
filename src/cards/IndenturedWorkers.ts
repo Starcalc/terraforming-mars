@@ -1,4 +1,3 @@
-
 import { CardType } from "./CardType";
 import { Player } from "../Player";
 import { IProjectCard } from "./IProjectCard";
@@ -19,7 +18,7 @@ export class IndenturedWorkers implements IProjectCard {
     }
     public play() {
         return undefined;
-    } 
+    }
     public getVictoryPoints() {
         return -1;
     }

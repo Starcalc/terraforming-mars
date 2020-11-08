@@ -5,17 +5,17 @@ import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 import { OrOptions } from "../../src/inputs/OrOptions";
 
-describe("BigAsteroid", function () {
-    let card : BigAsteroid, player : Player, player2 : Player, game : Game;
+describe("BigAsteroid", () => {
+    let card: BigAsteroid, player: Player, player2: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new BigAsteroid();
         player = new Player("test", Color.BLUE, false);
         player2 = new Player("test2", Color.RED, false);
         game = new Game("foobar", [player, player2], player);
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         player2.plants = 5;
         card.play(player, game);
         expect(game.deferredActions).has.lengthOf(1);
@@ -30,7 +30,7 @@ describe("BigAsteroid", function () {
         expect(player.titanium).to.eq(4);
     });
 
-    it("Works fine in solo", function () {
+    it('Works fine in solo', () => {
         game = new Game("foobar", [player], player);
         player.plants = 5;
         card.play(player, game);

@@ -1,4 +1,3 @@
-
 import { CardType } from "./CardType";
 import { Player } from "../Player";
 import { IProjectCard } from "./IProjectCard";
@@ -14,7 +13,7 @@ export class ImportOfAdvancedGHG implements IProjectCard {
     public name = CardName.IMPORT_OF_ADVANCED_GHG;
 
     public play(player: Player, _game: Game) {
-        player.addProduction(Resources.HEAT,2);
+        player.addProduction(Resources.HEAT, 2);
         return undefined;
     }
 }

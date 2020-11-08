@@ -8,16 +8,16 @@ import { OrOptions } from "../../src/inputs/OrOptions";
 import { maxOutOceans } from "../TestingUtils";
 import { Fish } from "../../src/cards/Fish";
 
-describe("LargeConvoy", function () {
-    let card : LargeConvoy, player : Player, game : Game;
+describe("LargeConvoy", () => {
+    let card: LargeConvoy, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new LargeConvoy();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Should play without animal cards", function () {
+    it('Should play without animal cards', () => {
         card.play(player, game);
 
         player.victoryPointsBreakdown.setVictoryPoints('victoryPoints', card.getVictoryPoints());
@@ -26,22 +26,22 @@ describe("LargeConvoy", function () {
         expect(player.plants).to.eq(5);
     });
 
-    it("Should play with single animal target", function () {
+    it('Should play with single animal target', () => {
         const pets = new Pets();
         player.playedCards.push(pets);
 
         const action = card.play(player, game);
         player.playedCards.push(card);
-        (action as OrOptions).options[1].cb()
+        (action as OrOptions).options[1].cb();
         player.getVictoryPoints(game);
-        
+
         expect(player.victoryPointsBreakdown.victoryPoints).to.eq(4);
         expect(player.cardsInHand).has.lengthOf(2);
         expect(player.getResourcesOnCard(pets)).to.eq(4);
         expect(player.plants).to.eq(0);
     });
 
-    it("Should play with multiple animal targets", function () {
+    it('Should play with multiple animal targets', () => {
         const pets = new Pets();
         const fish = new Fish();
         player.playedCards.push(pets, fish);
@@ -54,11 +54,11 @@ describe("LargeConvoy", function () {
         expect(player.cardsInHand).has.lengthOf(2);
         expect(player.plants).to.eq(0);
 
-        (action as OrOptions).options[1].cb([pets])
+        (action as OrOptions).options[1].cb([pets]);
         expect(player.getResourcesOnCard(pets)).to.eq(4);
     });
 
-    it("Should play without oceans", function () {
+    it('Should play without oceans', () => {
         const pets = new Pets();
         player.playedCards.push(pets);
         maxOutOceans(player, game);
@@ -72,7 +72,7 @@ describe("LargeConvoy", function () {
         expect(player.victoryPointsBreakdown.victoryPoints).to.eq(2);
         expect(player.cardsInHand).has.lengthOf(cardsInHand + 2);
 
-        (action as OrOptions).options[0].cb()
+        (action as OrOptions).options[0].cb();
         expect(player.plants).to.eq(plantsCount + 5);
     });
 });

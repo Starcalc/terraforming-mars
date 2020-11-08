@@ -7,10 +7,10 @@ import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 import { AddResourcesToCard } from "../../src/deferredActions/AddResourcesToCard";
 
-describe("Titan", function() {
+describe("Titan", () => {
     let titan: Titan, aerialMappers: AerialMappers, player: Player, player2: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         titan = new Titan();
         aerialMappers = new AerialMappers();
         player = new Player("test", Color.BLUE, false);
@@ -20,13 +20,13 @@ describe("Titan", function() {
         game.colonies.push(titan);
     });
 
-    it("Should activate", function() {
+    it('Should activate', () => {
         expect(titan.isActive).is.false;
         player.playCard(game, aerialMappers);
         expect(titan.isActive).is.true;
     });
 
-    it("Should build", function() {
+    it('Should build', () => {
         player.playCard(game, aerialMappers);
         titan.onColonyPlaced(player, game);
 
@@ -40,7 +40,7 @@ describe("Titan", function() {
         expect(aerialMappers.resourceCount).to.eq(3);
     });
 
-    it("Should trade", function() {
+    it('Should trade', () => {
         player.playCard(game, aerialMappers);
         titan.trade(player, game);
 
@@ -54,7 +54,7 @@ describe("Titan", function() {
         expect(aerialMappers.resourceCount).to.eq(1);
     });
 
-    it("Should give trade bonus", function() {
+    it('Should give trade bonus', () => {
         const dirigibles = new Dirigibles();
         player.playCard(game, aerialMappers);
         player2.playCard(game, dirigibles);

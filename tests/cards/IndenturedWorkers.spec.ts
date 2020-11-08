@@ -1,15 +1,14 @@
-
 import { expect } from "chai";
 import { IndenturedWorkers } from "../../src/cards/IndenturedWorkers";
 import { Color } from "../../src/Color";
 import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 
-describe("IndenturedWorkers", function () {
-    it("Should apply card discount until next card played", function () {
+describe("IndenturedWorkers", () => {
+    it('Should apply card discount until next card played', () => {
         const card = new IndenturedWorkers();
         const player = new Player("test", Color.BLUE, false);
-        const game = new Game("foobar", [player,player], player);
+        const game = new Game("foobar", [player, player], player);
         const action = card.play();
         expect(action).is.undefined;
         player.victoryPointsBreakdown.setVictoryPoints('victoryPoints', card.getVictoryPoints());

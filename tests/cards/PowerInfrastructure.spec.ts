@@ -4,21 +4,21 @@ import { Color } from "../../src/Color";
 import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 
-describe("PowerInfrastructure", function () {
-    let card : PowerInfrastructure, player : Player, game : Game;
+describe("PowerInfrastructure", () => {
+    let card: PowerInfrastructure, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new PowerInfrastructure();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't act", function () {
+    it("Can't act", () => {
         card.play(player, game);
         expect(card.canAct(player)).is.not.true;
     });
 
-    it("Should act", function () {
+    it('Should act', () => {
         player.energy = 1;
         expect(card.canAct(player)).is.true;
         const action = card.action(player, game);

@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { Player } from "../Player";
@@ -16,11 +15,10 @@ export class GreatDam implements IProjectCard {
         return game.board.getOceansOnBoard() >= 4 - player.getRequirementsBonus(game);
     }
     public play(player: Player) {
-        player.addProduction(Resources.ENERGY,2);
+        player.addProduction(Resources.ENERGY, 2);
         return undefined;
     }
     public getVictoryPoints() {
         return 1;
     }
 }
-

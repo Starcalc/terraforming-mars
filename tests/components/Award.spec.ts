@@ -1,39 +1,36 @@
-
 import { createLocalVue, mount } from "@vue/test-utils";
 
 import { expect } from "chai";
 import { Award } from "../../src/components/Award";
 import { FundedAwardModel } from "../../src/models/FundedAwardModel";
 
-describe("Award", function () {
+describe("Award", () => {
     const mockAward: FundedAwardModel = {
         award: {
-            name: "test",
-            description: "a test",
-            getScore: () => 0
+            name: 'test',
+            description: 'a test',
+            getScore: () => 0,
         },
-        player_name: "foo",
-        player_color: "blue",
-        scores: []
+        player_name: 'foo',
+        player_color: 'blue',
+        scores: [],
     };
     function getLocalVue() {
         const localVue = createLocalVue();
-        localVue.directive("trim-whitespace", {});
-        localVue.directive("i18n", {});
+        localVue.directive('trim-whitespace', {});
+        localVue.directive('i18n', {});
         return localVue;
     }
-    it("shows list and award", async function () {
+    it('shows list and award', async () => {
         const award = mount(Award, {
             localVue: getLocalVue(),
             propsData: {
-                awards_list: [
-                    mockAward
-                ]
-            }
+                awards_list: [mockAward],
+            },
         });
-        const toggler = award.find("a[class=\"ma-clickable awards-padding\"]");
+        const toggler = award.find('a[class="ma-clickable awards-padding"]');
         await toggler.trigger("click");
-        const test = award.find("div[class*=\"ma-name--awards\"]");
+        const test = award.find('div[class*="ma-name--awards"]');
         expect(test.classes()).to.contain("ma-name");
         expect(test.classes()).to.contain("ma-name--test");
     });

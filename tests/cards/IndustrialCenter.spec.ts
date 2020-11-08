@@ -6,21 +6,21 @@ import { Game } from "../../src/Game";
 import { TileType } from "../../src/TileType";
 import { Resources } from "../../src/Resources";
 
-describe("IndustrialCenter", function () {
-    let card : IndustrialCenter, player : Player, game : Game;
+describe("IndustrialCenter", () => {
+    let card: IndustrialCenter, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new IndustrialCenter();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't play or act", function () {
+    it("Can't play or act", () => {
         expect(card.canAct(player)).is.not.true;
         expect(card.canPlay(player, game)).is.not.true;
     });
 
-    it("Should action", function () {
+    it('Should action', () => {
         player.megaCredits = 7;
         card.action(player, game);
         game.deferredActions.runNext();
@@ -28,10 +28,10 @@ describe("IndustrialCenter", function () {
         expect(player.getProduction(Resources.STEEL)).to.eq(1);
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         game.addCityTile(player, game.board.getAvailableSpacesOnLand(player)[0].id);
         expect(game.getCitiesInPlayOnMars()).to.eq(1);
-        
+
         const action = card.play(player, game);
         const space = action!.availableSpaces[0];
         action!.cb(space);

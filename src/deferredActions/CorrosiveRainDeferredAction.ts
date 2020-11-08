@@ -13,12 +13,17 @@ export class CorrosiveRainDeferredAction implements DeferredAction {
         public player: Player,
         public game: Game,
         public title: string = "Remove 2 floaters from a card or lose up to 10 MC"
-    ){}
+    ) {}
 
     public execute() {
-        const floaterCards = this.player.getCardsWithResources().filter(card => card.resourceType === ResourceType.FLOATER 
-            && card.resourceCount != undefined 
-            && card.resourceCount >= 2);
+        const floaterCards = this.player
+            .getCardsWithResources()
+            .filter(
+                (card) =>
+                    card.resourceType === ResourceType.FLOATER &&
+                    card.resourceCount != undefined &&
+                    card.resourceCount >= 2
+            );
 
         if (floaterCards.length === 0) {
             this.player.setResource(Resources.MEGACREDITS, -10, this.game, undefined, true);
@@ -26,12 +31,14 @@ export class CorrosiveRainDeferredAction implements DeferredAction {
         }
 
         const selectAction = new OrOptions();
-        const payMC = new SelectOption("Lose up to 10 MC", "Lose MC",() => {
+        const payMC = new SelectOption("Lose up to 10 MC", "Lose MC", () => {
             this.player.setResource(Resources.MEGACREDITS, -10);
             return undefined;
         });
         const removeFloaters = new SelectCard(
-            "Select card to remove 2 floaters from", "Remove floaters", floaterCards,
+            "Select card to remove 2 floaters from",
+            'Remove floaters',
+            floaterCards,
             (foundCards: Array<ICard>) => {
                 this.player.removeResourceFrom(foundCards[0], 2);
                 return undefined;
@@ -41,4 +48,4 @@ export class CorrosiveRainDeferredAction implements DeferredAction {
 
         return selectAction;
     }
-}    
+}

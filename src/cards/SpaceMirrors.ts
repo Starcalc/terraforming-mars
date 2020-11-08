@@ -21,7 +21,9 @@ export class SpaceMirrors implements IActionCard, IProjectCard {
         return player.canAfford(7);
     }
     public action(player: Player, game: Game) {
-        game.defer(new SelectHowToPayDeferred(player, 7, false, false, "Select how to pay for action"));
+        game.defer(
+            new SelectHowToPayDeferred(player, 7, false, false, 'Select how to pay for action')
+        );
         player.addProduction(Resources.ENERGY);
         return undefined;
     }

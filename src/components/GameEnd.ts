@@ -8,16 +8,16 @@ import { playerColorClass } from "../utils/utils";
 export const GameEnd = Vue.component("game-end", {
     props: {
         player: {
-            type: Object as () => PlayerModel
-        }
+            type: Object as () => PlayerModel,
+        },
     },
     data: function () {
-        return {}
+        return {};
     },
     components: {
         "board": Board,
         "log-panel": LogPanel,
-        "Button": Button
+        "Button": Button,
     },
     methods: {
         getEndGamePlayerHighlightColorClass: function (color: string): string {
@@ -27,7 +27,7 @@ export const GameEnd = Vue.component("game-end", {
             return playerColorClass(color.toLowerCase(), "bg_transparent");
         },
         getSortedPlayers: function () {
-            this.player.players.sort(function (a:PlayerModel, b:PlayerModel){
+            this.player.players.sort((a: PlayerModel, b: PlayerModel) => {
                 if (a.victoryPointsBreakdown.total < b.victoryPointsBreakdown.total) return -1;
                 if (a.victoryPointsBreakdown.total > b.victoryPointsBreakdown.total) return 1;
                 if (a.megaCredits < b.megaCredits) return -1;
@@ -36,20 +36,23 @@ export const GameEnd = Vue.component("game-end", {
             });
             return this.player.players.reverse();
         },
-        getWinners: function(){
+        getWinners: function () {
             const sortedPlayers = this.getSortedPlayers();
             const firstWinner = sortedPlayers[0];
             const winners: PlayerModel[] = [firstWinner];
             for (let i = 1; i < sortedPlayers.length; i++)
-                if (sortedPlayers[i].victoryPointsBreakdown.total === firstWinner.victoryPointsBreakdown.total &&
-                    sortedPlayers[i].megaCredits === firstWinner.megaCredits) {
-                        winners.push(sortedPlayers[i]);
+                if (
+                    sortedPlayers[i].victoryPointsBreakdown.total ===
+                        firstWinner.victoryPointsBreakdown.total &&
+                    sortedPlayers[i].megaCredits === firstWinner.megaCredits
+                ) {
+                    winners.push(sortedPlayers[i]);
                 }
             return winners;
         },
         isSoloGame: function (): boolean {
             return this.player.players.length === 1;
-        }
+        },
     },
     template: `
         <div id="game-end" class="game_end_cont">
@@ -168,6 +171,5 @@ export const GameEnd = Vue.component("game-end", {
                 </div>
             </div>
         </div>
-    `
+    `,
 });
-

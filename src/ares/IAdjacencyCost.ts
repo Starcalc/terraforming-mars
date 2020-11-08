@@ -1,5 +1,4 @@
-
 export interface IAdjacencyCost {
-  megacredits: number;
-  production: number;
+    megacredits: number;
+    production: number;
 }

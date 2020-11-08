@@ -6,10 +6,10 @@ import { Game } from "../../src/Game";
 import { SelectCard } from "../../src/inputs/SelectCard";
 import { IProjectCard } from "../../src/cards/IProjectCard";
 
-describe("Pluto", function() {
+describe("Pluto", () => {
     let pluto: Pluto, player: Player, player2: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         pluto = new Pluto();
         player = new Player("test", Color.BLUE, false);
         player2 = new Player("test2", Color.RED, false);
@@ -18,17 +18,17 @@ describe("Pluto", function() {
         game.colonies.push(pluto);
     });
 
-    it("Should build", function() {
+    it('Should build', () => {
         pluto.onColonyPlaced(player, game);
         expect(player.cardsInHand).has.lengthOf(2);
     });
 
-    it("Should trade", function() {
+    it('Should trade', () => {
         pluto.trade(player, game);
         expect(player.cardsInHand).has.lengthOf(1);
     });
 
-    it("Should give trade bonus", function() {
+    it('Should give trade bonus', () => {
         pluto.onColonyPlaced(player, game);
 
         pluto.trade(player2, game);

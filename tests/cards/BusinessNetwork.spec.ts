@@ -7,31 +7,31 @@ import { SelectCard } from "../../src/inputs/SelectCard";
 import { Resources } from "../../src/Resources";
 import { IProjectCard } from "../../src/cards/IProjectCard";
 
-describe("BusinessNetwork", function () {
-    let card : BusinessNetwork, player : Player, game : Game;
+describe("BusinessNetwork", () => {
+    let card: BusinessNetwork, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new BusinessNetwork();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         expect(card.canPlay(player)).is.true;
         card.play(player);
         expect(player.getProduction(Resources.MEGACREDITS)).to.eq(-1);
     });
 
-    it("Can't play", function () {  
-        player.addProduction(Resources.MEGACREDITS,-5);
+    it("Can't play", () => {
+        player.addProduction(Resources.MEGACREDITS, -5);
         expect(card.canPlay(player)).is.not.true;
     });
 
-    it("Can act", function () {
+    it('Can act', () => {
         expect(card.canAct()).is.true;
     });
 
-    it("Cannot buy card if cannot pay", function () {
+    it('Cannot buy card if cannot pay', () => {
         player.megaCredits = 2;
         const action = card.action(player, game);
         expect(action instanceof SelectCard).is.true;
@@ -42,7 +42,7 @@ describe("BusinessNetwork", function () {
         expect(player.megaCredits).to.eq(2);
     });
 
-    it("Should action as not helion", function () {
+    it('Should action as not helion', () => {
         player.megaCredits = 3;
         const action = card.action(player, game);
         expect(action instanceof SelectCard).is.true;
@@ -57,5 +57,4 @@ describe("BusinessNetwork", function () {
         expect(player.megaCredits).to.eq(0);
         expect(player.cardsInHand).has.lengthOf(1);
     });
-
 });

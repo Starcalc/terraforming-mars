@@ -8,12 +8,12 @@ import { AddResourcesToCard } from "../deferredActions/AddResourcesToCard";
 
 export class Enceladus extends Colony implements IColony {
     public name = ColonyName.ENCELADUS;
-    public description: string = "Microbes";
+    public description = "Microbes";
     public isActive = false;
     public resourceType = ResourceType.MICROBE;
-    public trade(player: Player, game: Game, usesTradeFleet: boolean = true): void {
+    public trade(player: Player, game: Game, usesTradeFleet = true): void {
         if (usesTradeFleet) this.beforeTrade(this, player, game);
-        let microbes: number = 0;
+        let microbes = 0;
         if (this.trackPosition > 4) {
             microbes = this.trackPosition - 1;
         } else {
@@ -28,6 +28,6 @@ export class Enceladus extends Colony implements IColony {
         return undefined;
     }
     public giveTradeBonus(player: Player, game: Game): undefined | PlayerInput {
-        return (new AddResourcesToCard(player, game, ResourceType.MICROBE, 1)).execute();
-    }    
+        return new AddResourcesToCard(player, game, ResourceType.MICROBE, 1).execute();
+    }
 }

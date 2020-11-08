@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { CardType } from "./CardType";
@@ -12,15 +11,14 @@ export class BeamFromAThoriumAsteroid implements IProjectCard {
     public cardType = CardType.AUTOMATED;
     public name = CardName.BEAM_FROM_A_THORIUM_ASTEROID;
     public canPlay(player: Player): boolean {
-      return player.getTagCount(Tags.JOVIAN) >= 1;
+        return player.getTagCount(Tags.JOVIAN) >= 1;
     }
     public play(player: Player) {
-      player.addProduction(Resources.HEAT,3);
-      player.addProduction(Resources.ENERGY,3);
-      return undefined;
+        player.addProduction(Resources.HEAT, 3);
+        player.addProduction(Resources.ENERGY, 3);
+        return undefined;
     }
     public getVictoryPoints() {
-      return 1;
+        return 1;
     }
 }
-

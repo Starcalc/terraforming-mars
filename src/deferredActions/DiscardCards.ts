@@ -10,7 +10,7 @@ export class DiscardCards implements DeferredAction {
         public game: Game,
         public count: number = 1,
         public title: string = "Select " + count + " card" + (count > 1 ? "s" : "") + " to discard"
-    ){}
+    ) {}
 
     public execute() {
         if (this.player.cardsInHand.length <= this.count) {
@@ -33,4 +33,4 @@ export class DiscardCards implements DeferredAction {
             this.count
         );
     }
-}    
+}

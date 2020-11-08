@@ -12,8 +12,15 @@ export class SelectOption implements PlayerInput {
     constructor(
         public title: string,
         public buttonLabel: string = "Select",
-        public cb: () => SelectSpace | SelectHowToPay | AndOptions | SelectOption | SelectAmount | SelectCard<ICard> | undefined) {
-            this.buttonLabel = buttonLabel;
+        public cb: () =>
+            | SelectSpace
+            | SelectHowToPay
+            | AndOptions
+            | SelectOption
+            | SelectAmount
+            | SelectCard<ICard>
+            | undefined
+    ) {
+        this.buttonLabel = buttonLabel;
     }
 }
-

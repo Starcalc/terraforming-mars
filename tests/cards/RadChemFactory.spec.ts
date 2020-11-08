@@ -5,20 +5,20 @@ import { Player } from "../../src/Player";
 import { Resources } from "../../src/Resources";
 import { Game } from "../../src/Game";
 
-describe("RadChemFactory", function () {
-    let card : RadChemFactory, player : Player, game : Game;
+describe("RadChemFactory", () => {
+    let card: RadChemFactory, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new RadChemFactory();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't play", function () {
+    it("Can't play", () => {
         expect(card.canPlay(player, game)).is.not.true;
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         player.addProduction(Resources.ENERGY);
         expect(card.canPlay(player, game)).is.true;
 

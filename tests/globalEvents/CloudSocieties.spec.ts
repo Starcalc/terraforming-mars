@@ -7,8 +7,8 @@ import { Turmoil } from "../../src/turmoil/Turmoil";
 import { Kelvinists } from "../../src/turmoil/parties/Kelvinists";
 import { FloatingHabs } from "../../src/cards/venusNext/FloatingHabs";
 
-describe("CloudSocieties", function () {
-    it("resolve play", function () {
+describe("CloudSocieties", () => {
+    it('resolve play', () => {
         const card = new CloudSocieties();
         const player = new Player("test", Color.BLUE, false);
         const game = new Game("foobar", [player], player);

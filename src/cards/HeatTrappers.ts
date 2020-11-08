@@ -15,9 +15,9 @@ export class HeatTrappers implements IProjectCard {
     public hasRequirements = false;
 
     public canPlay(_player: Player, game: Game): boolean {
-        return game.someoneHasResourceProduction(Resources.HEAT,2);
+        return game.someoneHasResourceProduction(Resources.HEAT, 2);
     }
-    
+
     public play(player: Player, game: Game) {
         game.defer(new DecreaseAnyProduction(player, game, Resources.HEAT, 2));
         player.addProduction(Resources.ENERGY);

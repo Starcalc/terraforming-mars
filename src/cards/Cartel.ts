@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { CardType } from "./CardType";
@@ -13,7 +12,7 @@ export class Cartel implements IProjectCard {
     public cardType = CardType.AUTOMATED;
 
     public play(player: Player) {
-      player.addProduction(Resources.MEGACREDITS, player.getTagCount(Tags.EARTH) + 1);
-      return undefined;
+        player.addProduction(Resources.MEGACREDITS, player.getTagCount(Tags.EARTH) + 1);
+        return undefined;
     }
 }

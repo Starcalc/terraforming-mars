@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { CardType } from "./CardType";
 import { Player } from "../Player";
@@ -16,10 +15,9 @@ export class Zeppelins implements IProjectCard {
     }
     public play(player: Player, game: Game) {
         player.addProduction(Resources.MEGACREDITS, game.getCitiesInPlayOnMars());
-        return undefined; 
+        return undefined;
     }
     public getVictoryPoints() {
         return 1;
     }
 }
-

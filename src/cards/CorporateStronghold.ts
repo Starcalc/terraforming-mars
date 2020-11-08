@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Game } from "../Game";
 import { Player } from "../Player";
@@ -16,22 +15,24 @@ export class CorporateStronghold implements IProjectCard {
     public name = CardName.CORPORATE_STRONGHOLD;
     public hasRequirements = false;
     public canPlay(player: Player, game: Game): boolean {
-      return player.getProduction(Resources.ENERGY) >= 1 &&
-      game.board.getAvailableSpacesForCity(player).length > 0;
+        return (
+            player.getProduction(Resources.ENERGY) >= 1 &&
+            game.board.getAvailableSpacesForCity(player).length > 0
+        );
     }
     public play(player: Player, game: Game) {
-      return new SelectSpace(
-          'Select space for city tile',
-          game.board.getAvailableSpacesForCity(player),
-          (space: ISpace) => {
-            game.addCityTile(player, space.id);
-            player.addProduction(Resources.ENERGY,-1);
-            player.addProduction(Resources.MEGACREDITS,3);
-            return undefined;
-          }
-      );
+        return new SelectSpace(
+            'Select space for city tile',
+            game.board.getAvailableSpacesForCity(player),
+            (space: ISpace) => {
+                game.addCityTile(player, space.id);
+                player.addProduction(Resources.ENERGY, -1);
+                player.addProduction(Resources.MEGACREDITS, 3);
+                return undefined;
+            }
+        );
     }
     public getVictoryPoints() {
-      return -2;
+        return -2;
     }
 }

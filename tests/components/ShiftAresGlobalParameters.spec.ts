@@ -5,10 +5,10 @@ import { ShiftAresGlobalParameters } from "../../src/components/ShiftAresGlobalP
 import { PlayerInputModel } from "../../src/models/PlayerInputModel";
 import { PlayerInputTypes } from "../../src/PlayerInputTypes";
 
-describe("ShiftAresGlobalParameters", function () {
+describe("ShiftAresGlobalParameters", () => {
     const mockPlayerModel: PlayerInputModel = {
-        title: "Testing, baby!",
-        buttonLabel: "Click me!",
+        title: 'Testing, baby!',
+        buttonLabel: 'Click me!',
         inputType: PlayerInputTypes.SHIFT_ARES_GLOBAL_PARAMETERS,
         amount: undefined,
         options: undefined,
@@ -53,17 +53,15 @@ describe("ShiftAresGlobalParameters", function () {
         const localVue = createLocalVue();
         return localVue;
     }
-    it("sets up data", function () {
+    it('sets up data', () => {
         const playerinput = mockPlayerModel;
         const ares = mount(ShiftAresGlobalParameters, {
             localVue: getLocalVue(),
             propsData: {
-                playerinput
-            }
+                playerinput,
+            },
         });
-        expect(
-            ares.vm.$data
-        ).to.deep.eq({
+        expect(ares.vm.$data).to.deep.eq({
             hazardData: {
                 erosionOceanCount: { threshold: 3, available: true },
                 removeDustStormsOceanCount: { threshold: 6, available: true },

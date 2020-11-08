@@ -17,16 +17,20 @@ export class DeepWellHeating implements IProjectCard {
     public hasRequirements = false;
 
     public canPlay(player: Player, game: Game): boolean {
-      const temperatureMaxed = game.getVenusScaleLevel() === MAX_TEMPERATURE;
-      if (PartyHooks.shouldApplyPolicy(game, PartyName.REDS) && !temperatureMaxed) {
-        return player.canAfford(player.getCardCost(game, this) + REDS_RULING_POLICY_COST, game, true);
-      }
+        const temperatureMaxed = game.getVenusScaleLevel() === MAX_TEMPERATURE;
+        if (PartyHooks.shouldApplyPolicy(game, PartyName.REDS) && !temperatureMaxed) {
+            return player.canAfford(
+                player.getCardCost(game, this) + REDS_RULING_POLICY_COST,
+                game,
+                true
+            );
+        }
 
-      return true;
+        return true;
     }
 
     public play(player: Player, game: Game) {
-      player.addProduction(Resources.ENERGY);
-      return game.increaseTemperature(player, 1);
+        player.addProduction(Resources.ENERGY);
+        return game.increaseTemperature(player, 1);
     }
 }

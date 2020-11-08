@@ -5,5 +5,5 @@ export interface IMilestone {
     name: string;
     description: string;
     canClaim: (player: Player, game: Game) => boolean;
-    getScore: (player: Player, _game: Game) => number;  
+    getScore: (player: Player, _game: Game) => number;
 }

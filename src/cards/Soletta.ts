@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { CardType } from "./CardType";
@@ -14,7 +13,7 @@ export class Soletta implements IProjectCard {
     public name = CardName.SOLETTA;
 
     public play(player: Player, _game: Game) {
-        player.addProduction(Resources.HEAT,7);
+        player.addProduction(Resources.HEAT, 7);
         return undefined;
     }
 }

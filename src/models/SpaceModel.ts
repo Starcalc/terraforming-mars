@@ -1,4 +1,3 @@
-
 import { Color } from "../Color";
 import { TileType } from "../TileType";
 import { SpaceBonus } from "../SpaceBonus";

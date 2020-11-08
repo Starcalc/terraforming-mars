@@ -14,7 +14,7 @@ export class Ants implements IActionCard, IProjectCard, IResourceCard {
     public tags = [Tags.MICROBES];
     public name = CardName.ANTS;
     public resourceType = ResourceType.MICROBE;
-    public resourceCount: number = 0;
+    public resourceCount = 0;
     public cardType = CardType.ACTIVE;
 
     public canPlay(player: Player, game: Game): boolean {
@@ -31,18 +31,20 @@ export class Ants implements IActionCard, IProjectCard, IResourceCard {
 
     public canAct(player: Player, game: Game): boolean {
         if (game.isSoloMode()) return true;
-        return RemoveResourcesFromCard.getAvailableTargetCards(player, game, this.resourceType).length > 0;
+        return (
+            RemoveResourcesFromCard.getAvailableTargetCards(player, game, this.resourceType)
+                .length > 0
+        );
     }
 
     public action(player: Player, game: Game) {
         game.defer(new RemoveResourcesFromCard(player, game, this.resourceType));
-        game.defer(new DeferredAction(
-            player,
-            () => {
+        game.defer(
+            new DeferredAction(player, () => {
                 player.addResourceTo(this);
                 return undefined;
-            }
-        ));
+            })
+        );
         return undefined;
     }
 }

@@ -9,20 +9,20 @@ import { Decomposers } from "../../src/cards/Decomposers";
 import { SecurityFleet } from "../../src/cards/SecurityFleet";
 import { Game } from "../../src/Game";
 
-describe("CEOsFavoriteProject", function () {
-    let card : CEOsFavoriteProject, player : Player, game : Game;
+describe("CEOsFavoriteProject", () => {
+    let card: CEOsFavoriteProject, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new CEOsFavoriteProject();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't play", function () {
+    it("Can't play", () => {
         expect(card.canPlay(player)).is.not.true;
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         const searchForLife = new SearchForLife();
         const securityFleet = new SecurityFleet();
         const decomposers = new Decomposers();

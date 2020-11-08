@@ -8,30 +8,30 @@ import { Helion } from "../../src/cards/corporation/Helion";
 import { Game } from "../../src/Game";
 import { Fish } from "../../src/cards/Fish";
 
-describe("LocalHeatTrapping", function () {
-    let card : LocalHeatTrapping, player : Player, game : Game;
+describe("LocalHeatTrapping", () => {
+    let card: LocalHeatTrapping, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new LocalHeatTrapping();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't play without 5 heat", function () {
+    it("Can't play without 5 heat", () => {
         expect(card.canPlay(player, game)).is.not.true;
     });
 
-    it("Should play - no animal targets", function () {
+    it('Should play - no animal targets', () => {
         player.heat = 5;
         expect(card.canPlay(player, game)).is.true;
-        
+
         card.play(player, game);
         player.playedCards.push(card);
         expect(player.plants).to.eq(4);
         expect(player.heat).to.eq(0);
     });
 
-    it("Should play - single animal target", function () {
+    it('Should play - single animal target', () => {
         player.heat = 5;
         const pets = new Pets();
         player.playedCards.push(card, pets);
@@ -39,7 +39,7 @@ describe("LocalHeatTrapping", function () {
         const orOptions = card.play(player, game) as OrOptions;
         expect(orOptions).is.not.undefined;
         expect(orOptions instanceof OrOptions).is.true;
-        
+
         orOptions.options[0].cb();
         expect(player.plants).to.eq(4);
         expect(player.heat).to.eq(0);
@@ -48,7 +48,7 @@ describe("LocalHeatTrapping", function () {
         expect(player.getResourcesOnCard(pets)).to.eq(2);
     });
 
-    it("Should play - multiple animal targets", function () {
+    it('Should play - multiple animal targets', () => {
         player.heat = 5;
         const pets = new Pets();
         const fish = new Fish();
@@ -60,7 +60,7 @@ describe("LocalHeatTrapping", function () {
         expect(player.getResourcesOnCard(fish)).to.eq(2);
     });
 
-    it("Can't play as Helion if not enough heat left after paying for card", function () {
+    it("Can't play as Helion if not enough heat left after paying for card", () => {
         const corp = new Helion();
         corp.play(player);
         player.corporationCard = corp;

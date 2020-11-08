@@ -7,10 +7,10 @@ import { Turmoil } from "../../src/turmoil/Turmoil";
 import { Kelvinists } from "../../src/turmoil/parties/Kelvinists";
 import { Sponsors } from "../../src/cards/Sponsors";
 
-describe("Revolution", function () {
-    let card : Revolution, player : Player, player2 : Player, game : Game, turmoil: Turmoil;
+describe("Revolution", () => {
+    let card: Revolution, player: Player, player2: Player, game: Game, turmoil: Turmoil;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new Revolution();
         player = new Player("test", Color.BLUE, false);
         player2 = new Player("test2", Color.RED, false);
@@ -25,7 +25,7 @@ describe("Revolution", function () {
         turmoil.dominantParty.delegates.push(player2.id);
     });
 
-    it("resolve play", function () {
+    it('resolve play', () => {
         player.playedCards.push(new Sponsors());
         player2.playedCards.push(new Sponsors());
 
@@ -34,7 +34,7 @@ describe("Revolution", function () {
         expect(player2.getTerraformRating()).to.eq(18);
     });
 
-    it("doesn't reduce TR for players with 0 Earth tags + influence", function () {
+    it("doesn't reduce TR for players with 0 Earth tags + influence", () => {
         player2.playedCards.push(new Sponsors());
 
         card.resolve(game, turmoil);

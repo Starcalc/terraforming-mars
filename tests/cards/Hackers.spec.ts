@@ -4,19 +4,19 @@ import { Color } from "../../src/Color";
 import { Player } from "../../src/Player";
 import { Resources } from "../../src/Resources";
 
-describe("Hackers", function () {
-    let card : Hackers, player : Player;
+describe("Hackers", () => {
+    let card: Hackers, player: Player;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new Hackers();
         player = new Player("test", Color.BLUE, false);
     });
 
-    it("Can't play", function () {
+    it("Can't play", () => {
         expect(card.canPlay(player)).is.not.true;
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         player.addProduction(Resources.ENERGY);
         expect(card.canPlay(player)).is.true;
     });

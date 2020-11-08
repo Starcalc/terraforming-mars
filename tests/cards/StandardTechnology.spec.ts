@@ -1,12 +1,11 @@
-
 import { expect } from "chai";
 import { StandardTechnology } from "../../src/cards/StandardTechnology";
 import { Color } from "../../src/Color";
 import { Player } from "../../src/Player";
 import { StandardProjectType } from "../../src/StandardProjectType";
 
-describe("StandardTechnology", function () {
-    it("Should play", function () {
+describe("StandardTechnology", () => {
+    it('Should play', () => {
         const card = new StandardTechnology();
         const player = new Player("test", Color.BLUE, false);
         const action = card.play();

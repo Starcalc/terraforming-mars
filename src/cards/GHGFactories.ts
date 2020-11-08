@@ -1,11 +1,9 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { Player } from "../Player";
 import { CardType } from "./CardType";
 import { Resources } from "../Resources";
 import { CardName } from "../CardName";
-
 
 export class GHGFactories implements IProjectCard {
     public cost = 11;
@@ -17,9 +15,8 @@ export class GHGFactories implements IProjectCard {
         return player.getProduction(Resources.ENERGY) >= 1;
     }
     public play(player: Player) {
-        player.addProduction(Resources.ENERGY,-1);
-        player.addProduction(Resources.HEAT,4);
+        player.addProduction(Resources.ENERGY, -1);
+        player.addProduction(Resources.HEAT, 4);
         return undefined;
     }
 }
-

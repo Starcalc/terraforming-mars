@@ -5,20 +5,20 @@ import { Player } from "../../src/Player";
 import { Resources } from "../../src/Resources";
 import { Game } from "../../src/Game";
 
-describe("MagneticFieldGenerators", function () {
-    let card : MagneticFieldGenerators, player : Player, game : Game;
+describe("MagneticFieldGenerators", () => {
+    let card: MagneticFieldGenerators, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new MagneticFieldGenerators();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't play", function () {
+    it("Can't play", () => {
         expect(card.canPlay(player, game)).is.not.true;
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         player.addProduction(Resources.ENERGY, 4);
         expect(card.canPlay(player, game)).is.true;
 

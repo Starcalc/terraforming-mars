@@ -6,20 +6,20 @@ import { Game } from "../../src/Game";
 import { TollStation } from "../../src/cards/TollStation";
 import { Resources } from "../../src/Resources";
 
-describe("MassConverter", function () {
-    let card : MassConverter, player : Player, game : Game;
+describe("MassConverter", () => {
+    let card: MassConverter, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new MassConverter();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't play", function () {
+    it("Can't play", () => {
         expect(card.canPlay(player)).is.not.true;
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         player.playedCards.push(card, card, card, card, card);
         expect(card.canPlay(player)).is.true;
         card.play(player);

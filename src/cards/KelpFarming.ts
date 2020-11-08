@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { CardType } from "./CardType";
@@ -16,8 +15,8 @@ export class KelpFarming implements IProjectCard {
         return game.board.getOceansOnBoard() >= 6 - player.getRequirementsBonus(game);
     }
     public play(player: Player) {
-        player.addProduction(Resources.MEGACREDITS,2);
-        player.addProduction(Resources.PLANTS,3);
+        player.addProduction(Resources.MEGACREDITS, 2);
+        player.addProduction(Resources.PLANTS, 3);
         player.plants += 2;
         return undefined;
     }

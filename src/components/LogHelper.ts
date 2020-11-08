@@ -7,42 +7,52 @@ import { TileType } from "../TileType";
 import { IColony } from "../colonies/Colony";
 
 export class LogHelper {
-    static logAddResource(game: Game, player: Player, card: ICard, qty: number = 1): void {
-        let resourceType = "resource(s)"
+    static logAddResource(game: Game, player: Player, card: ICard, qty = 1): void {
+        let resourceType = "resource(s)";
 
         if (card.resourceType) {
             resourceType = card.resourceType.toLowerCase() + "(s)";
         }
 
-        game.log("${0} added ${1} ${2} to ${3}", b =>
-            b.player(player).number(qty).string(resourceType).card(card));
+        game.log("${0} added ${1} ${2} to ${3}", (b) =>
+            b.player(player).number(qty).string(resourceType).card(card)
+        );
     }
 
-    static logRemoveResource(game: Game, player: Player, card: ICard, qty: number = 1, effect: string): void {
-        let resourceType = "resource(s)"
+    static logRemoveResource(
+        game: Game,
+        player: Player,
+        card: ICard,
+        qty = 1,
+        effect: string
+    ): void {
+        let resourceType = "resource(s)";
 
         if (card.resourceType) {
             resourceType = card.resourceType.toLowerCase() + "(s)";
         }
 
-        game.log("${0} removed ${1} ${2} from ${3} to ${4}", b =>
-            b.player(player).number(qty).string(resourceType).card(card).string(effect));
+        game.log("${0} removed ${1} ${2} from ${3} to ${4}", (b) =>
+            b.player(player).number(qty).string(resourceType).card(card).string(effect)
+        );
     }
 
-    static logGainStandardResource(game: Game, player: Player, resource: Resources, qty: number = 1) {
-        game.log("${0} gained ${1} ${2}", b => b.player(player).number(qty).string(resource));
+    static logGainStandardResource(game: Game, player: Player, resource: Resources, qty = 1) {
+        game.log("${0} gained ${1} ${2}", (b) => b.player(player).number(qty).string(resource));
     }
 
-    static logGainProduction(game: Game, player: Player, resource: Resources, qty: number = 1) {
-        game.log("${0}'s ${1} production increased by ${2}", b => b.player(player).string(resource).number(qty));
+    static logGainProduction(game: Game, player: Player, resource: Resources, qty = 1) {
+        game.log("${0}'s ${1} production increased by ${2}", (b) =>
+            b.player(player).string(resource).number(qty)
+        );
     }
 
-    static logCardChange(game: Game, player: Player, effect: string, qty: number = 1) {
-        game.log("${0} ${1} ${2} card(s)", b => b.player(player).string(effect).number(qty));
+    static logCardChange(game: Game, player: Player, effect: string, qty = 1) {
+        game.log("${0} ${1} ${2} card(s)", (b) => b.player(player).string(effect).number(qty));
     }
 
     static logTilePlacement(game: Game, player: Player, space: ISpace, tileType: TileType) {
-        let type : string;
+        let type: string;
 
         switch (tileType) {
             case TileType.GREENERY:
@@ -56,7 +66,7 @@ export class LogHelper {
             case TileType.OCEAN:
                 type = "ocean tile";
                 break;
-        
+
             default:
                 type = "special tile";
                 break;
@@ -65,9 +75,15 @@ export class LogHelper {
         this.logBoardTileAction(game, player, space, type);
     }
 
-    static logBoardTileAction(game: Game, player: Player, space: ISpace, description: string, action: string = "placed") {
+    static logBoardTileAction(
+        game: Game,
+        player: Player,
+        space: ISpace,
+        description: string,
+        action = 'placed'
+    ) {
         // Skip off-grid tiles
-        if (space.x === -1 && space.y === -1) return
+        if (space.x === -1 && space.y === -1) return;
         // Skip solo play random tiles
         if (player.name === "neutral") return;
 
@@ -75,22 +91,24 @@ export class LogHelper {
         const row: number = space.y + 1;
         const position: number = space.x - offset + 1;
 
-        game.log("${0} ${1} ${2} on row ${3} position ${4}", b =>
-            b.player(player).string(action).string(description).number(row).number(position));
+        game.log("${0} ${1} ${2} on row ${3} position ${4}", (b) =>
+            b.player(player).string(action).string(description).number(row).number(position)
+        );
     }
 
-    static logColonyTrackIncrease(game: Game, player: Player, colony: IColony, steps: number = 1) {
-        game.log("${0} increased ${1} colony track ${2} step(s)", b =>
-            b.player(player).colony(colony).number(steps));
+    static logColonyTrackIncrease(game: Game, player: Player, colony: IColony, steps = 1) {
+        game.log("${0} increased ${1} colony track ${2} step(s)", (b) =>
+            b.player(player).colony(colony).number(steps)
+        );
     }
 
     static logTRIncrease(game: Game, player: Player, steps: number) {
-        game.log("${0} gained ${1} TR", b => b.player(player).number(steps));
+        game.log("${0} gained ${1} TR", (b) => b.player(player).number(steps));
     }
 
     static logDiscardedCards(game: Game, discardedCards: Array<ICard>) {
-        game.log(discardedCards.length + " card(s) were discarded", b => {
-            discardedCards.forEach(card => b.card(card));
-        });    
+        game.log(discardedCards.length + " card(s) were discarded", (b) => {
+            discardedCards.forEach((card) => b.card(card));
+        });
     }
 }

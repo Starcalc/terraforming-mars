@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { CardType } from "./CardType";
@@ -13,7 +12,7 @@ export class PowerGrid implements IProjectCard {
     public cardType = CardType.AUTOMATED;
 
     public play(player: Player) {
-        player.addProduction(Resources.ENERGY,1 + player.getTagCount(Tags.ENERGY));
+        player.addProduction(Resources.ENERGY, 1 + player.getTagCount(Tags.ENERGY));
         return undefined;
     }
 }

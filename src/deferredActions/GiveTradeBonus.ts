@@ -7,11 +7,7 @@ import { Multiset } from "../utils/Multiset";
 export class GiveTradeBonus implements DeferredAction {
     public cb: () => void = () => {};
     private waitingFor: Multiset<PlayerId> = new Multiset<PlayerId>();
-    constructor(
-        public player: Player,
-        public game: Game,
-        public colony: IColony
-    ){}
+    constructor(public player: Player, public game: Game, public colony: IColony) {}
 
     public execute() {
         if (this.colony.colonies.length === 0) {

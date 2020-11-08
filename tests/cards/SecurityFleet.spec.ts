@@ -3,19 +3,19 @@ import { SecurityFleet } from "../../src/cards/SecurityFleet";
 import { Color } from "../../src/Color";
 import { Player } from "../../src/Player";
 
-describe("SecurityFleet", function () {
-    let card : SecurityFleet, player : Player;
+describe("SecurityFleet", () => {
+    let card: SecurityFleet, player: Player;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new SecurityFleet();
         player = new Player("test", Color.BLUE, false);
     });
 
-    it("Can't act if no titanium", function () {
+    it("Can't act if no titanium", () => {
         expect(card.canAct(player)).is.not.true;
     });
 
-    it("Should act", function () {
+    it('Should act', () => {
         player.playedCards.push(card);
         player.titanium = 1;
         expect(card.canAct(player)).is.true;

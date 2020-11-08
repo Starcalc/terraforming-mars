@@ -12,10 +12,10 @@ export class EarthOffice implements IProjectCard {
     public cardType = CardType.ACTIVE;
 
     public getCardDiscount(_player: Player, _game: Game, card: IProjectCard) {
-      return card.tags.filter(tag => tag === Tags.EARTH).length * 3;
+        return card.tags.filter((tag) => tag === Tags.EARTH).length * 3;
     }
 
     public play() {
-      return undefined;
+        return undefined;
     }
 }

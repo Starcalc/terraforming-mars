@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { CardType } from "./CardType";
@@ -13,7 +12,10 @@ export class MedicalLab implements IProjectCard {
     public name = CardName.MEDICAL_LAB;
 
     public play(player: Player) {
-        player.addProduction(Resources.MEGACREDITS, Math.floor((player.getTagCount(Tags.STEEL) + 1) / 2));
+        player.addProduction(
+            Resources.MEGACREDITS,
+            Math.floor((player.getTagCount(Tags.STEEL) + 1) / 2)
+        );
         return undefined;
     }
     public getVictoryPoints() {

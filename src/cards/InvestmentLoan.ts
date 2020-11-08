@@ -1,4 +1,3 @@
-
 import { Tags } from "./Tags";
 import { IProjectCard } from "./IProjectCard";
 import { CardType } from "./CardType";
@@ -17,7 +16,7 @@ export class InvestmentLoan implements IProjectCard {
         return player.getProduction(Resources.MEGACREDITS) >= -4;
     }
     public play(player: Player, _game: Game) {
-        player.addProduction(Resources.MEGACREDITS,-1);
+        player.addProduction(Resources.MEGACREDITS, -1);
         player.megaCredits += 10;
         return undefined;
     }

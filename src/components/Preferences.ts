@@ -9,29 +9,29 @@ import { $t } from "../directives/i18n";
 export const Preferences = Vue.component("preferences", {
     props: {
         player_color: {
-            type: Object as () => Color
+            type: Object as () => Color,
         },
         generation: {
-            type: Number
+            type: Number,
         },
         coloniesCount: {
-            type: Number
+            type: Number,
         },
         temperature: {
-            type: Number
+            type: Number,
         },
         oxygen: {
-            type: Number
+            type: Number,
         },
         oceans: {
-            type: Number
+            type: Number,
         },
         venus: {
-            type: Number
+            type: Number,
         },
         venusNextExtension: {
-            type: Boolean
-        }
+            type: Boolean,
+        },
     },
     data: function () {
         return {
@@ -55,15 +55,12 @@ export const Preferences = Vue.component("preferences", {
             "hide_log": false as boolean | unknown[],
             "lang": "en",
             "langs": LANGUAGES,
-            "enable_sounds": false as boolean | unknown[]
+            "enable_sounds": false as boolean | unknown[],
         };
     },
     methods: {
-        setPreferencesCSS: function (
-            val: boolean | undefined,
-            cssClassSuffix: string
-        ): void {
-            let target = document.getElementById("ts-preferences-target");
+        setPreferencesCSS: function (val: boolean | undefined, cssClassSuffix: string): void {
+            const target = document.getElementById("ts-preferences-target");
             if (!target) return;
             if (val) {
                 target.classList.add("preferences_" + cssClassSuffix);
@@ -75,18 +72,15 @@ export const Preferences = Vue.component("preferences", {
                 target.classList.add("language-" + this.lang);
             }
         },
-        updatePreferencesFromStorage: function (): Map<
-            string,
-            boolean | string
-        > {
-            for (let k of PreferencesManager.keys) {
-                let val = PreferencesManager.loadValue(k);
+        updatePreferencesFromStorage: function (): Map<string, boolean | string> {
+            for (const k of PreferencesManager.keys) {
+                const val = PreferencesManager.loadValue(k);
                 if (k === "lang") {
                     PreferencesManager.preferencesValues.set(k, this.$data[k]);
                     this[k] = val || "en";
                     PreferencesManager.preferencesValues.set(k, val || "en");
                 } else {
-                    let boolVal = val !== "" ? val === "1" : this.$data[k];
+                    const boolVal = val !== "" ? val === "1" : this.$data[k];
                     PreferencesManager.preferencesValues.set(k, val === "1");
                     this.$data[k] = boolVal;
                 }
@@ -94,9 +88,9 @@ export const Preferences = Vue.component("preferences", {
             return PreferencesManager.preferencesValues;
         },
         updatePreferences: function (_evt: any): void {
-            var strVal: string = "";
-            for (let k of PreferencesManager.keys) {
-                let val = PreferencesManager.preferencesValues.get(k);
+            let strVal = "";
+            for (const k of PreferencesManager.keys) {
+                const val = PreferencesManager.preferencesValues.get(k);
                 if (val !== this.$data[k]) {
                     if (k === "lang") {
                         strVal = this.$data[k];
@@ -110,7 +104,7 @@ export const Preferences = Vue.component("preferences", {
             }
         },
         syncPreferences: function (): void {
-            for (let k of PreferencesManager.keys) {
+            for (const k of PreferencesManager.keys) {
                 this.$data[k] = PreferencesManager.preferencesValues.get(k);
                 this.setPreferencesCSS(this.$data[k], k);
             }
@@ -118,34 +112,34 @@ export const Preferences = Vue.component("preferences", {
         getGenMarker: function (): string {
             return `${this.generation}`;
         },
-        getOceanCount: function(): string{
-            if (this.oceans === MAX_OCEAN_TILES){
-                return `<img src="/assets/misc/checkmark.png" class="preferences_checkmark" :alt="$t('Completed!')">`;
+        getOceanCount: function (): string {
+            if (this.oceans === MAX_OCEAN_TILES) {
+                return '<img src="/assets/misc/checkmark.png" class="preferences_checkmark" :alt="$t(\'Completed!\')">';
             } else {
                 return `${this.oceans}`;
-            } 
+            }
         },
-        getTemperatureCount: function(): string{
-            if (this.temperature === MAX_TEMPERATURE){
-                return `<img src="/assets/misc/checkmark.png" class="preferences_checkmark" :alt="$t('Completed!')">`;
+        getTemperatureCount: function (): string {
+            if (this.temperature === MAX_TEMPERATURE) {
+                return '<img src="/assets/misc/checkmark.png" class="preferences_checkmark" :alt="$t(\'Completed!\')">';
             } else {
                 return `${this.temperature}`;
-            } 
+            }
         },
-        getOxygenCount: function(): string{
-            if (this.oxygen === MAX_OXYGEN_LEVEL){
-                return `<img src="/assets/misc/checkmark.png" class="preferences_checkmark" :alt="$t('Completed!')">`;
+        getOxygenCount: function (): string {
+            if (this.oxygen === MAX_OXYGEN_LEVEL) {
+                return '<img src="/assets/misc/checkmark.png" class="preferences_checkmark" :alt="$t(\'Completed!\')">';
             } else {
                 return `${this.oxygen}`;
-            } 
+            }
         },
-        getVenusCount: function(): string{
-            if (this.venus === MAX_VENUS_SCALE){
-                return `<img src="/assets/misc/checkmark.png" class="preferences_checkmark" :alt="$t('Completed!')">`;
+        getVenusCount: function (): string {
+            if (this.venus === MAX_VENUS_SCALE) {
+                return '<img src="/assets/misc/checkmark.png" class="preferences_checkmark" :alt="$t(\'Completed!\')">';
             } else {
                 return `${this.venus}`;
-            } 
-        }
+            }
+        },
     },
     mounted: function () {
         this.updatePreferencesFromStorage();

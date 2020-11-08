@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { CardType } from "./CardType";
@@ -21,22 +20,28 @@ export class NoctisCity implements IProjectCard {
         if (game.gameOptions.boardName === BoardName.ORIGINAL) {
             return player.getProduction(Resources.ENERGY) >= 1;
         } else {
-            return player.getProduction(Resources.ENERGY) >= 1 &&
-            game.board.getAvailableSpacesForCity(player).length > 0;;
+            return (
+                player.getProduction(Resources.ENERGY) >= 1 &&
+                game.board.getAvailableSpacesForCity(player).length > 0
+            );
         }
     }
     public play(player: Player, game: Game) {
         const noctisSpace = game.getSpace(SpaceName.NOCTIS_CITY);
-        player.addProduction(Resources.ENERGY,-1);
-        player.addProduction(Resources.MEGACREDITS,3);
+        player.addProduction(Resources.ENERGY, -1);
+        player.addProduction(Resources.MEGACREDITS, 3);
         if (game.gameOptions.boardName === BoardName.ORIGINAL) {
-          game.addCityTile(player, noctisSpace.id);
-          return undefined;
+            game.addCityTile(player, noctisSpace.id);
+            return undefined;
         } else {
-            return new SelectSpace("Select space for Noctis city", game.board.getAvailableSpacesForCity(player), (space: ISpace) => {
-                game.addCityTile(player, space.id);
-                return undefined;
-            }); 
-        }  
+            return new SelectSpace(
+                "Select space for Noctis city",
+                game.board.getAvailableSpacesForCity(player),
+                (space: ISpace) => {
+                    game.addCityTile(player, space.id);
+                    return undefined;
+                }
+            );
+        }
     }
 }

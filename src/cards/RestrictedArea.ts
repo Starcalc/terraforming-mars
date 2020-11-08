@@ -23,17 +23,25 @@ export class RestrictedArea implements IActionCard, IProjectCard {
         return game.board.getAvailableSpacesOnLand(player).length > 0;
     }
     public play(player: Player, game: Game) {
-        return new SelectSpace("Select space for tile", game.board.getAvailableSpacesOnLand(player), (foundSpace: ISpace) => {
-            game.addTile(player, foundSpace.spaceType, foundSpace, { tileType: TileType.RESTRICTED_AREA });
-            foundSpace.adjacency = this.adjacencyBonus;
-            return undefined;
-        });
+        return new SelectSpace(
+            "Select space for tile",
+            game.board.getAvailableSpacesOnLand(player),
+            (foundSpace: ISpace) => {
+                game.addTile(player, foundSpace.spaceType, foundSpace, {
+                    tileType: TileType.RESTRICTED_AREA,
+                });
+                foundSpace.adjacency = this.adjacencyBonus;
+                return undefined;
+            }
+        );
     }
     public canAct(player: Player): boolean {
         return player.canAfford(2);
     }
     public action(player: Player, game: Game) {
-        game.defer(new SelectHowToPayDeferred(player, 2, false, false, "Select how to pay for action"));
+        game.defer(
+            new SelectHowToPayDeferred(player, 2, false, false, 'Select how to pay for action')
+        );
         player.cardsInHand.push(game.dealer.dealCard());
         return undefined;
     }

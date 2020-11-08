@@ -4,20 +4,20 @@ import { Color } from "../../src/Color";
 import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 
-describe("DevelopmentCenter", function () {
-    let card : DevelopmentCenter, player : Player, game : Game;
+describe("DevelopmentCenter", () => {
+    let card: DevelopmentCenter, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new DevelopmentCenter();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't act", function () {
+    it("Can't act", () => {
         expect(card.canAct(player)).is.not.true;
     });
 
-    it("Should act", function () {
+    it('Should act', () => {
         player.energy = 1;
         expect(card.canAct(player)).is.true;
 
@@ -26,4 +26,3 @@ describe("DevelopmentCenter", function () {
         expect(player.cardsInHand).has.lengthOf(1);
     });
 });
-

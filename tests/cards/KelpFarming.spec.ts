@@ -6,20 +6,20 @@ import { Game } from "../../src/Game";
 import { Resources } from "../../src/Resources";
 import { maxOutOceans } from "../TestingUtils";
 
-describe("KelpFarming", function () {
-    let card : KelpFarming, player : Player, game : Game;
+describe("KelpFarming", () => {
+    let card: KelpFarming, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new KelpFarming();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't play", function () {
+    it("Can't play", () => {
         expect(card.canPlay(player, game)).is.not.true;
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         maxOutOceans(player, game, 6);
         expect(card.canPlay(player, game)).is.true;
 

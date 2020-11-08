@@ -7,13 +7,13 @@ import { Turmoil } from "../../src/turmoil/Turmoil";
 import { StripMine } from "../../src/cards/StripMine";
 import { Kelvinists } from "../../src/turmoil/parties/Kelvinists";
 
-describe("Election", function () {
-    it("resolve play", function () {
+describe("Election", () => {
+    it('resolve play', () => {
         const card = new Election();
         const player = new Player("test", Color.BLUE, false);
         const player2 = new Player("test2", Color.RED, false);
         const player3 = new Player("test3", Color.GREEN, false);
-        const game = new Game("foobar", [player,player2, player3], player);
+        const game = new Game("foobar", [player, player2, player3], player);
         const turmoil = new Turmoil(game);
         turmoil.initGlobalEvent(game);
         player.playedCards.push(new StripMine());
@@ -28,6 +28,5 @@ describe("Election", function () {
         expect(player.getTerraformRating()).to.eq(21);
         expect(player2.getTerraformRating()).to.eq(22);
         expect(player3.getTerraformRating()).to.eq(21);
-
     });
 });

@@ -6,11 +6,8 @@ import { PlayerModel } from "../models/PlayerModel";
 export const PlayerMixin = {
     "name": "PlayerMixin",
     "methods": {
-        getCardsByType: function (
-            inCards: Array<CardModel>,
-            cardType: Array<CardType>
-        ) {
-            let cards: Array<CardModel> = [];
+        getCardsByType: function (inCards: Array<CardModel>, cardType: Array<CardType>) {
+            const cards: Array<CardModel> = [];
             for (let index = 0; index < inCards.length; index++) {
                 if (cardType.indexOf(inCards[index].cardType) !== -1) {
                     cards.push(inCards[index]);
@@ -18,10 +15,7 @@ export const PlayerMixin = {
             }
             return cards.reverse();
         },
-        getPlayerCardsPlayed: function (
-            player: PlayerModel,
-            withCorp: boolean
-        ): number {
+        getPlayerCardsPlayed: function (player: PlayerModel, withCorp: boolean): number {
             const playedCardsNr = player.playedCards.length || 0;
             return withCorp ? playedCardsNr + 1 : playedCardsNr;
         },
@@ -37,14 +31,12 @@ export const PlayerMixin = {
         getPreludeCardType: function () {
             return CardType.PRELUDE;
         },
-        isCardActivated: function (
-            card: CardModel,
-            player: PlayerModel
-        ): boolean {
+        isCardActivated: function (card: CardModel, player: PlayerModel): boolean {
             return (
                 (player !== undefined &&
-                player.actionsThisGeneration !== undefined &&
-                player.actionsThisGeneration.indexOf(card.name) !== -1) || card.isDisabled
+                    player.actionsThisGeneration !== undefined &&
+                    player.actionsThisGeneration.indexOf(card.name) !== -1) ||
+                card.isDisabled
             );
         },
     },

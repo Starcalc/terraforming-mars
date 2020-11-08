@@ -1,4 +1,3 @@
-
 import * as http from "http";
 
 export class Route {
@@ -16,7 +15,11 @@ export class Route {
         res.write("Not found");
         res.end();
     }
-    public internalServerError(req: http.IncomingMessage, res: http.ServerResponse, err: unknown): void {
+    public internalServerError(
+        req: http.IncomingMessage,
+        res: http.ServerResponse,
+        err: unknown
+    ): void {
         console.warn("internal server error", req.url, err);
         res.writeHead(500);
         res.write("Internal server error " + err);

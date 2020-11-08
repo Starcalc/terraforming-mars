@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Tags } from "./Tags";
 import { CardType } from "./CardType";
@@ -13,11 +12,11 @@ export class CarbonateProcessing implements IProjectCard {
     public cardType = CardType.AUTOMATED;
     public hasRequirements = false;
     public canPlay(player: Player): boolean {
-      return player.getProduction(Resources.ENERGY) >= 1;
+        return player.getProduction(Resources.ENERGY) >= 1;
     }
     public play(player: Player) {
-      player.addProduction(Resources.ENERGY,-1);
-      player.addProduction(Resources.HEAT,3);
-      return undefined;
+        player.addProduction(Resources.ENERGY, -1);
+        player.addProduction(Resources.HEAT, 3);
+        return undefined;
     }
 }

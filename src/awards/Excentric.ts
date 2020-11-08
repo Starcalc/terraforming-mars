@@ -3,15 +3,15 @@ import { Player } from "../Player";
 import { Game } from "../Game";
 
 export class Excentric implements IAward {
-    public name: string = "Excentric";
-    public description: string = "Most resources on cards"
+    public name = "Excentric";
+    public description = "Most resources on cards";
     public getScore(player: Player, _game: Game): number {
-        let score: number = 0;
+        let score = 0;
 
-        player.getCardsWithResources().forEach(card => {
+        player.getCardsWithResources().forEach((card) => {
             score += player.getResourcesOnCard(card)!;
         });
 
         return score;
-    }   
+    }
 }

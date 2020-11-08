@@ -1,4 +1,3 @@
-
 import { PlayerInput } from "../PlayerInput";
 import { PlayerInputTypes } from "../PlayerInputTypes";
 import { SelectSpace } from "./SelectSpace";
@@ -14,10 +13,23 @@ import { SelectColony } from "./SelectColony";
 
 export class AndOptions implements PlayerInput {
     public inputType: PlayerInputTypes = PlayerInputTypes.AND_OPTIONS;
-    public title: string = "";
-    public buttonLabel: string = "Save";
+    public title = "";
+    public buttonLabel = "Save";
     public options: Array<PlayerInput>;
-    constructor(public cb: () => PlayerInput | undefined, ...options: Array<OrOptions | SelectAmount | SelectPlayer | SelectHowToPay | SelectSpace | SelectColony | SelectCard<CorporationCard> | SelectCard<ICard> | SelectCard<IProjectCard>>) {
+    constructor(
+        public cb: () => PlayerInput | undefined,
+        ...options: Array<
+            | OrOptions
+            | SelectAmount
+            | SelectPlayer
+            | SelectHowToPay
+            | SelectSpace
+            | SelectColony
+            | SelectCard<CorporationCard>
+            | SelectCard<ICard>
+            | SelectCard<IProjectCard>
+        >
+    ) {
         this.options = options;
     }
 }

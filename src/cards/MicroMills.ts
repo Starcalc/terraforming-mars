@@ -1,4 +1,3 @@
-
 import { IProjectCard } from "./IProjectCard";
 import { Player } from "../Player";
 import { Game } from "../Game";
@@ -17,4 +16,3 @@ export class MicroMills implements IProjectCard {
         return undefined;
     }
 }
-

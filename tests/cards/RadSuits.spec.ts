@@ -5,27 +5,27 @@ import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 import { Resources } from "../../src/Resources";
 
-describe("RadSuits", function () {
-    let card : RadSuits, player : Player, game : Game;
+describe("RadSuits", () => {
+    let card: RadSuits, player: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         card = new RadSuits();
         player = new Player("test", Color.BLUE, false);
         game = new Game("foobar", [player, player], player);
     });
 
-    it("Can't play", function () {
+    it("Can't play", () => {
         expect(card.canPlay(player, game)).is.not.true;
     });
 
-    it("Should play", function () {
+    it('Should play', () => {
         const lands = game.board.getAvailableSpacesOnLand(player);
         game.addCityTile(player, lands[0].id);
         game.addCityTile(player, lands[1].id);
 
         expect(card.canPlay(player, game)).is.true;
         card.play(player, game);
-        
+
         expect(player.getProduction(Resources.MEGACREDITS)).to.eq(1);
         player.victoryPointsBreakdown.setVictoryPoints('victoryPoints', card.getVictoryPoints());
         expect(player.victoryPointsBreakdown.victoryPoints).to.eq(1);

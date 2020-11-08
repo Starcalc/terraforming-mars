@@ -16,30 +16,42 @@ export class ViralEnhancers implements IProjectCard {
     public cardType = CardType.ACTIVE;
 
     public onCardPlayed(player: Player, game: Game, card: IProjectCard) {
-        const resourceCount = card.tags.filter((tag) => tag === Tags.ANIMAL || tag === Tags.PLANT || tag === Tags.MICROBES).length;
+        const resourceCount = card.tags.filter(
+            (tag) => tag === Tags.ANIMAL || tag === Tags.PLANT || tag === Tags.MICROBES
+        ).length;
         if (resourceCount === 0) {
             return undefined;
         }
 
-        if (card.resourceType !== ResourceType.ANIMAL && card.resourceType !== ResourceType.MICROBE) {
+        if (
+            card.resourceType !== ResourceType.ANIMAL &&
+            card.resourceType !== ResourceType.MICROBE
+        ) {
             player.plants += resourceCount;
             return undefined;
         }
 
         for (let i = 0; i < resourceCount; i++) {
-            game.defer(new DeferredAction(
-                player,
-                () => new OrOptions(
-                    new SelectOption("Add resource to card " + card.name, "Add resource", () => {
-                        player.addResourceTo(card);
-                        return undefined;
-                    }),
-                    new SelectOption("Gain plant", "Save",() => {
-                        player.plants++;
-                        return undefined;
-                    })
+            game.defer(
+                new DeferredAction(
+                    player,
+                    () =>
+                        new OrOptions(
+                            new SelectOption(
+                                'Add resource to card ' + card.name,
+                                'Add resource',
+                                () => {
+                                    player.addResourceTo(card);
+                                    return undefined;
+                                }
+                            ),
+                            new SelectOption('Gain plant', 'Save', () => {
+                                player.plants++;
+                                return undefined;
+                            })
+                        )
                 )
-            ));
+            );
         }
         return undefined;
     }

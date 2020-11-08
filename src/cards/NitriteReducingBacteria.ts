@@ -17,19 +17,18 @@ import { DeferredAction } from "../deferredActions/DeferredAction";
 export class NitriteReducingBacteria implements IActionCard, IProjectCard, IResourceCard {
     public cost = 11;
     public resourceType = ResourceType.MICROBE;
-    public resourceCount: number = 0;
+    public resourceCount = 0;
     public tags = [Tags.MICROBES];
     public cardType = CardType.ACTIVE;
     public name = CardName.NITRITE_REDUCING_BACTERIA;
 
     public play(player: Player, game: Game) {
-        game.defer(new DeferredAction(
-            player,
-            () => {
-                player.addResourceTo(this,3);
+        game.defer(
+            new DeferredAction(player, () => {
+                player.addResourceTo(this, 3);
                 return undefined;
-            }
-        ));
+            })
+        );
         return undefined;
     }
     public canAct(): boolean {
@@ -42,23 +41,31 @@ export class NitriteReducingBacteria implements IActionCard, IProjectCard, IReso
             return undefined;
         }
 
-        let orOptions = new OrOptions();
+        const orOptions = new OrOptions();
         const redsAreRuling = PartyHooks.shouldApplyPolicy(game, PartyName.REDS);
 
         if (!redsAreRuling || (redsAreRuling && player.canAfford(REDS_RULING_POLICY_COST))) {
-            orOptions.options.push(new SelectOption("Remove 3 microbes to increase your terraform rating 1 step", "Remove microbes", () => {
-                this.resourceCount -= 3;
-                LogHelper.logRemoveResource(game, player, this, 3, "gain 1 TR");
-                player.increaseTerraformRating(game);
-                return undefined;
-            }));
+            orOptions.options.push(
+                new SelectOption(
+                    'Remove 3 microbes to increase your terraform rating 1 step',
+                    'Remove microbes',
+                    () => {
+                        this.resourceCount -= 3;
+                        LogHelper.logRemoveResource(game, player, this, 3, "gain 1 TR");
+                        player.increaseTerraformRating(game);
+                        return undefined;
+                    }
+                )
+            );
         }
 
-        orOptions.options.push(new SelectOption("Add 1 microbe to this card", "Add microbe", () => {
-            player.addResourceTo(this);
-            LogHelper.logAddResource(game, player, this);
-            return undefined;
-        }));
+        orOptions.options.push(
+            new SelectOption("Add 1 microbe to this card", "Add microbe", () => {
+                player.addResourceTo(this);
+                LogHelper.logAddResource(game, player, this);
+                return undefined;
+            })
+        );
 
         if (orOptions.options.length === 1) return orOptions.options[0].cb();
         return orOptions;

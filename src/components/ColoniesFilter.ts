@@ -39,14 +39,14 @@ const communityColonies: Array<IColony> = [
     new Hygiea(),
     new Titania(),
     new Venus(),
-    new Leavitt()
+    new Leavitt(),
 ];
 
 export const ColoniesFilter = Vue.component("colonies-filter", {
     props: {
         communityCardsOption: {
-            type: Boolean
-        }
+            type: Boolean,
+        },
     },
     data: function () {
         return {
@@ -55,29 +55,33 @@ export const ColoniesFilter = Vue.component("colonies-filter", {
             communityColonies: communityColonies,
             selectedColonies: [
                 ...officialColonies,
-                ...this.communityCardsOption ? communityColonies: []
-            ] as Array<IColony> | boolean
-        }
+                ...(this.communityCardsOption ? communityColonies : []),
+            ] as Array<IColony> | boolean,
+        };
     },
     methods: {
         updateColoniesByNames(colonyNames: Array<ColonyName>) {
             this.selectedColonies = [];
             for (const colony of this.allColonies) {
                 if (colonyNames.includes(colony.name)) {
-                    this.selectedColonies.push(colony)
+                    this.selectedColonies.push(colony);
                 }
             }
-        }
+        },
     },
     watch: {
         selectedColonies: function (value) {
-            let colonyNames: Array<ColonyName> = [];
-            value.forEach(function (el: any) { colonyNames.push(el.name)} );
+            const colonyNames: Array<ColonyName> = [];
+            value.forEach((el: any) => {
+                colonyNames.push(el.name);
+            });
             this.$emit("colonies-list-changed", colonyNames);
         },
         communityCardsOption: function (enabled) {
-            this.selectedColonies = enabled ? officialColonies.concat(communityColonies).slice() : officialColonies.slice();
-        }
+            this.selectedColonies = enabled
+                ? officialColonies.concat(communityColonies).slice()
+                : officialColonies.slice();
+        },
     },
     template: `
     <div class="colonies-filter">
@@ -99,5 +103,5 @@ export const ColoniesFilter = Vue.component("colonies-filter", {
             </label> 
         </div>
     </div>
-    `
-})
+    `,
+});

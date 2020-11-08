@@ -6,18 +6,18 @@ export const GamesOverview = Vue.component("games-overview", {
     data: function () {
         return {
             serverId: '',
-            games: {}
-        }
+            games: {},
+        };
     },
-    mounted: function() {
-        this.serverId = (new URL(location.href)).searchParams.get('serverId') || '';
+    mounted: function () {
+        this.serverId = new URL(location.href).searchParams.get('serverId') || '';
         this.getGames();
     },
     methods: {
         getGames: function () {
             const vueApp = this;
             const xhr = new XMLHttpRequest();
-            xhr.open("GET", "/api/games?serverId="+this.serverId);
+            xhr.open("GET", "/api/games?serverId=" + this.serverId);
             xhr.onerror = function () {
                 alert("Error getting games data");
             };
@@ -25,24 +25,23 @@ export const GamesOverview = Vue.component("games-overview", {
                 if (xhr.status === 200) {
                     const result = xhr.response;
                     if (result instanceof Array) {
-                        result.forEach(function (gameId) {
+                        result.forEach((gameId) => {
                             (vueApp as any).getGame(gameId);
                         });
-
                     } else {
                         alert("Unexpected response fetching games from API");
                     }
                 } else {
                     alert("Unexpected response fetching games from API");
                 }
-            }
+            };
             xhr.responseType = "json";
-            xhr.send();            
+            xhr.send();
         },
         getGame: function (gameId: string) {
             const vueApp = this;
             const xhr = new XMLHttpRequest();
-            xhr.open("GET", "/api/game?id="+gameId);
+            xhr.open("GET", "/api/game?id=" + gameId);
             xhr.onerror = function () {
                 alert("Error getting game data");
             };
@@ -57,13 +56,13 @@ export const GamesOverview = Vue.component("games-overview", {
                 } else {
                     alert("Unexpected response fetching game '+gameId+' from API");
                 }
-            }
+            };
             xhr.responseType = "json";
-            xhr.send();     
+            xhr.send();
         },
         isGameRunning: function (gamePhase: string): boolean {
-            return (gamePhase === Phase.END) ? false : true;
-        }
+            return gamePhase === Phase.END ? false : true;
+        },
     },
     template: `
         <div id="games-overview">
@@ -82,6 +81,5 @@ export const GamesOverview = Vue.component("games-overview", {
                 </li>
             </ul>
         </div>
-    `
+    `,
 });
-

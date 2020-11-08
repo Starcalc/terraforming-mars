@@ -5,10 +5,10 @@ import { Player } from "../../src/Player";
 import { Game } from "../../src/Game";
 import { Resources } from "../../src/Resources";
 
-describe("Luna", function() {
+describe("Luna", () => {
     let luna: Luna, player: Player, player2: Player, game: Game;
 
-    beforeEach(function() {
+    beforeEach(() => {
         luna = new Luna();
         player = new Player("test", Color.BLUE, false);
         player2 = new Player("test2", Color.RED, false);
@@ -17,19 +17,19 @@ describe("Luna", function() {
         game.colonies.push(luna);
     });
 
-    it("Should build", function() {
+    it('Should build', () => {
         luna.onColonyPlaced(player, game);
         expect(player.getProduction(Resources.MEGACREDITS)).to.eq(2);
         expect(player2.getProduction(Resources.MEGACREDITS)).to.eq(0);
     });
 
-    it("Should trade", function() {
+    it('Should trade', () => {
         luna.trade(player, game);
         expect(player.megaCredits).to.eq(2);
         expect(player2.megaCredits).to.eq(0);
     });
 
-    it("Should give trade bonus", function() {
+    it('Should give trade bonus', () => {
         luna.onColonyPlaced(player, game);
 
         luna.trade(player2, game);
