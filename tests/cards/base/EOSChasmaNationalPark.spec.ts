@@ -1,20 +1,21 @@
 import {expect} from 'chai';
+import {Birds} from '../../../src/cards/base/Birds';
 import {EosChasmaNationalPark} from '../../../src/cards/base/EOSChasmaNationalPark';
-import {Color} from '../../../src/Color';
-import {Player} from '../../../src/Player';
+import {Fish} from '../../../src/cards/base/Fish';
 import {Game} from '../../../src/Game';
 import {SelectCard} from '../../../src/inputs/SelectCard';
-import {Birds} from '../../../src/cards/base/Birds';
-import {Fish} from '../../../src/cards/base/Fish';
+import {Player} from '../../../src/Player';
 import {Resources} from '../../../src/Resources';
+import {TestPlayers} from '../../TestingUtils';
 
 describe('EosChasmaNationalPark', function() {
   let card : EosChasmaNationalPark; let player : Player; let game : Game;
 
   beforeEach(function() {
     card = new EosChasmaNationalPark();
-    player = new Player('test', Color.BLUE, false);
-    game = new Game('foobar', [player, player], player);
+    player = TestPlayers.BLUE.newPlayer();
+    const redPlayer = TestPlayers.RED.newPlayer();
+    game = new Game('foobar', [player, redPlayer], player);
   });
 
   it('Can\'t play', function() {

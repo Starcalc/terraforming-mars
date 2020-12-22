@@ -1,20 +1,21 @@
 import {expect} from 'chai';
 import {UrbanizedArea} from '../../../src/cards/base/UrbanizedArea';
-import {Color} from '../../../src/Color';
-import {Player} from '../../../src/Player';
 import {Game} from '../../../src/Game';
+import {ISpace} from '../../../src/ISpace';
+import {Player} from '../../../src/Player';
+import {Resources} from '../../../src/Resources';
 import {SpaceName} from '../../../src/SpaceName';
 import {SpaceType} from '../../../src/SpaceType';
-import {Resources} from '../../../src/Resources';
-import {ISpace} from '../../../src/ISpace';
+import {TestPlayers} from '../../TestingUtils';
 
 describe('UrbanizedArea', function() {
   let card : UrbanizedArea; let player : Player; let game : Game; let lands: ISpace[];
 
   beforeEach(function() {
     card = new UrbanizedArea();
-    player = new Player('test', Color.BLUE, false);
-    game = new Game('foobar', [player, player], player);
+    player = TestPlayers.BLUE.newPlayer();
+    const redPlayer = TestPlayers.RED.newPlayer();
+    game = new Game('foobar', [player, redPlayer], player);
 
     const tharsisTholus = game.getSpace(SpaceName.THARSIS_THOLUS);
     lands = game.board.getAdjacentSpaces(tharsisTholus).filter((space) => space.spaceType === SpaceType.LAND);

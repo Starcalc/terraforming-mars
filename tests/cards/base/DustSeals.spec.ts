@@ -1,17 +1,17 @@
 import {expect} from 'chai';
 import {DustSeals} from '../../../src/cards/base/DustSeals';
-import {Color} from '../../../src/Color';
-import {Player} from '../../../src/Player';
 import {Game} from '../../../src/Game';
-import {maxOutOceans} from '../../TestingUtils';
+import {Player} from '../../../src/Player';
+import {maxOutOceans, TestPlayers} from '../../TestingUtils';
 
 describe('DustSeals', function() {
   let card : DustSeals; let player : Player; let game : Game;
 
   beforeEach(function() {
     card = new DustSeals();
-    player = new Player('test', Color.BLUE, false);
-    game = new Game('foobar', [player, player], player);
+    player = TestPlayers.BLUE.newPlayer();
+    const redPlayer = TestPlayers.RED.newPlayer();
+    game = new Game('foobar', [player, redPlayer], player);
   });
 
   it('Can\'t play', function() {

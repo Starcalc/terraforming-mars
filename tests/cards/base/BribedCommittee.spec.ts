@@ -1,14 +1,14 @@
 import {expect} from 'chai';
 import {BribedCommittee} from '../../../src/cards/base/BribedCommittee';
-import {Color} from '../../../src/Color';
-import {Player} from '../../../src/Player';
 import {Game} from '../../../src/Game';
+import {TestPlayers} from '../../TestingUtils';
 
 describe('BribedCommittee', function() {
   it('Should play', function() {
     const card = new BribedCommittee();
-    const player = new Player('test', Color.BLUE, false);
-    const game = new Game('foobar', [player, player], player);
+    const player = TestPlayers.BLUE.newPlayer();
+    const redPlayer = TestPlayers.RED.newPlayer();
+    const game = new Game('foobar', [player, redPlayer], player);
     card.play(player, game);
     player.victoryPointsBreakdown.setVictoryPoints('victoryPoints', card.getVictoryPoints());
     expect(player.victoryPointsBreakdown.victoryPoints).to.eq(-2);

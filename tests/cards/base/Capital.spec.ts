@@ -1,22 +1,22 @@
 import {expect} from 'chai';
 import {Capital} from '../../../src/cards/base/Capital';
-import {Color} from '../../../src/Color';
 import {Player} from '../../../src/Player';
 import {Game} from '../../../src/Game';
 import {SpaceType} from '../../../src/SpaceType';
 import {TileType} from '../../../src/TileType';
 import {SelectSpace} from '../../../src/inputs/SelectSpace';
 import {Resources} from '../../../src/Resources';
-import {maxOutOceans} from '../../TestingUtils';
-import {Board} from '../../../src/Board';
+import {maxOutOceans, TestPlayers} from '../../TestingUtils';
+import {Board} from '../../../src/boards/Board';
 
 describe('Capital', function() {
   let card : Capital; let player : Player; let game : Game;
 
   beforeEach(function() {
     card = new Capital();
-    player = new Player('test', Color.BLUE, false);
-    game = new Game('foobar', [player, player], player);
+    player = TestPlayers.BLUE.newPlayer();
+    const redPlayer = TestPlayers.RED.newPlayer();
+    game = new Game('foobar', [player, redPlayer], player);
   });
 
   it('Can\'t play without energy production', function() {

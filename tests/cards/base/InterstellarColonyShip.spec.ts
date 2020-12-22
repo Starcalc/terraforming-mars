@@ -1,18 +1,19 @@
 import {expect} from 'chai';
-import {InterstellarColonyShip} from '../../../src/cards/base/InterstellarColonyShip';
-import {Color} from '../../../src/Color';
-import {Player} from '../../../src/Player';
-import {Game} from '../../../src/Game';
 import {GeneRepair} from '../../../src/cards/base/GeneRepair';
+import {InterstellarColonyShip} from '../../../src/cards/base/InterstellarColonyShip';
 import {Research} from '../../../src/cards/base/Research';
+import {Game} from '../../../src/Game';
+import {Player} from '../../../src/Player';
+import {TestPlayers} from '../../TestingUtils';
 
 describe('InterstellarColonyShip', function() {
   let card : InterstellarColonyShip; let player : Player; let game : Game;
 
   beforeEach(function() {
     card = new InterstellarColonyShip();
-    player = new Player('test', Color.BLUE, false);
-    game = new Game('foobar', [player, player], player);
+    player = TestPlayers.BLUE.newPlayer();
+    const redPlayer = TestPlayers.RED.newPlayer();
+    game = new Game('foobar', [player, redPlayer], player);
   });
 
   it('Can\'t play', function() {

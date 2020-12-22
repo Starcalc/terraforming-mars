@@ -1,20 +1,21 @@
 import {expect} from 'chai';
+import {Fish} from '../../../src/cards/base/Fish';
 import {LocalHeatTrapping} from '../../../src/cards/base/LocalHeatTrapping';
-import {Color} from '../../../src/Color';
-import {Player} from '../../../src/Player';
 import {Pets} from '../../../src/cards/base/Pets';
-import {OrOptions} from '../../../src/inputs/OrOptions';
 import {Helion} from '../../../src/cards/corporation/Helion';
 import {Game} from '../../../src/Game';
-import {Fish} from '../../../src/cards/base/Fish';
+import {OrOptions} from '../../../src/inputs/OrOptions';
+import {Player} from '../../../src/Player';
+import {TestPlayers} from '../../TestingUtils';
 
 describe('LocalHeatTrapping', function() {
   let card : LocalHeatTrapping; let player : Player; let game : Game;
 
   beforeEach(function() {
     card = new LocalHeatTrapping();
-    player = new Player('test', Color.BLUE, false);
-    game = new Game('foobar', [player, player], player);
+    player = TestPlayers.BLUE.newPlayer();
+    const redPlayer = TestPlayers.RED.newPlayer();
+    game = new Game('foobar', [player, redPlayer], player);
   });
 
   it('Can\'t play without 5 heat', function() {

@@ -1,18 +1,19 @@
 import {expect} from 'chai';
 import {InventorsGuild} from '../../../src/cards/base/InventorsGuild';
-import {Color} from '../../../src/Color';
-import {Player} from '../../../src/Player';
+import {IProjectCard} from '../../../src/cards/IProjectCard';
 import {Game} from '../../../src/Game';
 import {SelectCard} from '../../../src/inputs/SelectCard';
-import {IProjectCard} from '../../../src/cards/IProjectCard';
+import {Player} from '../../../src/Player';
+import {TestPlayers} from '../../TestingUtils';
 
 describe('InventorsGuild', function() {
   let card : InventorsGuild; let player : Player; let game : Game;
 
   beforeEach(function() {
     card = new InventorsGuild();
-    player = new Player('test', Color.BLUE, false);
-    game = new Game('foobar', [player, player], player);
+    player = TestPlayers.BLUE.newPlayer();
+    const redPlayer = TestPlayers.RED.newPlayer();
+    game = new Game('foobar', [player, redPlayer], player);
   });
 
   it('Should play', function() {

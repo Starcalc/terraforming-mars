@@ -1,17 +1,18 @@
 import {expect} from 'chai';
 import {NoctisFarming} from '../../../src/cards/base/NoctisFarming';
-import {Color} from '../../../src/Color';
-import {Player} from '../../../src/Player';
 import {Game} from '../../../src/Game';
+import {Player} from '../../../src/Player';
 import {Resources} from '../../../src/Resources';
+import {TestPlayers} from '../../TestingUtils';
 
 describe('NoctisFarming', function() {
   let card : NoctisFarming; let player : Player; let game : Game;
 
   beforeEach(function() {
     card = new NoctisFarming();
-    player = new Player('test', Color.BLUE, false);
-    game = new Game('foobar', [player, player], player);
+    player = TestPlayers.BLUE.newPlayer();
+    const redPlayer = TestPlayers.RED.newPlayer();
+    game = new Game('foobar', [player, redPlayer], player);
   });
 
   it('Can\'t play', function() {

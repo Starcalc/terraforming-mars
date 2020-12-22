@@ -1,17 +1,18 @@
 import {expect} from 'chai';
 import {RestrictedArea} from '../../../src/cards/base/RestrictedArea';
-import {Color} from '../../../src/Color';
-import {Player} from '../../../src/Player';
 import {Game} from '../../../src/Game';
+import {Player} from '../../../src/Player';
 import {TileType} from '../../../src/TileType';
+import {TestPlayers} from '../../TestingUtils';
 
 describe('RestrictedArea', function() {
   let card : RestrictedArea; let player : Player; let game : Game;
 
   beforeEach(function() {
     card = new RestrictedArea();
-    player = new Player('test', Color.BLUE, false);
-    game = new Game('foobar', [player, player], player);
+    player = TestPlayers.BLUE.newPlayer();
+    const redPlayer = TestPlayers.RED.newPlayer();
+    game = new Game('foobar', [player, redPlayer], player);
   });
 
   it('Can\'t act if not enough MC', function() {

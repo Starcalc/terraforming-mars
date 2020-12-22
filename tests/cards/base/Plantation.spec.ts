@@ -1,17 +1,18 @@
 import {expect} from 'chai';
-import {Plantation} from '../../../src/cards/base/Plantation';
-import {Color} from '../../../src/Color';
-import {Player} from '../../../src/Player';
-import {Game} from '../../../src/Game';
 import {InventorsGuild} from '../../../src/cards/base/InventorsGuild';
+import {Plantation} from '../../../src/cards/base/Plantation';
+import {Game} from '../../../src/Game';
+import {Player} from '../../../src/Player';
+import {TestPlayers} from '../../TestingUtils';
 
 describe('Plantation', function() {
   let card : Plantation; let player : Player; let game : Game;
 
   beforeEach(function() {
     card = new Plantation();
-    player = new Player('test', Color.BLUE, false);
-    game = new Game('foobar', [player, player], player);
+    player = TestPlayers.BLUE.newPlayer();
+    const redPlayer = TestPlayers.RED.newPlayer();
+    game = new Game('foobar', [player, redPlayer], player);
   });
 
   it('Can\'t play', function() {

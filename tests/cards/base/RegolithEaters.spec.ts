@@ -1,17 +1,18 @@
 import {expect} from 'chai';
 import {RegolithEaters} from '../../../src/cards/base/RegolithEaters';
-import {Color} from '../../../src/Color';
-import {Player} from '../../../src/Player';
 import {Game} from '../../../src/Game';
 import {OrOptions} from '../../../src/inputs/OrOptions';
+import {Player} from '../../../src/Player';
+import {TestPlayers} from '../../TestingUtils';
 
 describe('RegolithEaters', function() {
   let card : RegolithEaters; let player : Player; let game : Game;
 
   beforeEach(function() {
     card = new RegolithEaters();
-    player = new Player('test', Color.BLUE, false);
-    game = new Game('foobar', [player, player], player);
+    player = TestPlayers.BLUE.newPlayer();
+    const redPlayer = TestPlayers.RED.newPlayer();
+    game = new Game('foobar', [player, redPlayer], player);
   });
 
   it('Should act', function() {
