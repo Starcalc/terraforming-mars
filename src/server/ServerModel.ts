@@ -6,7 +6,7 @@ import {Game} from '../Game';
 import {GameHomeModel} from '../models/GameHomeModel';
 import {ICard} from '../cards/ICard';
 import {IProjectCard} from '../cards/IProjectCard';
-import {ISpace} from '../ISpace';
+import {ISpace} from '../boards/ISpace';
 import {OrOptions} from '../inputs/OrOptions';
 import {Player} from '../Player';
 import {PlayerInput} from '../PlayerInput';
@@ -198,6 +198,7 @@ function getCorporationCard(player: Player): CardModel | undefined {
     calculatedCost: 0,
     cardType: CardType.CORPORATION,
     isDisabled: player.corporationCard.isDisabled,
+    warning: player.corporationCard.warning,
   } as CardModel;
 }
 
@@ -217,6 +218,7 @@ function getCardsAsCardModel(
       calculatedCost: 0,
       cardType: CardType.AUTOMATED,
       isDisabled: false,
+      warning: card.warning,
     });
   });
 
@@ -351,6 +353,7 @@ function getCards(
     calculatedCost: player.getCardCost(game, card),
     cardType: card.cardType,
     isDisabled: false,
+    warning: card.warning,
   }));
 }
 
